@@ -13,4 +13,4 @@ env:
   - DESTINATION='platform=iOS Simulator,name=iPhone X,OS=12.0'
 
 script:
-- set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace Example/OKTableViewLiaison.xcworkspace -scheme OKTableViewLiaison-Example -destination "$DESTINATION" | xcpretty
+- set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace Example/TableViewLiaison.xcworkspace -scheme TableViewLiaison-Example -destination "$DESTINATION" | xcpretty
