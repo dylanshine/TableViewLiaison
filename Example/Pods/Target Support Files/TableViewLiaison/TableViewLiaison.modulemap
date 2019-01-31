@@ -1,0 +1,6 @@
+framework module TableViewLiaison {
+  umbrella header "TableViewLiaison-umbrella.h"
+
+  export *
+  module * { export * }
+}

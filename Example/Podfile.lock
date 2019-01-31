@@ -1,0 +1,16 @@
+PODS:
+  - TableViewLiaison (1.0.0)
+
+DEPENDENCIES:
+  - TableViewLiaison (from `../`)
+
+EXTERNAL SOURCES:
+  TableViewLiaison:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  TableViewLiaison: 7a1718da187512d4ad416ff86942aa4d485ff159
+
+PODFILE CHECKSUM: f818d085ecc094e9577389f3dd62126b0c67c6c6
+
+COCOAPODS: 1.5.3

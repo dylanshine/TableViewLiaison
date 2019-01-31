@@ -15,6 +15,33 @@
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		93A48B8042AC22AD4C7D53D0 /* Pods_TableViewLiaison_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2F732723FCA97B8E44D1F4 /* Pods_TableViewLiaison_Tests.framework */; };
 		DB42DC6EB5FA148C0ECD901A /* Pods_TableViewLiaison_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97A33854BE935AA10A182831 /* Pods_TableViewLiaison_Example.framework */; };
+		FC7980B52203544C006DA65D /* TimeInterval+SecondConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980B42203544C006DA65D /* TimeInterval+SecondConversion.swift */; };
+		FC7980BF2203546B006DA65D /* ImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC7980B72203546A006DA65D /* ImageTableViewCell.xib */; };
+		FC7980C02203546B006DA65D /* TextTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC7980B82203546A006DA65D /* TextTableViewCell.xib */; };
+		FC7980C12203546B006DA65D /* ActionButtonsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980B92203546A006DA65D /* ActionButtonsTableViewCell.swift */; };
+		FC7980C32203546B006DA65D /* PostTableViewSectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC7980BB2203546A006DA65D /* PostTableViewSectionHeaderView.xib */; };
+		FC7980C42203546B006DA65D /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980BC2203546A006DA65D /* ImageTableViewCell.swift */; };
+		FC7980C52203546B006DA65D /* ActionButtonsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC7980BD2203546B006DA65D /* ActionButtonsTableViewCell.xib */; };
+		FC7980C62203546B006DA65D /* TextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980BE2203546B006DA65D /* TextTableViewCell.swift */; };
+		FC7980C922035487006DA65D /* PostTableViewSectionHeaderViewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980C822035487006DA65D /* PostTableViewSectionHeaderViewComponent.swift */; };
+		FC7980CD220354A4006DA65D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980CB220354A4006DA65D /* User.swift */; };
+		FC7980CE220354A4006DA65D /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980CC220354A4006DA65D /* Post.swift */; };
+		FC7980D3220354BD006DA65D /* ActionButtonsTableViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980D0220354BD006DA65D /* ActionButtonsTableViewRow.swift */; };
+		FC7980D4220354BD006DA65D /* ImageTableViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980D1220354BD006DA65D /* ImageTableViewRow.swift */; };
+		FC7980D5220354BD006DA65D /* TextTableViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980D2220354BD006DA65D /* TextTableViewRow.swift */; };
+		FC7980D922035618006DA65D /* TextTableViewRowFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980D722035618006DA65D /* TextTableViewRowFactory.swift */; };
+		FC7980DA22035618006DA65D /* PostTableViewSectionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980D822035618006DA65D /* PostTableViewSectionFactory.swift */; };
+		FC7980DC22035839006DA65D /* PostTableViewSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980DB22035839006DA65D /* PostTableViewSectionHeaderView.swift */; };
+		FC7980EA22035AD3006DA65D /* TestTableHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980DE22035ACB006DA65D /* TestTableHeaderFooterView.swift */; };
+		FC7980EB22035AD3006DA65D /* TestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980E322035ACC006DA65D /* TestTableViewCell.swift */; };
+		FC7980EC22035AD3006DA65D /* TestTableViewLiaisonPaginationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980E222035ACB006DA65D /* TestTableViewLiaisonPaginationDelegate.swift */; };
+		FC7980ED22035AD3006DA65D /* TestTableViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980DF22035ACB006DA65D /* TestTableViewRow.swift */; };
+		FC7980EE22035AD3006DA65D /* TestTableViewSectionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980E022035ACB006DA65D /* TestTableViewSectionComponent.swift */; };
+		FC7980EF22035AD3006DA65D /* UITableView+SwizzleTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980E122035ACB006DA65D /* UITableView+SwizzleTesting.swift */; };
+		FC7980F422035AE9006DA65D /* TableViewLiaison+UnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980F022035AE9006DA65D /* TableViewLiaison+UnitTests.swift */; };
+		FC7980F522035AE9006DA65D /* TableViewRow+UnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980F122035AE9006DA65D /* TableViewRow+UnitTests.swift */; };
+		FC7980F622035AE9006DA65D /* TableViewSection+UnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980F222035AE9006DA65D /* TableViewSection+UnitTests.swift */; };
+		FC7980F722035AE9006DA65D /* TableViewSectionComponent+UnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980F322035AE9006DA65D /* TableViewSectionComponent+UnitTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,12 +68,39 @@
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		78798406ACAFD58D15CB9E77 /* Pods-TableViewLiaison_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TableViewLiaison_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-TableViewLiaison_Example/Pods-TableViewLiaison_Example.release.xcconfig"; sourceTree = "<group>"; };
 		88D3440BD934FD31C0418115 /* Pods-TableViewLiaison_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TableViewLiaison_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TableViewLiaison_Example/Pods-TableViewLiaison_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		891E15B2EB84B907D318168F /* TableViewLiaison.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = TableViewLiaison.podspec; path = ../TableViewLiaison.podspec; sourceTree = "<group>"; };
+		891E15B2EB84B907D318168F /* TableViewLiaison.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = TableViewLiaison.podspec; path = ../TableViewLiaison.podspec; sourceTree = "<group>"; };
 		97A33854BE935AA10A182831 /* Pods_TableViewLiaison_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TableViewLiaison_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CA854806A62D001789CDEDB9 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		CA854806A62D001789CDEDB9 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		CF2F732723FCA97B8E44D1F4 /* Pods_TableViewLiaison_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TableViewLiaison_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DDBB4E81FC719A60731FC8F7 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		DDBB4E81FC719A60731FC8F7 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		F09DC2265136A95EA5AF9684 /* Pods-TableViewLiaison_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TableViewLiaison_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TableViewLiaison_Tests/Pods-TableViewLiaison_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		FC7980B42203544C006DA65D /* TimeInterval+SecondConversion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TimeInterval+SecondConversion.swift"; sourceTree = "<group>"; };
+		FC7980B72203546A006DA65D /* ImageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageTableViewCell.xib; sourceTree = "<group>"; };
+		FC7980B82203546A006DA65D /* TextTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextTableViewCell.xib; sourceTree = "<group>"; };
+		FC7980B92203546A006DA65D /* ActionButtonsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionButtonsTableViewCell.swift; sourceTree = "<group>"; };
+		FC7980BB2203546A006DA65D /* PostTableViewSectionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostTableViewSectionHeaderView.xib; sourceTree = "<group>"; };
+		FC7980BC2203546A006DA65D /* ImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTableViewCell.swift; sourceTree = "<group>"; };
+		FC7980BD2203546B006DA65D /* ActionButtonsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActionButtonsTableViewCell.xib; sourceTree = "<group>"; };
+		FC7980BE2203546B006DA65D /* TextTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextTableViewCell.swift; sourceTree = "<group>"; };
+		FC7980C822035487006DA65D /* PostTableViewSectionHeaderViewComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostTableViewSectionHeaderViewComponent.swift; sourceTree = "<group>"; };
+		FC7980CB220354A4006DA65D /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		FC7980CC220354A4006DA65D /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		FC7980D0220354BD006DA65D /* ActionButtonsTableViewRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionButtonsTableViewRow.swift; sourceTree = "<group>"; };
+		FC7980D1220354BD006DA65D /* ImageTableViewRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTableViewRow.swift; sourceTree = "<group>"; };
+		FC7980D2220354BD006DA65D /* TextTableViewRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextTableViewRow.swift; sourceTree = "<group>"; };
+		FC7980D722035618006DA65D /* TextTableViewRowFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextTableViewRowFactory.swift; sourceTree = "<group>"; };
+		FC7980D822035618006DA65D /* PostTableViewSectionFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostTableViewSectionFactory.swift; sourceTree = "<group>"; };
+		FC7980DB22035839006DA65D /* PostTableViewSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewSectionHeaderView.swift; sourceTree = "<group>"; };
+		FC7980DE22035ACB006DA65D /* TestTableHeaderFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestTableHeaderFooterView.swift; sourceTree = "<group>"; };
+		FC7980DF22035ACB006DA65D /* TestTableViewRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestTableViewRow.swift; sourceTree = "<group>"; };
+		FC7980E022035ACB006DA65D /* TestTableViewSectionComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestTableViewSectionComponent.swift; sourceTree = "<group>"; };
+		FC7980E122035ACB006DA65D /* UITableView+SwizzleTesting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+SwizzleTesting.swift"; sourceTree = "<group>"; };
+		FC7980E222035ACB006DA65D /* TestTableViewLiaisonPaginationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestTableViewLiaisonPaginationDelegate.swift; sourceTree = "<group>"; };
+		FC7980E322035ACC006DA65D /* TestTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestTableViewCell.swift; sourceTree = "<group>"; };
+		FC7980F022035AE9006DA65D /* TableViewLiaison+UnitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TableViewLiaison+UnitTests.swift"; sourceTree = "<group>"; };
+		FC7980F122035AE9006DA65D /* TableViewRow+UnitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TableViewRow+UnitTests.swift"; sourceTree = "<group>"; };
+		FC7980F222035AE9006DA65D /* TableViewSection+UnitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TableViewSection+UnitTests.swift"; sourceTree = "<group>"; };
+		FC7980F322035AE9006DA65D /* TableViewSectionComponent+UnitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TableViewSectionComponent+UnitTests.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,11 +147,13 @@
 		607FACD21AFB9204008FA782 /* Example for TableViewLiaison */ = {
 			isa = PBXGroup;
 			children = (
-				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
-				607FACD91AFB9204008FA782 /* Main.storyboard */,
-				607FACDC1AFB9204008FA782 /* Images.xcassets */,
-				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
+				FC7980CF220354AD006DA65D /* Rows */,
+				FC7980D622035609006DA65D /* Factories */,
+				FC7980CA22035499006DA65D /* Models */,
+				FC7980C722035475006DA65D /* Sections */,
+				FC7980B622035452006DA65D /* Views */,
+				FC7980B322035439006DA65D /* Extensions */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
 			);
 			name = "Example for TableViewLiaison";
@@ -107,7 +163,11 @@
 		607FACD31AFB9204008FA782 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
+				607FACD91AFB9204008FA782 /* Main.storyboard */,
+				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACD41AFB9204008FA782 /* Info.plist */,
+				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -115,6 +175,11 @@
 		607FACE81AFB9204008FA782 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				FC7980F022035AE9006DA65D /* TableViewLiaison+UnitTests.swift */,
+				FC7980F122035AE9006DA65D /* TableViewRow+UnitTests.swift */,
+				FC7980F222035AE9006DA65D /* TableViewSection+UnitTests.swift */,
+				FC7980F322035AE9006DA65D /* TableViewSectionComponent+UnitTests.swift */,
+				FC7980DD22035AC1006DA65D /* Fixtures */,
 				607FACEB1AFB9204008FA782 /* Tests.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 			);
@@ -157,6 +222,78 @@
 				F09DC2265136A95EA5AF9684 /* Pods-TableViewLiaison_Tests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		FC7980B322035439006DA65D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				FC7980B42203544C006DA65D /* TimeInterval+SecondConversion.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		FC7980B622035452006DA65D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FC7980B92203546A006DA65D /* ActionButtonsTableViewCell.swift */,
+				FC7980BD2203546B006DA65D /* ActionButtonsTableViewCell.xib */,
+				FC7980BC2203546A006DA65D /* ImageTableViewCell.swift */,
+				FC7980B72203546A006DA65D /* ImageTableViewCell.xib */,
+				FC7980DB22035839006DA65D /* PostTableViewSectionHeaderView.swift */,
+				FC7980BB2203546A006DA65D /* PostTableViewSectionHeaderView.xib */,
+				FC7980BE2203546B006DA65D /* TextTableViewCell.swift */,
+				FC7980B82203546A006DA65D /* TextTableViewCell.xib */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		FC7980C722035475006DA65D /* Sections */ = {
+			isa = PBXGroup;
+			children = (
+				FC7980C822035487006DA65D /* PostTableViewSectionHeaderViewComponent.swift */,
+			);
+			name = Sections;
+			sourceTree = "<group>";
+		};
+		FC7980CA22035499006DA65D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FC7980CC220354A4006DA65D /* Post.swift */,
+				FC7980CB220354A4006DA65D /* User.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		FC7980CF220354AD006DA65D /* Rows */ = {
+			isa = PBXGroup;
+			children = (
+				FC7980D0220354BD006DA65D /* ActionButtonsTableViewRow.swift */,
+				FC7980D1220354BD006DA65D /* ImageTableViewRow.swift */,
+				FC7980D2220354BD006DA65D /* TextTableViewRow.swift */,
+			);
+			name = Rows;
+			sourceTree = "<group>";
+		};
+		FC7980D622035609006DA65D /* Factories */ = {
+			isa = PBXGroup;
+			children = (
+				FC7980D822035618006DA65D /* PostTableViewSectionFactory.swift */,
+				FC7980D722035618006DA65D /* TextTableViewRowFactory.swift */,
+			);
+			name = Factories;
+			sourceTree = "<group>";
+		};
+		FC7980DD22035AC1006DA65D /* Fixtures */ = {
+			isa = PBXGroup;
+			children = (
+				FC7980DE22035ACB006DA65D /* TestTableHeaderFooterView.swift */,
+				FC7980E322035ACC006DA65D /* TestTableViewCell.swift */,
+				FC7980E222035ACB006DA65D /* TestTableViewLiaisonPaginationDelegate.swift */,
+				FC7980DF22035ACB006DA65D /* TestTableViewRow.swift */,
+				FC7980E022035ACB006DA65D /* TestTableViewSectionComponent.swift */,
+				FC7980E122035ACB006DA65D /* UITableView+SwizzleTesting.swift */,
+			);
+			name = Fixtures;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,15 +344,17 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = CocoaPods;
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = Z3Y4VUCM48;
 						LastSwiftMigration = 0900;
 					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = Z3Y4VUCM48;
 						LastSwiftMigration = 0900;
 						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
@@ -246,8 +385,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
+				FC7980C02203546B006DA65D /* TextTableViewCell.xib in Resources */,
+				FC7980BF2203546B006DA65D /* ImageTableViewCell.xib in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
+				FC7980C52203546B006DA65D /* ActionButtonsTableViewCell.xib in Resources */,
+				FC7980C32203546B006DA65D /* PostTableViewSectionHeaderView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,8 +477,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC7980C62203546B006DA65D /* TextTableViewCell.swift in Sources */,
+				FC7980B52203544C006DA65D /* TimeInterval+SecondConversion.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
+				FC7980DC22035839006DA65D /* PostTableViewSectionHeaderView.swift in Sources */,
+				FC7980D4220354BD006DA65D /* ImageTableViewRow.swift in Sources */,
+				FC7980C42203546B006DA65D /* ImageTableViewCell.swift in Sources */,
+				FC7980CD220354A4006DA65D /* User.swift in Sources */,
+				FC7980DA22035618006DA65D /* PostTableViewSectionFactory.swift in Sources */,
+				FC7980C922035487006DA65D /* PostTableViewSectionHeaderViewComponent.swift in Sources */,
+				FC7980D5220354BD006DA65D /* TextTableViewRow.swift in Sources */,
+				FC7980D3220354BD006DA65D /* ActionButtonsTableViewRow.swift in Sources */,
+				FC7980C12203546B006DA65D /* ActionButtonsTableViewCell.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
+				FC7980D922035618006DA65D /* TextTableViewRowFactory.swift in Sources */,
+				FC7980CE220354A4006DA65D /* Post.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,6 +500,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				607FACEC1AFB9204008FA782 /* Tests.swift in Sources */,
+				FC7980F622035AE9006DA65D /* TableViewSection+UnitTests.swift in Sources */,
+				FC7980EF22035AD3006DA65D /* UITableView+SwizzleTesting.swift in Sources */,
+				FC7980EA22035AD3006DA65D /* TestTableHeaderFooterView.swift in Sources */,
+				FC7980F422035AE9006DA65D /* TableViewLiaison+UnitTests.swift in Sources */,
+				FC7980EC22035AD3006DA65D /* TestTableViewLiaisonPaginationDelegate.swift in Sources */,
+				FC7980F522035AE9006DA65D /* TableViewRow+UnitTests.swift in Sources */,
+				FC7980EE22035AD3006DA65D /* TestTableViewSectionComponent.swift in Sources */,
+				FC7980EB22035AD3006DA65D /* TestTableViewCell.swift in Sources */,
+				FC7980ED22035AD3006DA65D /* TestTableViewRow.swift in Sources */,
+				FC7980F722035AE9006DA65D /* TableViewSectionComponent+UnitTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -389,12 +555,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -422,7 +590,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -442,12 +610,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -468,7 +638,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -481,13 +651,14 @@
 			baseConfigurationReference = 88D3440BD934FD31C0418115 /* Pods-TableViewLiaison_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = Z3Y4VUCM48;
 				INFOPLIST_FILE = TableViewLiaison/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -496,13 +667,14 @@
 			baseConfigurationReference = 78798406ACAFD58D15CB9E77 /* Pods-TableViewLiaison_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = Z3Y4VUCM48;
 				INFOPLIST_FILE = TableViewLiaison/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -510,10 +682,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 23C465566F86E4F5EB48D8F4 /* Pods-TableViewLiaison_Tests.debug.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
+				DEVELOPMENT_TEAM = Z3Y4VUCM48;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -523,7 +693,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TableViewLiaison_Example.app/TableViewLiaison_Example";
 			};
 			name = Debug;
@@ -532,16 +702,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F09DC2265136A95EA5AF9684 /* Pods-TableViewLiaison_Tests.release.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
+				DEVELOPMENT_TEAM = Z3Y4VUCM48;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TableViewLiaison_Example.app/TableViewLiaison_Example";
 			};
 			name = Release;

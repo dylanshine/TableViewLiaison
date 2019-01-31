@@ -7,17 +7,63 @@
 //
 
 import UIKit
+import TableViewLiaison
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
 
+    @IBOutlet private var tableView: UITableView!
+    private let liaison = TableViewLiaison()
+    private let refreshControl = UIRefreshControl()
+    
+    private var initialSections: [TableViewSection] {
+        return Post.initialPosts()
+            .map { PostTableViewSectionFactory.section(for: $0, tableView: tableView) }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        refreshControl.addTarget(self, action: #selector(refreshSections), for: .valueChanged)
+        tableView.addSubview(refreshControl)
+        
+        liaison.paginationDelegate = self
+        liaison.liaise(tableView: tableView)
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        liaison.append(sections: initialSections, animated: false)
+    }
+    
+    @objc private func refreshSections() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.liaison.clearSections(replacedBy: self.initialSections, animated: false)
+            self.refreshControl.endRefreshing()
+        }
+    }
+    
+}
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+extension ViewController: TableViewLiaisonPaginationDelegate {
+    
+    func isPaginationEnabled() -> Bool {
+        return liaison.sections.count < 8
+    }
+    
+    func paginationStarted(indexPath: IndexPath) {
+        
+        liaison.scroll(to: indexPath)
+        
+        let sections = Post.paginatedPosts()
+            .map { PostTableViewSectionFactory.section(for: $0, tableView: tableView) }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.liaison.append(sections: sections, animated: false)
+        }
+    }
+    
+    func paginationEnded(indexPath: IndexPath) {
+        
     }
 
 }
