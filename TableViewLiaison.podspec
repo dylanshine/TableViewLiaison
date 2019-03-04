@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'TableViewLiaison'
-  s.version          = '1.0.0'
+  s.version          = '1.0.1'
   s.summary          = 'Framework to help you better manage UITableViews.'
   s.description      = 'TableViewLiaison abstracts and simplifies UITableView construction and management.'
   s.homepage         = 'https://github.com/dylanshine/TableViewLiaison'
