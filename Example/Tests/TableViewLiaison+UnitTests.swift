@@ -858,28 +858,35 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         XCTAssertTrue(didDeselect)
     }
 
-    func test_targetIndexPathForMoveFromRowToProposed_correctlyMovesRow() {
+    func test_targetIndexPathForMoveFromRowToProposed_allowsRowToMove() {
         let row1 = TestTableViewRow(movable: true)
         let row2 = TestTableViewRow(movable: true)
         let row3 = TestTableViewRow(movable: true)
-        let row4 = TestTableViewRow(movable: true)
-        let row5 = TestTableViewRow(movable: true)
 
-        let section1 = TableViewSection(rows: [row1, row2, row3])
-        let section2 = TableViewSection(rows: [row4, row5])
+        let section = TableViewSection(rows: [row1, row2, row3])
 
-        liaison.append(sections: [section1, section2])
+        liaison.append(section: section)
 
         let destination = liaison.tableView(tableView,
                                             targetIndexPathForMoveFromRowAt: IndexPath(row: 0, section: 0),
-                                            toProposedIndexPath: IndexPath(row: 0, section: 1))
+                                            toProposedIndexPath: IndexPath(row: 1, section: 0))
         
-        XCTAssertEqual(liaison.sections.first?.rows.count, 2)
-        XCTAssertEqual(liaison.sections.last?.rows.count, 3)
-
-        XCTAssert(liaison.sections.first?.rows.first === row2)
-        XCTAssert(liaison.sections.last?.rows.first === row1)
-        XCTAssertEqual(destination, IndexPath(row: 0, section: 1))
+        XCTAssertEqual(destination, IndexPath(row: 1, section: 0))
+    }
+    
+    func test_targetIndexPathForMoveFromRowToProposed_denysRowToMove() {
+        let row1 = TestTableViewRow(movable: true)
+        let row2 = TestTableViewRow()
+        
+        let section = TableViewSection(rows: [row1, row2])
+        
+        liaison.append(section: section)
+        
+        let destination = liaison.tableView(tableView,
+                                            targetIndexPathForMoveFromRowAt: IndexPath(row: 0, section: 0),
+                                            toProposedIndexPath: IndexPath(row: 1, section: 0))
+        
+        XCTAssertEqual(destination, IndexPath(row: 0, section: 0))
     }
 
     func test_willDisplayCell_performsWillDisplayCommand() {
