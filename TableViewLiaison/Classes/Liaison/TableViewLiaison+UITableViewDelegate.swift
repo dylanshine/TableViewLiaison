@@ -36,8 +36,12 @@ extension TableViewLiaison: UITableViewDelegate {
     }
     
     public func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
-        moveRow(from: sourceIndexPath, to: proposedDestinationIndexPath)
-        return proposedDestinationIndexPath
+        
+        if canMove(to: proposedDestinationIndexPath) {
+            return proposedDestinationIndexPath
+        }
+        
+        return sourceIndexPath
     }
     
     public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

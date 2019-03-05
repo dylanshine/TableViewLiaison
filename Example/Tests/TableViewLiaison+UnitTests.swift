@@ -859,11 +859,11 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
     }
 
     func test_targetIndexPathForMoveFromRowToProposed_correctlyMovesRow() {
-        let row1 = TestTableViewRow()
-        let row2 = TestTableViewRow()
-        let row3 = TestTableViewRow()
-        let row4 = TestTableViewRow()
-        let row5 = TestTableViewRow()
+        let row1 = TestTableViewRow(movable: true)
+        let row2 = TestTableViewRow(movable: true)
+        let row3 = TestTableViewRow(movable: true)
+        let row4 = TestTableViewRow(movable: true)
+        let row5 = TestTableViewRow(movable: true)
 
         let section1 = TableViewSection(rows: [row1, row2, row3])
         let section2 = TableViewSection(rows: [row4, row5])

@@ -48,10 +48,6 @@ extension TableViewLiaison: UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        
-        guard let cell = tableView.cellForRow(at: sourceIndexPath) else { return }
-        
-        row(for: sourceIndexPath)?.perform(command: .move, for: cell, at: destinationIndexPath)
         moveRow(from: sourceIndexPath, to: destinationIndexPath)
     }
 }
