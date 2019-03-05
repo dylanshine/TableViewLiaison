@@ -1,5 +1,5 @@
 PODS:
-  - TableViewLiaison (1.0.1)
+  - TableViewLiaison (1.0.2)
 
 DEPENDENCIES:
   - TableViewLiaison (from `../`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  TableViewLiaison: 31aeac339910064ce6a4b672485077e793fb4e23
+  TableViewLiaison: 4de1af852d939db0ba4d892ad760a0d346ec5a60
 
 PODFILE CHECKSUM: f818d085ecc094e9577389f3dd62126b0c67c6c6
 

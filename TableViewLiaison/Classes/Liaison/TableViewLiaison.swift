@@ -78,6 +78,10 @@ public final class TableViewLiaison: NSObject {
         return section.rows.element(at: indexPath.row)
     }
     
+    func canMove(to indexPath: IndexPath) -> Bool {
+        return row(for: indexPath)?.movable ?? false
+    }
+    
     func performTableViewUpdates(animated: Bool, _ closure: () -> Void) {
         if animated {
             tableView?.beginUpdates()
