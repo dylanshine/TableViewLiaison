@@ -90,7 +90,7 @@ open class TableViewSectionComponent<View: UITableViewHeaderFooterView, Model>: 
 
 public extension TableViewSectionComponent where Model == Void {
     
-    public convenience init(registrationType: TableViewRegistrationType<View> = .defaultClassType) {
+    convenience init(registrationType: TableViewRegistrationType<View> = .defaultClassType) {
         self.init((),
                   registrationType: registrationType)
     }

@@ -42,7 +42,7 @@ extension TableViewLiaison: UITableViewDataSource {
         case .insert:
             guard let cell = tableView.cellForRow(at: indexPath) else { return }
             row(for: indexPath)?.perform(command: .insert, for: cell, at: indexPath)
-        case .none:
+        default:
             break
         }
     }

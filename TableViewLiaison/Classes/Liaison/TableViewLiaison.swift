@@ -72,6 +72,12 @@ public final class TableViewLiaison: NSObject {
         tv.isEditing = !tv.isEditing
     }
     
+    public func lastIndexPath(in section: Int) -> IndexPath? {
+        guard let row = sections.element(at: section)?.rows.count else { return nil }
+        guard row > 1 else { return IndexPath(row: 0, section: section) }
+        return IndexPath(row: row - 1, section: section)
+    }
+    
     func row(for indexPath: IndexPath) -> AnyTableViewRow? {
         guard let section = sections.element(at: indexPath.section) else { return nil }
         

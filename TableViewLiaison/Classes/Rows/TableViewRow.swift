@@ -124,7 +124,7 @@ open class TableViewRow<Cell: UITableViewCell, Model>: AnyTableViewRow {
 
 public extension TableViewRow where Model == Void {
     
-    public convenience init(editingStyle: UITableViewCell.EditingStyle = .none,
+    convenience init(editingStyle: UITableViewCell.EditingStyle = .none,
                             movable: Bool = false,
                             editActions: [UITableViewRowAction]? = nil,
                             indentWhileEditing: Bool = false,

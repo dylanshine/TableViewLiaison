@@ -69,11 +69,11 @@
 		17E9F3BCCE82122EDF269A82E851D002 /* TableViewSectionComponentView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TableViewSectionComponentView.swift; sourceTree = "<group>"; };
 		19A10E2085A6F35D84D00183AA3B665E /* TableViewRowCommand.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TableViewRowCommand.swift; sourceTree = "<group>"; };
 		1E167870D969CCB057AECCFC8A66704B /* TableViewLiaison+UITableViewDataSourcePrefetching.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "TableViewLiaison+UITableViewDataSourcePrefetching.swift"; sourceTree = "<group>"; };
-		1EFF66B2DD39937B320B901771C92BE6 /* Pods_TableViewLiaison_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_TableViewLiaison_Example.framework; path = "Pods-TableViewLiaison_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1EFF66B2DD39937B320B901771C92BE6 /* Pods_TableViewLiaison_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TableViewLiaison_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		20E1E39E9F37384BC7AD34EB2DFB1040 /* TableViewHeightType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TableViewHeightType.swift; sourceTree = "<group>"; };
 		23551DE62EE3635B18432362E4DD6D07 /* TableViewRegistrationType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TableViewRegistrationType.swift; sourceTree = "<group>"; };
 		27AECBBED6EF8093E1BCC647C10A38F8 /* Pods-TableViewLiaison_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-TableViewLiaison_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
-		36FECD0F53AAE0EACF9D67120F68CC59 /* TableViewLiaison.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = TableViewLiaison.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		36FECD0F53AAE0EACF9D67120F68CC59 /* TableViewLiaison.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = TableViewLiaison.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		3D8199053CC0D4A7938F7E76A8AD0007 /* TableViewLiaison.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = TableViewLiaison.modulemap; sourceTree = "<group>"; };
 		4749D85964F054ADE0C01F72DBF05189 /* Pods-TableViewLiaison_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-TableViewLiaison_Tests-umbrella.h"; sourceTree = "<group>"; };
 		49EC22D2241750534696D27E5F590755 /* AnyTableViewRow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AnyTableViewRow.swift; sourceTree = "<group>"; };
@@ -96,16 +96,16 @@
 		8FD69900CC19612796691F222342A420 /* Pods-TableViewLiaison_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TableViewLiaison_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		92256764226915400D09832635489CBE /* PaginationTableViewCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PaginationTableViewCell.swift; sourceTree = "<group>"; };
 		98DD38E44B1CF1C417D87C8E497699CE /* TableViewContent.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TableViewContent.swift; sourceTree = "<group>"; };
-		99EF0B21EAF329BF515D828AA517206D /* TableViewLiaison.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = TableViewLiaison.framework; path = TableViewLiaison.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		9E6B02863445488371DF0F30DE4946E8 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		99EF0B21EAF329BF515D828AA517206D /* TableViewLiaison.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TableViewLiaison.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9E6B02863445488371DF0F30DE4946E8 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		A2B5C767CAA2610C6AE259EC646027B4 /* TableViewLiaisonPaginationDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TableViewLiaisonPaginationDelegate.swift; sourceTree = "<group>"; };
 		A8576C6DD35D33E86359341CEDBF4C26 /* Pods-TableViewLiaison_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-TableViewLiaison_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		AD161E5C8A976FBCE7C64B9B957FDF6B /* Pods-TableViewLiaison_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-TableViewLiaison_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		B6DDE93447EE72DEBF8441C36FBB777C /* TableViewSectionComponentDisplayOption.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TableViewSectionComponentDisplayOption.swift; sourceTree = "<group>"; };
 		B8143A0084B93A33F3575B711D164C3B /* Pods-TableViewLiaison_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-TableViewLiaison_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		BCA9FB0B4D7EEE0029C12E606D3F3D87 /* Pods-TableViewLiaison_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-TableViewLiaison_Example-dummy.m"; sourceTree = "<group>"; };
-		C198A71F0B43BB6BE9ED2E689C842DBA /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		C198A71F0B43BB6BE9ED2E689C842DBA /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		C3627E6270141F3D94BF5A8AFCB3A380 /* Array+SafeAccess.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Array+SafeAccess.swift"; sourceTree = "<group>"; };
 		CB4607EFCA7C5F75397649E792E2AFCB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		CB5177E80F74242EA432B65270A94930 /* TableViewLiaison+Row.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "TableViewLiaison+Row.swift"; sourceTree = "<group>"; };
@@ -117,7 +117,7 @@
 		E9ADD5E1F3BDEA73A16ABAA84AB23AF6 /* TableViewLiaison+UITableViewDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "TableViewLiaison+UITableViewDelegate.swift"; sourceTree = "<group>"; };
 		ED21D359F88D72B583354E2BFDE4A28F /* TableViewLiaison+Registration.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "TableViewLiaison+Registration.swift"; sourceTree = "<group>"; };
 		F25DD676FC9A44B47F95A7996596BCB1 /* TableViewRow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TableViewRow.swift; sourceTree = "<group>"; };
-		F633119E7AFA9576D7B246F4AF36B81A /* Pods_TableViewLiaison_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_TableViewLiaison_Tests.framework; path = "Pods-TableViewLiaison_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F633119E7AFA9576D7B246F4AF36B81A /* Pods_TableViewLiaison_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TableViewLiaison_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA6BB5B3E5B4C06E1D0BE8C060C9EBE4 /* TableViewLiaison+UITableViewDataSource.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "TableViewLiaison+UITableViewDataSource.swift"; sourceTree = "<group>"; };
 		FB9194D388694759FF829A406C2F5221 /* Pods-TableViewLiaison_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-TableViewLiaison_Example-frameworks.sh"; sourceTree = "<group>"; };
 		FD108E6301C89D867C3212278347DC08 /* TableViewLiaison-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "TableViewLiaison-Info.plist"; sourceTree = "<group>"; };
@@ -455,13 +455,14 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0930;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1020;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
@@ -634,6 +635,37 @@
 			};
 			name = Debug;
 		};
+		0A297DE99A06D5CD255C0DB4013F0911 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4F0A07C296C81D2816212A08901F66D8 /* TableViewLiaison.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/TableViewLiaison/TableViewLiaison-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/TableViewLiaison/TableViewLiaison-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/TableViewLiaison/TableViewLiaison.modulemap";
+				PRODUCT_MODULE_NAME = TableViewLiaison;
+				PRODUCT_NAME = TableViewLiaison;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		1C02ED271A6FF93F3833AB3E960E6273 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8CF6F0B0DEB0789991029ED313993C26 /* Pods-TableViewLiaison_Example.release.xcconfig */;
@@ -735,69 +767,6 @@
 			};
 			name = Release;
 		};
-		40A23411898EDE8591EFE54F91C50A7A /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4F0A07C296C81D2816212A08901F66D8 /* TableViewLiaison.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/TableViewLiaison/TableViewLiaison-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/TableViewLiaison/TableViewLiaison-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/TableViewLiaison/TableViewLiaison.modulemap";
-				PRODUCT_MODULE_NAME = TableViewLiaison;
-				PRODUCT_NAME = TableViewLiaison;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		622CFD990B7E01B501C8F961388AB3A2 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4F0A07C296C81D2816212A08901F66D8 /* TableViewLiaison.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/TableViewLiaison/TableViewLiaison-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/TableViewLiaison/TableViewLiaison-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/TableViewLiaison/TableViewLiaison.modulemap";
-				PRODUCT_MODULE_NAME = TableViewLiaison;
-				PRODUCT_NAME = TableViewLiaison;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
 		A1962E6FF39BBAC201A2E5DDF99557DF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -851,8 +820,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.2;
 				SYMROOT = "${SRCROOT}/../build";
 			};
@@ -891,6 +859,38 @@
 			};
 			name = Debug;
 		};
+		FB89A371B6699E55CC07E31C81907012 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4F0A07C296C81D2816212A08901F66D8 /* TableViewLiaison.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/TableViewLiaison/TableViewLiaison-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/TableViewLiaison/TableViewLiaison-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/TableViewLiaison/TableViewLiaison.modulemap";
+				PRODUCT_MODULE_NAME = TableViewLiaison;
+				PRODUCT_NAME = TableViewLiaison;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -906,8 +906,8 @@
 		93072F49F88DAB825BB6E94B24448E30 /* Build configuration list for PBXNativeTarget "TableViewLiaison" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				622CFD990B7E01B501C8F961388AB3A2 /* Debug */,
-				40A23411898EDE8591EFE54F91C50A7A /* Release */,
+				0A297DE99A06D5CD255C0DB4013F0911 /* Debug */,
+				FB89A371B6699E55CC07E31C81907012 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

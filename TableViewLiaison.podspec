@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'TableViewLiaison'
-  s.version          = '1.0.2'
+  s.version          = '1.0.3'
   s.summary          = 'Framework to help you better manage UITableViews.'
   s.description      = 'TableViewLiaison abstracts and simplifies UITableView construction and management.'
   s.homepage         = 'https://github.com/dylanshine/TableViewLiaison'
@@ -17,5 +17,5 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/dylanshine/TableViewLiaison.git', :tag => s.version.to_s }
   s.ios.deployment_target = '9.0'
   s.source_files = 'TableViewLiaison/Classes/**/*'
-  s.swift_version = '4.2'
+  s.swift_version = '5.0'
 end

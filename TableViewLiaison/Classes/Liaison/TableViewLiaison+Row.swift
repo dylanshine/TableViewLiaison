@@ -9,7 +9,7 @@ import UIKit
 
 public extension TableViewLiaison {
     
-    public func append(rows: [AnyTableViewRow], to section: Int = 0, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
+    func append(rows: [AnyTableViewRow], to section: Int = 0, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
         
         if waitingForPaginatedResults {
             endPagination(rows: rows, to: section, animation: animation, animated: animated)
@@ -41,11 +41,11 @@ public extension TableViewLiaison {
         
     }
     
-    public func append(row: AnyTableViewRow, to section: Int = 0, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
+    func append(row: AnyTableViewRow, to section: Int = 0, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
         append(rows: [row], to: section, animation: animation, animated: animated)
     }
     
-    public func insert(row: AnyTableViewRow, at indexPath: IndexPath, with animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
+    func insert(row: AnyTableViewRow, at indexPath: IndexPath, with animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
         
         guard sections.indices.contains(indexPath.section) else { return }
         
@@ -62,7 +62,7 @@ public extension TableViewLiaison {
     }
     
     @discardableResult
-    public func deleteRows(at indexPaths: [IndexPath], animation: UITableView.RowAnimation = .automatic, animated: Bool = true) -> [AnyTableViewRow] {
+    func deleteRows(at indexPaths: [IndexPath], animation: UITableView.RowAnimation = .automatic, animated: Bool = true) -> [AnyTableViewRow] {
         
         guard !indexPaths.isEmpty else { return [] }
         
@@ -94,7 +94,7 @@ public extension TableViewLiaison {
     }
     
     @discardableResult
-    public func deleteRow(at indexPath: IndexPath, with animation: UITableView.RowAnimation = .automatic, animated: Bool = true) -> AnyTableViewRow? {
+    func deleteRow(at indexPath: IndexPath, with animation: UITableView.RowAnimation = .automatic, animated: Bool = true) -> AnyTableViewRow? {
         
         guard sections.indices.contains(indexPath.section) else { return nil }
         
@@ -111,7 +111,7 @@ public extension TableViewLiaison {
         return row
     }
     
-    public func reloadRows(at indexPaths: [IndexPath], with animation: UITableView.RowAnimation = .automatic) {
+    func reloadRows(at indexPaths: [IndexPath], with animation: UITableView.RowAnimation = .automatic) {
         tableView?.beginUpdates()
         tableView?.reloadRows(at: indexPaths, with: animation)
         tableView?.endUpdates()
@@ -123,11 +123,11 @@ public extension TableViewLiaison {
         }
     }
     
-    public func reloadRow(at indexPath: IndexPath, with animation: UITableView.RowAnimation = .automatic) {
+    func reloadRow(at indexPath: IndexPath, with animation: UITableView.RowAnimation = .automatic) {
         reloadRows(at: [indexPath], with: animation)
     }
     
-    public func replaceRow(at indexPath: IndexPath, with row: AnyTableViewRow, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
+    func replaceRow(at indexPath: IndexPath, with row: AnyTableViewRow, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
         
         guard sections.indices.contains(indexPath.section) else { return }
         
@@ -149,7 +149,7 @@ public extension TableViewLiaison {
         }
     }
     
-    public func moveRow(from source: IndexPath, to destination: IndexPath, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
+    func moveRow(from source: IndexPath, to destination: IndexPath, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
         
         moveRow(from: source, to: destination)
         
@@ -173,7 +173,7 @@ public extension TableViewLiaison {
         }
     }
     
-    public func swapRow(at source: IndexPath, with destination: IndexPath, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
+    func swapRow(at source: IndexPath, with destination: IndexPath, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
         
         let indices = sections.indices
         guard indices.contains(source.section) && indices.contains(destination.section) else { return }
