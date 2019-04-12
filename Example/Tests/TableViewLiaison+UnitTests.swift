@@ -1500,4 +1500,26 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         XCTAssertNil(liaison.row(for: indexPath))
     }
     
+    func test_lastIndexPathInSection_returnsNilForInvalidSection() {
+        let indexPath = liaison.lastIndexPath(in: 0)
+        XCTAssertNil(indexPath)
+    }
+    
+    func test_lastIndexPathInSection_returnsFirstIndexPathForSectionWithNoRows() {
+        let section = TableViewSection()
+        liaison.append(section: section)
+        let indexPath = liaison.lastIndexPath(in: 0)
+        XCTAssertEqual(indexPath, IndexPath(row: 0, section: 0))
+    }
+    
+    func test_lastIndexPathInSection_returnsCorrectIndexPathForSection() {
+        let row1 = TestTableViewRow()
+        let row2 = TestTableViewRow()
+        
+        let section = TableViewSection(rows: [row1, row2])
+        liaison.append(section: section)
+        let indexPath = liaison.lastIndexPath(in: 0)
+        XCTAssertEqual(indexPath, IndexPath(row: 1, section: 0))
+    }
+    
 }

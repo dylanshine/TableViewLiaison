@@ -19,13 +19,13 @@ alt="Pods Version">
 &#127744; | Closure based API for section and row configuration
 &#128196; | Built-in paging functionality
 &#9989;   | Unit Tested
-&#128036; | Written in Swift 4.2
+&#128036; | Written in Swift 5.0
 
 `TableViewLiaison` is 🔨 with &#10084;&#65039; by [📱 @ Shine Labs](https://www.shinelabs.tech).
 
 ## Requirements
 
-- Xcode 10.0+
+- Xcode 10.2+
 - iOS 9.0+
 
 ## Installation

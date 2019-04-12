@@ -9,7 +9,7 @@ import UIKit
 
 public extension TableViewLiaison {
     
-    public func append(sections: [TableViewSection], animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
+    func append(sections: [TableViewSection], animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
         
         if waitingForPaginatedResults {
             endPagination(sections: sections, animation: animation, animated: animated)
@@ -31,11 +31,11 @@ public extension TableViewLiaison {
         
     }
     
-    public func append(section: TableViewSection, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
+    func append(section: TableViewSection, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
         append(sections: [section], animation: animation, animated: animated)
     }
     
-    public func insert(sections: [TableViewSection], startingAt index: Int, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
+    func insert(sections: [TableViewSection], startingAt index: Int, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
         guard !sections.isEmpty else { return }
 
         let indexRange = (index...(index + sections.count))
@@ -52,7 +52,7 @@ public extension TableViewLiaison {
         }
     }
     
-    public func insert(section: TableViewSection, at index: Int, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
+    func insert(section: TableViewSection, at index: Int, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
         
         sections.insert(section, at: index)
         register(section: section)
@@ -62,7 +62,7 @@ public extension TableViewLiaison {
         }
     }
     
-    public func emptySection(at index: Int, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
+    func emptySection(at index: Int, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
         
         guard sections.indices.contains(index) else { return }
         
@@ -75,7 +75,7 @@ public extension TableViewLiaison {
         
     }
     
-    public func deleteSection(at index: Int, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
+    func deleteSection(at index: Int, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
         
         guard sections.indices.contains(index) else { return }
         
@@ -86,7 +86,7 @@ public extension TableViewLiaison {
         }
     }
     
-    public func replaceSection(at index: Int, with section: TableViewSection, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
+    func replaceSection(at index: Int, with section: TableViewSection, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
 
         guard sections.indices.contains(index) else { return }
         
@@ -100,13 +100,13 @@ public extension TableViewLiaison {
         }
     }
     
-    public func reloadSection(at index: Int, with animation: UITableView.RowAnimation = .automatic) {
+    func reloadSection(at index: Int, with animation: UITableView.RowAnimation = .automatic) {
         tableView?.beginUpdates()
         tableView?.reloadSections(IndexSet(integer: index), with: animation)
         tableView?.endUpdates()
     }
     
-    public func moveSection(at: Int, to: Int, with animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
+    func moveSection(at: Int, to: Int, with animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
         
         guard sections.indices.contains(at) else { return }
     
@@ -118,7 +118,7 @@ public extension TableViewLiaison {
         }
     }
     
-    public func clearSections(replacedBy sections: [TableViewSection] = [],
+    func clearSections(replacedBy sections: [TableViewSection] = [],
                               animation: UITableView.RowAnimation = .automatic,
                               animated: Bool = true) {
         
@@ -136,7 +136,7 @@ public extension TableViewLiaison {
         append(sections: sections, animation: animation, animated: animated)
     }
     
-    public func swapSection(at source: Int, with destination: Int, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
+    func swapSection(at source: Int, with destination: Int, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
         
         guard sections.indices.contains(source) && sections.indices.contains(destination) else { return }
         sections.swapAt(source, destination)

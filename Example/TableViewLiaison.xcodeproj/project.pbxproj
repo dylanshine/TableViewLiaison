@@ -12,7 +12,6 @@
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
-		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		7D054B812B06F68427BBC2E4 /* Pods_TableViewLiaison_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F31E225D3F00A591E6B37D6 /* Pods_TableViewLiaison_Example.framework */; };
 		8C6F501822AA9C7017A95512 /* Pods_TableViewLiaison_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18B62CA01D5E027EA1CC96A7 /* Pods_TableViewLiaison_Tests.framework */; };
 		FC7980B52203544C006DA65D /* TimeInterval+SecondConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980B42203544C006DA65D /* TimeInterval+SecondConversion.swift */; };
@@ -67,9 +66,8 @@
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		607FACE51AFB9204008FA782 /* TableViewLiaison_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TableViewLiaison_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		7932F3F7C15FC354C43DFCD5 /* Pods-TableViewLiaison_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TableViewLiaison_Tests.release.xcconfig"; path = "Target Support Files/Pods-TableViewLiaison_Tests/Pods-TableViewLiaison_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		891E15B2EB84B907D318168F /* TableViewLiaison.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = TableViewLiaison.podspec; path = ../TableViewLiaison.podspec; sourceTree = "<group>"; };
+		891E15B2EB84B907D318168F /* TableViewLiaison.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = TableViewLiaison.podspec; path = ../TableViewLiaison.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A81B57C75BCA4F3111CEF8ED /* Pods-TableViewLiaison_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TableViewLiaison_Example.release.xcconfig"; path = "Target Support Files/Pods-TableViewLiaison_Example/Pods-TableViewLiaison_Example.release.xcconfig"; sourceTree = "<group>"; };
 		CA854806A62D001789CDEDB9 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		D5CD999B81A68324F91F08E8 /* Pods-TableViewLiaison_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TableViewLiaison_Tests.debug.xcconfig"; path = "Target Support Files/Pods-TableViewLiaison_Tests/Pods-TableViewLiaison_Tests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -189,7 +187,6 @@
 				FC7980F222035AE9006DA65D /* TableViewSection+UnitTests.swift */,
 				FC7980F322035AE9006DA65D /* TableViewSectionComponent+UnitTests.swift */,
 				FC7980DD22035AC1006DA65D /* Fixtures */,
-				607FACEB1AFB9204008FA782 /* Tests.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 			);
 			path = Tests;
@@ -221,7 +218,6 @@
 				D5CD999B81A68324F91F08E8 /* Pods-TableViewLiaison_Tests.debug.xcconfig */,
 				7932F3F7C15FC354C43DFCD5 /* Pods-TableViewLiaison_Tests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -345,25 +341,25 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = CocoaPods;
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
 						DevelopmentTeam = Z3Y4VUCM48;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1020;
 					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
 						DevelopmentTeam = Z3Y4VUCM48;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1020;
 						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
 				};
 			};
 			buildConfigurationList = 607FACCB1AFB9204008FA782 /* Build configuration list for PBXProject "TableViewLiaison" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -500,7 +496,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				607FACEC1AFB9204008FA782 /* Tests.swift in Sources */,
 				FC7980F622035AE9006DA65D /* TableViewSection+UnitTests.swift in Sources */,
 				FC7980EF22035AD3006DA65D /* UITableView+SwizzleTesting.swift in Sources */,
 				FC7980EA22035AD3006DA65D /* TestTableHeaderFooterView.swift in Sources */,
@@ -658,8 +653,7 @@
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -674,8 +668,7 @@
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -693,8 +686,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TableViewLiaison_Example.app/TableViewLiaison_Example";
 			};
 			name = Debug;
@@ -709,8 +701,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TableViewLiaison_Example.app/TableViewLiaison_Example";
 			};
 			name = Release;
