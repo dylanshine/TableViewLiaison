@@ -72,4 +72,19 @@ extension TableViewLiaison {
             tableView?.insertSections(indexSet, with: .none)
         }
     }
+    
+    public static let paginationRow: TableViewRow<PaginationTableViewCell> = {
+        var commands = [TableViewRowCommand: (PaginationTableViewCell, IndexPath) -> Void]()
+        
+        commands[.configuration] = { cell, indexPath in
+            cell.backgroundColor = .clear
+            cell.contentView.backgroundColor = .clear
+        }
+        
+        commands[.willDisplay] = { cell, indexPath in
+            cell.spinner.startAnimating()
+        }
+        
+        return TableViewRow<PaginationTableViewCell>(commands: commands)
+    }()
 }

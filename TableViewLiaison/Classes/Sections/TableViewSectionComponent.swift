@@ -7,22 +7,23 @@
 
 import Foundation
 
-open class TableViewSectionComponent<View: UITableViewHeaderFooterView, Model>: AnyTableViewSectionComponent {
-    
-    public let model: Model
+public struct TableViewSectionComponent<View: UITableViewHeaderFooterView>: AnyTableViewSectionComponent {
     
     private let registrationType: TableViewRegistrationType<View>
-    private var commands = [TableViewSectionComponentCommand: (View, Model, Int) -> Void]()
-    private var heights = [TableViewHeightType: (Model) -> CGFloat]()
+    private var commands = [TableViewSectionComponentCommand: (View, Int) -> Void]()
+    private var heights = [TableViewHeightType: () -> CGFloat]()
     
-    public init(_ model: Model, registrationType: TableViewRegistrationType<View> = .defaultClassType) {
-        self.model = model
+    public init(commands: [TableViewSectionComponentCommand: (View, Int) -> Void] = [:],
+                heights: [TableViewHeightType: () -> CGFloat] = [:],
+                registrationType: TableViewRegistrationType<View> = .defaultClassType) {
+        self.commands = commands
+        self.heights = heights
         self.registrationType = registrationType
     }
     
     public func view(for tableView: UITableView, in section: Int) -> UITableViewHeaderFooterView? {
         let view = tableView.dequeue(View.self, with: reuseIdentifier)
-        commands[.configuration]?(view, model, section)
+        commands[.configuration]?(view, section)
         return view
     }
     
@@ -40,27 +41,27 @@ open class TableViewSectionComponent<View: UITableViewHeaderFooterView, Model>: 
         
         guard let view = view as? View else { return }
         
-        commands[command]?(view, model, section)
+        commands[command]?(view, section)
     }
     
-    public func set(command: TableViewSectionComponentCommand, with closure: @escaping (View, Model, Int) -> Void) {
+    public mutating func set(command: TableViewSectionComponentCommand, with closure: @escaping (View, Int) -> Void) {
         commands[command] = closure
     }
     
-    public func remove(command: TableViewSectionComponentCommand) {
+    public mutating func remove(command: TableViewSectionComponentCommand) {
         commands[command] = nil
     }
     
-    public func set(height: TableViewHeightType, _ closure: @escaping (Model) -> CGFloat) {
+    public mutating func set(height: TableViewHeightType, _ closure: @escaping () -> CGFloat) {
         heights[height] = closure
     }
     
-    public func set(height: TableViewHeightType, _ value: CGFloat) {
-        let closure: ((Model) -> CGFloat) = { _ -> CGFloat in return value }
+    public mutating func set(height: TableViewHeightType, _ value: CGFloat) {
+        let closure: (() -> CGFloat) = { return value }
         heights[height] = closure
     }
     
-    public func remove(height: TableViewHeightType) {
+    public mutating func remove(height: TableViewHeightType) {
         heights[height] = nil
     }
     
@@ -81,18 +82,11 @@ open class TableViewSectionComponent<View: UITableViewHeaderFooterView, Model>: 
     private func calculate(height: TableViewHeightType) -> CGFloat {
         switch height {
         case .height:
-            return heights[.height]?(model) ?? UITableView.automaticDimension
+            return heights[.height]?() ?? UITableView.automaticDimension
         case .estimatedHeight:
-            return heights[.estimatedHeight]?(model) ?? heights[.height]?(model) ?? 0
+            return heights[.estimatedHeight]?() ?? heights[.height]?() ?? 0
         }
     }
 }
 
-public extension TableViewSectionComponent where Model == Void {
-    
-    convenience init(registrationType: TableViewRegistrationType<View> = .defaultClassType) {
-        self.init((),
-                  registrationType: registrationType)
-    }
-}
 

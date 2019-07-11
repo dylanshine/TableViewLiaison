@@ -7,7 +7,7 @@
 
 import UIKit
 
-public protocol TableViewContent: AnyObject {
+public protocol TableViewContent {
     var height: CGFloat { get }
     var estimatedHeight: CGFloat { get }
     var reuseIdentifier: String { get }

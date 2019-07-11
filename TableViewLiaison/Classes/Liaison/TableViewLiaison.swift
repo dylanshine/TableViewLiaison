@@ -23,9 +23,10 @@ public final class TableViewLiaison: NSObject {
     var waitingForPaginatedResults = false
     
     public init(sections: [TableViewSection] = [],
-                paginationRow: AnyTableViewRow = PaginationTableViewRow()) {
+                paginationRow: AnyTableViewRow = paginationRow) {
         self.sections = sections
         self.paginationSection = TableViewSection(rows: [paginationRow])
+        
         super.init()
     }
     
