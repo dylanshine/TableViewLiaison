@@ -22,6 +22,39 @@ public final class TableViewLiaison: NSObject {
     
     var waitingForPaginatedResults = false
     
+    public var isEditing: Bool {
+        get { return tableView?.isEditing ?? false }
+        set { tableView?.isEditing = newValue }
+    }
+    
+    public var allowsSelection: Bool {
+        get { return tableView?.allowsSelection ?? false }
+        set { tableView?.allowsSelection = newValue }
+    }
+    
+    public var allowsSelectionDuringEditing: Bool {
+        get { return tableView?.allowsSelectionDuringEditing ?? false }
+        set { tableView?.allowsSelectionDuringEditing = newValue }
+    }
+    
+    public var allowsMultipleSelection: Bool {
+        get { return tableView?.allowsMultipleSelection ?? false }
+        set { tableView?.allowsMultipleSelection = newValue }
+    }
+    
+    public var allowsMultipleSelectionDuringEditing: Bool {
+        get { return tableView?.allowsMultipleSelectionDuringEditing ?? false }
+        set { tableView?.allowsMultipleSelectionDuringEditing = newValue }
+    }
+    
+    public var indexPathForSelectedRow: IndexPath? {
+        return tableView?.indexPathForSelectedRow
+    }
+    
+    public var indexPathsForSelectedRows: [IndexPath] {
+        return tableView?.indexPathsForSelectedRows ?? []
+    }
+    
     public init(sections: [TableViewSection] = [],
                 paginationRow: AnyTableViewRow = paginationRow) {
         self.sections = sections
@@ -58,7 +91,6 @@ public final class TableViewLiaison: NSObject {
     
     public func reloadVisibleRows() {
         guard let indexPaths = tableView?.indexPathsForVisibleRows else { return }
-        
         reloadRows(at: indexPaths)
     }
     
@@ -67,16 +99,47 @@ public final class TableViewLiaison: NSObject {
         tableView?.scrollToRow(at: indexPath, at: scrollPosition, animated: animated)
     }
 
-    public func toggleIsEditing() {
-        guard let tv = tableView else { return }
-        
-        tv.isEditing = !tv.isEditing
+    public func toggleIsEditing() {        
+        tableView?.isEditing.toggle()
     }
     
     public func lastIndexPath(in section: Int) -> IndexPath? {
         guard let row = sections.element(at: section)?.rows.count else { return nil }
         guard row > 1 else { return IndexPath(row: 0, section: section) }
         return IndexPath(row: row - 1, section: section)
+    }
+    
+    public func selectRow(at indexPath: IndexPath,
+                          animated: Bool = true,
+                          scrollPosition: UITableView.ScrollPosition = .none) {
+        tableView?.selectRow(at: indexPath, animated: animated, scrollPosition: scrollPosition)
+    }
+    
+    public func deselectRow(at indexPath: IndexPath, animated: Bool = true) {
+        tableView?.deselectRow(at: indexPath, animated: animated)
+    }
+    
+    func sectionIndexes(for identifier: String) -> Set<Int> {
+        return Set(sections.enumerated()
+            .filter { $0.1.identifier == identifier }
+            .map { $0.0 })
+    }
+    
+    func rowIndexPaths(for identifier: String) -> Set<IndexPath> {
+        return Set(sections
+            .enumerated()
+            .reduce([]) { (result, tuple) -> [IndexPath] in
+                let (index, section) = tuple
+                return result + section.rowIndexPaths(for: identifier, section: index)
+        })
+    }
+    
+    func rowIndexPaths(for identifier: String, in sectionIdentfier: String) -> Set<IndexPath> {
+        let sectionIndexes = self.sectionIndexes(for: sectionIdentfier)
+        
+        return Set(sectionIndexes.reduce([]) { (result, index) -> [IndexPath] in
+            return result + sections[index].rowIndexPaths(for: identifier, section: index)
+        })
     }
     
     func row(for indexPath: IndexPath) -> AnyTableViewRow? {

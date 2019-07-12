@@ -15,11 +15,6 @@ final class ViewController: UIViewController {
     private let liaison = TableViewLiaison()
     private let refreshControl = UIRefreshControl()
     
-    private var initialSections: [TableViewSection] {
-        return Post.initialPosts()
-            .map { PostTableViewSectionFactory.section(for: $0, tableView: tableView) }
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,12 +27,26 @@ final class ViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        liaison.append(sections: initialSections, animated: false)
+       
+        
+        liaison.append(sections: randomPostSections(), animated: false)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.liaison.append(row: TableViewContentFactory.actionButtonRow(), to: "1")
+            self.liaison.append(row: TableViewContentFactory.actionButtonRow(), to: "2")
+        }
+    }
+    
+    private func randomPostSections() -> [TableViewSection] {
+        return (0...5).map { _ in
+            let post = Post()
+            return PostTableViewSectionFactory.section(for: post, tableView: tableView)
+        }
     }
     
     @objc private func refreshSections() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.liaison.clearSections(replacedBy: self.initialSections, animated: false)
+            self.liaison.clearSections(replacedBy: self.randomPostSections(), animated: false)
             self.refreshControl.endRefreshing()
         }
     }
@@ -47,18 +56,15 @@ final class ViewController: UIViewController {
 extension ViewController: TableViewLiaisonPaginationDelegate {
     
     func isPaginationEnabled() -> Bool {
-        return liaison.sections.count < 8
+        return true
     }
     
     func paginationStarted(indexPath: IndexPath) {
         
         liaison.scroll(to: indexPath)
-        
-        let sections = Post.paginatedPosts()
-            .map { PostTableViewSectionFactory.section(for: $0, tableView: tableView) }
-        
+
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            self.liaison.append(sections: sections, animated: false)
+            self.liaison.append(sections: self.randomPostSections(), animated: false)
         }
     }
     

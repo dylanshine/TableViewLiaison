@@ -76,6 +76,15 @@ public struct TableViewSection {
         }
     }
     
+    func rowIndexPaths(for identifier: String, section: Int) -> [IndexPath] {
+        return rows.enumerated()
+            .filter { index, row in row.identifier == identifier }
+            .map { item, _ -> IndexPath in
+            return IndexPath(item: item, section: section)
+        }
+    }
+
+    
     // MARK: - Helpers
     mutating func append(row: AnyTableViewRow) {
         rows.append(row)

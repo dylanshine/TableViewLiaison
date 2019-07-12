@@ -41,13 +41,53 @@ public extension TableViewLiaison {
         
     }
     
+    func append(rows: [AnyTableViewRow], to sectionIdentifier: String, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
+        
+        guard !rows.isEmpty else { return }
+        
+        let sectionIndexes = self.sectionIndexes(for: sectionIdentifier)
+        
+        var rowIndexPathZip = [(AnyTableViewRow, IndexPath)]()
+        
+        for section in sectionIndexes {
+            var lastRowIndex = sections[section].rows.count - 1
+            sections[section].append(rows: rows)
+            register(rows: rows)
+            
+            let zip = rows.map { row -> (AnyTableViewRow, IndexPath) in
+                lastRowIndex += 1
+                let indexPath = IndexPath(row: lastRowIndex, section: section)
+                return (row, indexPath)
+            }
+            
+            rowIndexPathZip.append(contentsOf: zip)
+        }
+        
+        let indexPaths = rowIndexPathZip.map { $0.1 }
+        
+        performTableViewUpdates(animated: animated) {
+            tableView?.insertRows(at: indexPaths, with: animation)
+        }
+        
+        rowIndexPathZip.forEach { row, indexPath in
+            if let cell = tableView?.cellForRow(at: indexPath) {
+                row.perform(command: .insert, for: cell, at: indexPath)
+            }
+        }
+    }
+    
     func append(row: AnyTableViewRow, to section: Int = 0, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
         append(rows: [row], to: section, animation: animation, animated: animated)
     }
     
+    func append(row: AnyTableViewRow, to sectionIdentifier: String, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
+        append(rows: [row], to: sectionIdentifier, animation: animation, animated: animated)
+    }
+    
     func insert(row: AnyTableViewRow, at indexPath: IndexPath, with animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
         
-        guard sections.indices.contains(indexPath.section) else { return }
+        guard sections.indices.contains(indexPath.section),
+            sections[indexPath.section].rows.indices.contains(indexPath.row) else { return }
         
         sections[indexPath.section].insert(row: row, at: indexPath)
         register(row: row)
@@ -62,10 +102,11 @@ public extension TableViewLiaison {
     }
     
     @discardableResult
-    func deleteRows(at indexPaths: [IndexPath], animation: UITableView.RowAnimation = .automatic, animated: Bool = true) -> [AnyTableViewRow] {
+    func deleteRows(at indexPaths: [IndexPath], with animation: UITableView.RowAnimation = .automatic, animated: Bool = true) -> [AnyTableViewRow] {
         
         guard !indexPaths.isEmpty else { return [] }
         
+        let indexPaths = Array(Set(indexPaths))
         let sortedIndexPaths = indexPaths.sortBySection()
         var deletedRows = [AnyTableViewRow]()
         
@@ -94,9 +135,26 @@ public extension TableViewLiaison {
     }
     
     @discardableResult
+    func deleteRows(with identifier: String, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) -> [AnyTableViewRow] {
+        let indexPaths = Array(rowIndexPaths(for: identifier))
+        return deleteRows(at: indexPaths, with: animation, animated: animated)
+    }
+    
+    @discardableResult
+    func deleteRows(with identifier: String,
+                    in sectionIdentifier: String,
+                    animation: UITableView.RowAnimation = .automatic,
+                    animated: Bool = true) -> [AnyTableViewRow] {
+        
+        let indexPaths = Array(rowIndexPaths(for: identifier, in: sectionIdentifier))
+        return deleteRows(at: indexPaths, with: animation, animated: animated)
+    }
+    
+    @discardableResult
     func deleteRow(at indexPath: IndexPath, with animation: UITableView.RowAnimation = .automatic, animated: Bool = true) -> AnyTableViewRow? {
         
-        guard sections.indices.contains(indexPath.section) else { return nil }
+        guard sections.indices.contains(indexPath.section),
+            sections[indexPath.section].rows.indices.contains(indexPath.row)else { return nil }
         
         let row = sections[indexPath.section].deleteRow(at: indexPath)
         
@@ -111,7 +169,7 @@ public extension TableViewLiaison {
         return row
     }
     
-    func reloadRows(at indexPaths: [IndexPath], with animation: UITableView.RowAnimation = .automatic) {
+    func reloadRows(at indexPaths: [IndexPath], animation: UITableView.RowAnimation = .automatic) {
         tableView?.beginUpdates()
         tableView?.reloadRows(at: indexPaths, with: animation)
         tableView?.endUpdates()
@@ -123,13 +181,19 @@ public extension TableViewLiaison {
         }
     }
     
-    func reloadRow(at indexPath: IndexPath, with animation: UITableView.RowAnimation = .automatic) {
-        reloadRows(at: [indexPath], with: animation)
+    func reloadRows(with identifier: String, animation: UITableView.RowAnimation = .automatic) {
+        let indexPaths = Array(rowIndexPaths(for: identifier))
+        reloadRows(at: indexPaths, animation: animation)
+    }
+    
+    func reloadRow(at indexPath: IndexPath, animation: UITableView.RowAnimation = .automatic) {
+        reloadRows(at: [indexPath], animation: animation)
     }
     
     func replaceRow(at indexPath: IndexPath, with row: AnyTableViewRow, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
         
-        guard sections.indices.contains(indexPath.section) else { return }
+        guard sections.indices.contains(indexPath.section),
+            sections[indexPath.section].rows.indices.contains(indexPath.row) else { return }
         
         let deletedRow = sections[indexPath.section].deleteRow(at: indexPath)
         if let cell = tableView?.cellForRow(at: indexPath) {

@@ -11,7 +11,7 @@ import UIKit
 
 enum TableViewContentFactory {
     
-    static func imageRow(image: UIImage, tableView: UITableView) -> TableViewRow<ImageTableViewCell> {
+    static func imageRow(imageSize: CGSize, tableView: UITableView) -> TableViewRow<ImageTableViewCell> {
         
         var row = TableViewRow<ImageTableViewCell>(registrationType: .defaultNibType)
         
@@ -21,14 +21,19 @@ enum TableViewContentFactory {
                 return 0
             }
             
-            let ratio = image.size.width / image.size.height
+            let ratio = imageSize.width / imageSize.height
             
             return tableView.frame.width / ratio
         }
         
         row.set(command: .configuration) { cell, _ in
-            cell.contentImageView.image = image
-            cell.contentImageView.contentMode = .scaleAspectFill
+            
+            let width = Int(imageSize.width)
+            let height = Int(imageSize.height)
+            
+            NetworkManager.fetchRandomPostImage(width: width, height: height) { [weak cell] image in
+                cell?.contentImage = image
+            }
         }
         
         return row
@@ -36,7 +41,8 @@ enum TableViewContentFactory {
     
     static func actionButtonRow() -> TableViewRow<ActionButtonsTableViewCell> {
         
-        var row = TableViewRow<ActionButtonsTableViewCell>(registrationType: .defaultNibType)
+        var row = TableViewRow<ActionButtonsTableViewCell>(identifier: "actionButtons",
+                                                           registrationType: .defaultNibType)
         
         row.set(height: .height, 30)
         
@@ -68,7 +74,7 @@ enum TableViewContentFactory {
         return row
     }
     
-    static func captionRow(user: String, caption: String) -> TableViewRow<TextTableViewCell> {
+    static func captionRow(user: String, tableView: UITableView) -> TableViewRow<TextTableViewCell> {
         
         var row = textTableViewRow()
         
@@ -87,11 +93,20 @@ enum TableViewContentFactory {
                 .foregroundColor: UIColor.black
             ]
             
-            let attributedString = NSMutableAttributedString(string: user, attributes: mediumAttributes)
-            
-            attributedString.append(NSMutableAttributedString(string: " \(caption)", attributes: regularAttributes))
-            
-            cell.contentTextLabel.attributedText = attributedString
+            NetworkManager.fetchRandomFact { [weak cell, weak tableView] fact in
+                guard let fact = fact else { return }
+                let attributedString = NSMutableAttributedString(string: user, attributes: mediumAttributes)
+                
+                attributedString.append(NSMutableAttributedString(string: " \(fact)", attributes: regularAttributes))
+                
+                cell?.contentTextLabel.attributedText = attributedString
+                
+                UIView.performWithoutAnimation {
+                    tableView?.reloadData()
+                    tableView?.beginUpdates()
+                    tableView?.endUpdates()
+                }
+            }
         }
         
         return row

@@ -11,19 +11,22 @@ import TableViewLiaison
 
 enum PostTableViewSectionFactory {
     
-    static func section(for post: Post, tableView: UITableView) -> TableViewSection {
+    static func section(for post: Post,
+                        tableView: UITableView) -> TableViewSection {
         let rows: [AnyTableViewRow] = [
-            TableViewContentFactory.imageRow(image: post.content, tableView: tableView),
+            TableViewContentFactory.imageRow(imageSize: post.imageSize, tableView: tableView),
             TableViewContentFactory.actionButtonRow(),
             TableViewContentFactory.likesRow(numberOfLikes: post.numberOfLikes),
-            TableViewContentFactory.captionRow(user: post.user.username, caption: post.caption),
+            TableViewContentFactory.captionRow(user: post.user.username, tableView: tableView),
             TableViewContentFactory.commentRow(commentCount: post.numberOfComments),
             TableViewContentFactory.timeRow(numberOfSeconds: post.timePosted)
         ]
         
         let header = TableViewContentFactory.postSectionHeaderComponent(user: post.user)
         
-        return TableViewSection(rows: rows, componentDisplayOption: .header(component: header))
+        return TableViewSection(rows: rows,
+                                identifier: post.id,
+                                componentDisplayOption: .header(component: header))
     }
     
 }

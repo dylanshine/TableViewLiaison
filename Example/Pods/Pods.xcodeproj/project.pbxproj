@@ -63,7 +63,7 @@
 
 /* Begin PBXFileReference section */
 		00182C5E30993E14829AF81F528AF094 /* Pods-TableViewLiaison_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-TableViewLiaison_Example-frameworks.sh"; sourceTree = "<group>"; };
-		016C0A7B6939238A90545895944876CB /* TableViewLiaison.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = TableViewLiaison.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		016C0A7B6939238A90545895944876CB /* TableViewLiaison.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = TableViewLiaison.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		01A9104D8355796ED4DC2F85F53EB754 /* TableViewRegistrationType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TableViewRegistrationType.swift; sourceTree = "<group>"; };
 		0FB8635AF4080C3A304CC566F9582C75 /* TableViewLiaison.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = TableViewLiaison.xcconfig; sourceTree = "<group>"; };
 		16798DB4B38E9D9415D7AEB07E24B625 /* TableViewLiaison+UITableViewDataSource.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "TableViewLiaison+UITableViewDataSource.swift"; sourceTree = "<group>"; };
@@ -82,12 +82,12 @@
 		6443E6D163398D84146830AC8E4322E9 /* Array+SafeAccess.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Array+SafeAccess.swift"; sourceTree = "<group>"; };
 		64B88D12680CDD11BB2F4E689E718219 /* TableViewLiaison.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TableViewLiaison.swift; sourceTree = "<group>"; };
 		65CA4C141AAF46C7D9F1028E440F99B8 /* TableViewLiaison+UITableViewDataSourcePrefetching.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "TableViewLiaison+UITableViewDataSourcePrefetching.swift"; sourceTree = "<group>"; };
-		672F174805BFC7BAAF470FF8933A9FDA /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		672F174805BFC7BAAF470FF8933A9FDA /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		67435D52C499848C9665367D21160AA3 /* TableViewLiaisonPaginationDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TableViewLiaisonPaginationDelegate.swift; sourceTree = "<group>"; };
 		67FBF9C2B5F1309F48944986C666488B /* UITableView+Generic.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UITableView+Generic.swift"; sourceTree = "<group>"; };
 		6B9C5722A589B317E4242AE322BD1E5C /* Pods-TableViewLiaison_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-TableViewLiaison_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		6CBB732BC779EF1CC0FC2527613FDA1A /* Pods-TableViewLiaison_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TableViewLiaison_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		6FEFACE66A9477B446A4629D16700DA6 /* Pods_TableViewLiaison_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_TableViewLiaison_Tests.framework; path = "Pods-TableViewLiaison_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6FEFACE66A9477B446A4629D16700DA6 /* Pods_TableViewLiaison_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TableViewLiaison_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		702D3A43F471558913B7105A058FD74C /* TableViewLiaison+Row.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "TableViewLiaison+Row.swift"; sourceTree = "<group>"; };
 		82C47FDE4CDDB7EB7897588CA54A4DF2 /* Pods-TableViewLiaison_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-TableViewLiaison_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		839CD389C2A0E08DC85460A12A7690A1 /* TableViewPrefetchCommand.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TableViewPrefetchCommand.swift; sourceTree = "<group>"; };
@@ -98,8 +98,8 @@
 		9046E314C2F1C318E6831ECA3A4F09DB /* TableViewLiaison+Pagination.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "TableViewLiaison+Pagination.swift"; sourceTree = "<group>"; };
 		9ABB0DD66A78EF73625B621CDB1096FC /* TableViewContent.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TableViewContent.swift; sourceTree = "<group>"; };
 		9BC9E03F36CCD9A13BE770E9AD2744C8 /* Pods-TableViewLiaison_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-TableViewLiaison_Tests-umbrella.h"; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		9DAFADB5BFCF07724523E3507AF4EF39 /* Pods_TableViewLiaison_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_TableViewLiaison_Example.framework; path = "Pods-TableViewLiaison_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9DAFADB5BFCF07724523E3507AF4EF39 /* Pods_TableViewLiaison_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TableViewLiaison_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8193F9DB022E11C068F17689E400330 /* Pods-TableViewLiaison_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TableViewLiaison_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		A8CB66771FDA08A52D68484BAAAE658D /* TableViewSectionComponent.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TableViewSectionComponent.swift; sourceTree = "<group>"; };
 		ABB0596AEFAA0A39C6D20AC06034569C /* Pods-TableViewLiaison_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TableViewLiaison_Example.release.xcconfig"; sourceTree = "<group>"; };
@@ -107,8 +107,8 @@
 		BB0ADC908EB1A57403A9853A775E687B /* PaginationTableViewCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PaginationTableViewCell.swift; sourceTree = "<group>"; };
 		BB9E88433CF98F9ACF0C3829E0916090 /* Pods-TableViewLiaison_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-TableViewLiaison_Example.modulemap"; sourceTree = "<group>"; };
 		C42ABF76CD7E9AF44100745CADB59094 /* TableViewSection.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TableViewSection.swift; sourceTree = "<group>"; };
-		C9CD032B2E7B52A1A51121E353C1D8EF /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
-		CE06A532BDFC74C3DF86B17BBCAC24AA /* TableViewLiaison.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = TableViewLiaison.framework; path = TableViewLiaison.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9CD032B2E7B52A1A51121E353C1D8EF /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		CE06A532BDFC74C3DF86B17BBCAC24AA /* TableViewLiaison.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TableViewLiaison.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE8A2F67326606283E3CF298A558834B /* TableViewHeightType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TableViewHeightType.swift; sourceTree = "<group>"; };
 		D07A3284A66BF6B51EEE7BF2CEC82B52 /* TableViewRowCommand.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TableViewRowCommand.swift; sourceTree = "<group>"; };
 		D18F1EAA4C2F1E1907299E3CFC9782EF /* Pods-TableViewLiaison_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-TableViewLiaison_Example-dummy.m"; sourceTree = "<group>"; };
@@ -453,6 +453,11 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
 				LastUpgradeCheck = 1100;
+				TargetAttributes = {
+					2DDC787062DD756D0DC8CC0F79AAAD29 = {
+						LastSwiftMigration = 1020;
+					};
+				};
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -651,8 +656,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
@@ -760,6 +764,7 @@
 			baseConfigurationReference = 6CBB732BC779EF1CC0FC2527613FDA1A /* Pods-TableViewLiaison_Example.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -782,6 +787,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -827,6 +834,7 @@
 			baseConfigurationReference = ABB0596AEFAA0A39C6D20AC06034569C /* Pods-TableViewLiaison_Example.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -849,6 +857,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
