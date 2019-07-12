@@ -11,11 +11,14 @@ public struct TableViewSection {
     
     public internal(set) var rows: [AnyTableViewRow]
     
+    public let identifier: String?
     public let componentDisplayOption: TableViewSectionComponentDisplayOption
     
     public init(rows: [AnyTableViewRow] = [],
+                identifier: String? = nil,
                 componentDisplayOption: TableViewSectionComponentDisplayOption = .none) {
         self.rows = rows
+        self.identifier = identifier
         self.componentDisplayOption = componentDisplayOption
     }
     

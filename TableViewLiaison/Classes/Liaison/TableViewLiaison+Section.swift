@@ -86,6 +86,20 @@ public extension TableViewLiaison {
         }
     }
     
+    func deleteSections(at indexes: Set<Int>, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
+        
+        let indexes = indexes
+            .filter { sections.indices.contains($0) }
+            .sorted(by: >)
+        
+        indexes.forEach { sections.remove(at: $0) }
+        
+        let indexSet = IndexSet(indexes)
+        performTableViewUpdates(animated: animated) {
+            tableView?.deleteSections(indexSet, with: animation)
+        }
+    }
+    
     func replaceSection(at index: Int, with section: TableViewSection, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
 
         guard sections.indices.contains(index) else { return }
@@ -119,8 +133,8 @@ public extension TableViewLiaison {
     }
     
     func clearSections(replacedBy sections: [TableViewSection] = [],
-                              animation: UITableView.RowAnimation = .automatic,
-                              animated: Bool = true) {
+                       animation: UITableView.RowAnimation = .automatic,
+                       animated: Bool = true) {
         
         if !self.sections.isEmpty {
             let sectionsRange = 0...self.sections.lastIndex

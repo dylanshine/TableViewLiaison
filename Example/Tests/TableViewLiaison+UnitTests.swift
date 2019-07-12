@@ -132,6 +132,34 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         XCTAssertEqual(liaison.sections.count, 1)
     }
     
+    func test_deleteSections_removesSectionsFromTableView() {
+        let section1 = TableViewSection()
+        let section2 = TableViewSection()
+        let section3 = TableViewSection()
+        
+        liaison.append(sections: [section1, section2, section3])
+        
+        XCTAssertEqual(tableView.numberOfSections, 3)
+        XCTAssertEqual(liaison.sections.count, 3)
+
+        liaison.deleteSections(at: Set(arrayLiteral: 1,2))
+        
+        XCTAssertEqual(tableView.numberOfSections, 1)
+        XCTAssertEqual(liaison.sections.count, 1)
+    }
+    
+    func test_deleteSections_ignoresInvalidSectionIndexes() {
+        let section1 = TableViewSection()
+        let section2 = TableViewSection()
+        
+        liaison.append(sections: [section1, section2])
+        
+        liaison.deleteSections(at: Set(arrayLiteral: 2))
+        
+        XCTAssertEqual(tableView.numberOfSections, 2)
+        XCTAssertEqual(liaison.sections.count, 2)
+    }
+    
     func test_emptySection_removesAllRowsFromSection() {
         let section = TableViewSection(rows: [TestTableViewRow()])
         liaison.append(section: section)
