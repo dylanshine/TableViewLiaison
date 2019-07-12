@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		187D09CD22D8DF8A00464294 /* TableViewContentFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187D09CC22D8DF8A00464294 /* TableViewContentFactory.swift */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
@@ -22,20 +23,14 @@
 		FC7980C42203546B006DA65D /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980BC2203546A006DA65D /* ImageTableViewCell.swift */; };
 		FC7980C52203546B006DA65D /* ActionButtonsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC7980BD2203546B006DA65D /* ActionButtonsTableViewCell.xib */; };
 		FC7980C62203546B006DA65D /* TextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980BE2203546B006DA65D /* TextTableViewCell.swift */; };
-		FC7980C922035487006DA65D /* PostTableViewSectionHeaderViewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980C822035487006DA65D /* PostTableViewSectionHeaderViewComponent.swift */; };
 		FC7980CD220354A4006DA65D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980CB220354A4006DA65D /* User.swift */; };
 		FC7980CE220354A4006DA65D /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980CC220354A4006DA65D /* Post.swift */; };
-		FC7980D3220354BD006DA65D /* ActionButtonsTableViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980D0220354BD006DA65D /* ActionButtonsTableViewRow.swift */; };
-		FC7980D4220354BD006DA65D /* ImageTableViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980D1220354BD006DA65D /* ImageTableViewRow.swift */; };
-		FC7980D5220354BD006DA65D /* TextTableViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980D2220354BD006DA65D /* TextTableViewRow.swift */; };
-		FC7980D922035618006DA65D /* TextTableViewRowFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980D722035618006DA65D /* TextTableViewRowFactory.swift */; };
 		FC7980DA22035618006DA65D /* PostTableViewSectionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980D822035618006DA65D /* PostTableViewSectionFactory.swift */; };
 		FC7980DC22035839006DA65D /* PostTableViewSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980DB22035839006DA65D /* PostTableViewSectionHeaderView.swift */; };
 		FC7980EA22035AD3006DA65D /* TestTableHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980DE22035ACB006DA65D /* TestTableHeaderFooterView.swift */; };
 		FC7980EB22035AD3006DA65D /* TestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980E322035ACC006DA65D /* TestTableViewCell.swift */; };
 		FC7980EC22035AD3006DA65D /* TestTableViewLiaisonPaginationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980E222035ACB006DA65D /* TestTableViewLiaisonPaginationDelegate.swift */; };
-		FC7980ED22035AD3006DA65D /* TestTableViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980DF22035ACB006DA65D /* TestTableViewRow.swift */; };
-		FC7980EE22035AD3006DA65D /* TestTableViewSectionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980E022035ACB006DA65D /* TestTableViewSectionComponent.swift */; };
+		FC7980ED22035AD3006DA65D /* TestTableViewComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980DF22035ACB006DA65D /* TestTableViewComponents.swift */; };
 		FC7980EF22035AD3006DA65D /* UITableView+SwizzleTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980E122035ACB006DA65D /* UITableView+SwizzleTesting.swift */; };
 		FC7980F422035AE9006DA65D /* TableViewLiaison+UnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980F022035AE9006DA65D /* TableViewLiaison+UnitTests.swift */; };
 		FC7980F522035AE9006DA65D /* TableViewRow+UnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7980F122035AE9006DA65D /* TableViewRow+UnitTests.swift */; };
@@ -55,6 +50,7 @@
 
 /* Begin PBXFileReference section */
 		0F31E225D3F00A591E6B37D6 /* Pods_TableViewLiaison_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TableViewLiaison_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		187D09CC22D8DF8A00464294 /* TableViewContentFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewContentFactory.swift; sourceTree = "<group>"; };
 		18B62CA01D5E027EA1CC96A7 /* Pods_TableViewLiaison_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TableViewLiaison_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E176AE50B84F086C4D7E1A1 /* Pods-TableViewLiaison_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TableViewLiaison_Example.debug.xcconfig"; path = "Target Support Files/Pods-TableViewLiaison_Example/Pods-TableViewLiaison_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* TableViewLiaison_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TableViewLiaison_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,18 +76,12 @@
 		FC7980BC2203546A006DA65D /* ImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTableViewCell.swift; sourceTree = "<group>"; };
 		FC7980BD2203546B006DA65D /* ActionButtonsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActionButtonsTableViewCell.xib; sourceTree = "<group>"; };
 		FC7980BE2203546B006DA65D /* TextTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextTableViewCell.swift; sourceTree = "<group>"; };
-		FC7980C822035487006DA65D /* PostTableViewSectionHeaderViewComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostTableViewSectionHeaderViewComponent.swift; sourceTree = "<group>"; };
 		FC7980CB220354A4006DA65D /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		FC7980CC220354A4006DA65D /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
-		FC7980D0220354BD006DA65D /* ActionButtonsTableViewRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionButtonsTableViewRow.swift; sourceTree = "<group>"; };
-		FC7980D1220354BD006DA65D /* ImageTableViewRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTableViewRow.swift; sourceTree = "<group>"; };
-		FC7980D2220354BD006DA65D /* TextTableViewRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextTableViewRow.swift; sourceTree = "<group>"; };
-		FC7980D722035618006DA65D /* TextTableViewRowFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextTableViewRowFactory.swift; sourceTree = "<group>"; };
 		FC7980D822035618006DA65D /* PostTableViewSectionFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostTableViewSectionFactory.swift; sourceTree = "<group>"; };
 		FC7980DB22035839006DA65D /* PostTableViewSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewSectionHeaderView.swift; sourceTree = "<group>"; };
 		FC7980DE22035ACB006DA65D /* TestTableHeaderFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestTableHeaderFooterView.swift; sourceTree = "<group>"; };
-		FC7980DF22035ACB006DA65D /* TestTableViewRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestTableViewRow.swift; sourceTree = "<group>"; };
-		FC7980E022035ACB006DA65D /* TestTableViewSectionComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestTableViewSectionComponent.swift; sourceTree = "<group>"; };
+		FC7980DF22035ACB006DA65D /* TestTableViewComponents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestTableViewComponents.swift; sourceTree = "<group>"; };
 		FC7980E122035ACB006DA65D /* UITableView+SwizzleTesting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+SwizzleTesting.swift"; sourceTree = "<group>"; };
 		FC7980E222035ACB006DA65D /* TestTableViewLiaisonPaginationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestTableViewLiaisonPaginationDelegate.swift; sourceTree = "<group>"; };
 		FC7980E322035ACC006DA65D /* TestTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestTableViewCell.swift; sourceTree = "<group>"; };
@@ -155,7 +145,6 @@
 			isa = PBXGroup;
 			children = (
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
-				FC7980CF220354AD006DA65D /* Rows */,
 				FC7980D622035609006DA65D /* Factories */,
 				FC7980CA22035499006DA65D /* Models */,
 				FC7980C722035475006DA65D /* Sections */,
@@ -247,7 +236,6 @@
 		FC7980C722035475006DA65D /* Sections */ = {
 			isa = PBXGroup;
 			children = (
-				FC7980C822035487006DA65D /* PostTableViewSectionHeaderViewComponent.swift */,
 			);
 			name = Sections;
 			sourceTree = "<group>";
@@ -261,21 +249,11 @@
 			name = Models;
 			sourceTree = "<group>";
 		};
-		FC7980CF220354AD006DA65D /* Rows */ = {
-			isa = PBXGroup;
-			children = (
-				FC7980D0220354BD006DA65D /* ActionButtonsTableViewRow.swift */,
-				FC7980D1220354BD006DA65D /* ImageTableViewRow.swift */,
-				FC7980D2220354BD006DA65D /* TextTableViewRow.swift */,
-			);
-			name = Rows;
-			sourceTree = "<group>";
-		};
 		FC7980D622035609006DA65D /* Factories */ = {
 			isa = PBXGroup;
 			children = (
+				187D09CC22D8DF8A00464294 /* TableViewContentFactory.swift */,
 				FC7980D822035618006DA65D /* PostTableViewSectionFactory.swift */,
-				FC7980D722035618006DA65D /* TextTableViewRowFactory.swift */,
 			);
 			name = Factories;
 			sourceTree = "<group>";
@@ -286,8 +264,7 @@
 				FC7980DE22035ACB006DA65D /* TestTableHeaderFooterView.swift */,
 				FC7980E322035ACC006DA65D /* TestTableViewCell.swift */,
 				FC7980E222035ACB006DA65D /* TestTableViewLiaisonPaginationDelegate.swift */,
-				FC7980DF22035ACB006DA65D /* TestTableViewRow.swift */,
-				FC7980E022035ACB006DA65D /* TestTableViewSectionComponent.swift */,
+				FC7980DF22035ACB006DA65D /* TestTableViewComponents.swift */,
 				FC7980E122035ACB006DA65D /* UITableView+SwizzleTesting.swift */,
 			);
 			name = Fixtures;
@@ -478,16 +455,12 @@
 				FC7980B52203544C006DA65D /* TimeInterval+SecondConversion.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				FC7980DC22035839006DA65D /* PostTableViewSectionHeaderView.swift in Sources */,
-				FC7980D4220354BD006DA65D /* ImageTableViewRow.swift in Sources */,
 				FC7980C42203546B006DA65D /* ImageTableViewCell.swift in Sources */,
 				FC7980CD220354A4006DA65D /* User.swift in Sources */,
+				187D09CD22D8DF8A00464294 /* TableViewContentFactory.swift in Sources */,
 				FC7980DA22035618006DA65D /* PostTableViewSectionFactory.swift in Sources */,
-				FC7980C922035487006DA65D /* PostTableViewSectionHeaderViewComponent.swift in Sources */,
-				FC7980D5220354BD006DA65D /* TextTableViewRow.swift in Sources */,
-				FC7980D3220354BD006DA65D /* ActionButtonsTableViewRow.swift in Sources */,
 				FC7980C12203546B006DA65D /* ActionButtonsTableViewCell.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
-				FC7980D922035618006DA65D /* TextTableViewRowFactory.swift in Sources */,
 				FC7980CE220354A4006DA65D /* Post.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -502,9 +475,8 @@
 				FC7980F422035AE9006DA65D /* TableViewLiaison+UnitTests.swift in Sources */,
 				FC7980EC22035AD3006DA65D /* TestTableViewLiaisonPaginationDelegate.swift in Sources */,
 				FC7980F522035AE9006DA65D /* TableViewRow+UnitTests.swift in Sources */,
-				FC7980EE22035AD3006DA65D /* TestTableViewSectionComponent.swift in Sources */,
 				FC7980EB22035AD3006DA65D /* TestTableViewCell.swift in Sources */,
-				FC7980ED22035AD3006DA65D /* TestTableViewRow.swift in Sources */,
+				FC7980ED22035AD3006DA65D /* TestTableViewComponents.swift in Sources */,
 				FC7980F722035AE9006DA65D /* TableViewSectionComponent+UnitTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

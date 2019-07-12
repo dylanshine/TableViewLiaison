@@ -13,15 +13,15 @@ enum PostTableViewSectionFactory {
     
     static func section(for post: Post, tableView: UITableView) -> TableViewSection {
         let rows: [AnyTableViewRow] = [
-            ImageTableViewRow(image: post.content, tableView: tableView),
-            ActionButtonsTableViewRow(),
-            TextTableViewRowFactory.likesRow(numberOfLikes: post.numberOfLikes),
-            TextTableViewRowFactory.captionRow(user: post.user.username, caption: post.caption),
-            TextTableViewRowFactory.commentRow(commentCount: post.numberOfComments),
-            TextTableViewRowFactory.timeRow(numberOfSeconds: post.timePosted)
+            TableViewContentFactory.imageRow(image: post.content, tableView: tableView),
+            TableViewContentFactory.actionButtonRow(),
+            TableViewContentFactory.likesRow(numberOfLikes: post.numberOfLikes),
+            TableViewContentFactory.captionRow(user: post.user.username, caption: post.caption),
+            TableViewContentFactory.commentRow(commentCount: post.numberOfComments),
+            TableViewContentFactory.timeRow(numberOfSeconds: post.timePosted)
         ]
         
-        let header = PostTableViewSectionHeaderViewComponent(user: post.user)
+        let header = TableViewContentFactory.postSectionHeaderComponent(user: post.user)
         
         return TableViewSection(rows: rows, componentDisplayOption: .header(component: header))
     }

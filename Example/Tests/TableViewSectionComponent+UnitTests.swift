@@ -12,10 +12,10 @@ import XCTest
 final class OKTableViewSectionComponent_UnitTests: XCTestCase {
     
     func test_setCommand_setsCommandClosure() {
-        let component = TestTableViewSectionComponent()
+        var component = TestTableViewSectionComponent()
 
         var set = false
-        component.set(command: .configuration) { _, _, _ in
+        component.set(command: .configuration) { _, _ in
             set = true
         }
         
@@ -25,10 +25,10 @@ final class OKTableViewSectionComponent_UnitTests: XCTestCase {
     }
     
     func test_removeCommand_removesCommand() {
-        let component = TestTableViewSectionComponent()
+        var component = TestTableViewSectionComponent()
 
         var set = false
-        component.set(command: .configuration) { _, _, _ in
+        component.set(command: .configuration) { _, _ in
             set = true
         }
         
@@ -39,22 +39,18 @@ final class OKTableViewSectionComponent_UnitTests: XCTestCase {
     }
     
     func test_setHeight_setsHeightWithClosure() {
-        let component = TestTableViewSectionComponent()
+        var component = TestTableViewSectionComponent()
 
-        component.set(height: .height) { _ -> CGFloat in
-            return 100
-        }
+        component.set(height: .height) { return 100 }
        
-        component.set(height: .estimatedHeight) { _ -> CGFloat in
-            return 150
-        }
+        component.set(height: .estimatedHeight) { return 150 }
         
         XCTAssertEqual(component.height, 100)
         XCTAssertEqual(component.estimatedHeight, 150)
     }
     
     func test_setHeight_setsHeightWithValue() {
-        let component = TestTableViewSectionComponent()
+        var component = TestTableViewSectionComponent()
 
         component.set(height: .height, 100)
         component.set(height: .estimatedHeight, 105)
@@ -70,7 +66,7 @@ final class OKTableViewSectionComponent_UnitTests: XCTestCase {
     }
     
     func test_removeHeight_removesAPreviouslySetHeight() {
-        let component = TestTableViewSectionComponent()
+        var component = TestTableViewSectionComponent()
 
         component.set(height: .height, 100)
         component.set(height: .estimatedHeight, 100)
@@ -82,7 +78,7 @@ final class OKTableViewSectionComponent_UnitTests: XCTestCase {
     }
     
     func test_estimatedHeight_estimatedHeightReturnsHeightIfHeightIsSetAndEstimatedHeightIsNot() {
-        let component = TestTableViewSectionComponent()
+        var component = TestTableViewSectionComponent()
         component.set(height: .height, 100)
         
         XCTAssertEqual(component.estimatedHeight, 100)
@@ -101,9 +97,9 @@ final class OKTableViewSectionComponent_UnitTests: XCTestCase {
 
     func test_viewForTableViewInSection_returnsConfiguredViewForComponent() {
         
-        let component = TestTableViewSectionComponent()
+        var component = TestTableViewSectionComponent()
         let string = "Test"
-        component.set(command: .configuration) { view, _, _ in
+        component.set(command: .configuration) { view, _ in
             view.accessibilityIdentifier = string
         }
         
@@ -116,10 +112,10 @@ final class OKTableViewSectionComponent_UnitTests: XCTestCase {
     }
     
     func test_perform_ignoresCommandPerformanceForIncorrectViewType() {
-        let component = TestTableViewSectionComponent()
+        var component = TestTableViewSectionComponent()
         var configured = false
         
-        component.set(command: .configuration) { _, _, _ in
+        component.set(command: .configuration) { _, _ in
             configured = true
         }
         

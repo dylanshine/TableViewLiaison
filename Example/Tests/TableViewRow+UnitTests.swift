@@ -12,10 +12,10 @@ import XCTest
 final class OKTableViewRow_UnitTests: XCTestCase {
     
     func test_setCommand_setsCommandClosure() {
-        let row = TestTableViewRow()
+        var row = TestTableViewRow()
         
         var set = false
-        row.set(command: .configuration) { (_, _, _) in
+        row.set(command: .configuration) { _, _ in
             set = true
         }
        
@@ -25,10 +25,10 @@ final class OKTableViewRow_UnitTests: XCTestCase {
     }
     
     func test_removeCommand_removesCommand() {
-        let row = TestTableViewRow()
+        var row = TestTableViewRow()
         
         var set = false
-        row.set(command: .configuration) { (_, _, _) in
+        row.set(command: .configuration) { _, _ in
             set = true
         }
         
@@ -39,17 +39,15 @@ final class OKTableViewRow_UnitTests: XCTestCase {
     }
     
     func test_setHeight_setsHeightWithClosure() {
-        let row = TestTableViewRow()
+        var row = TestTableViewRow()
 
-        row.set(height: .height) { (_) -> CGFloat in
-            return 100
-        }
+        row.set(height: .height) { return 100 }
         
         XCTAssertEqual(row.height, 100)
     }
     
     func test_setHeight_setsHeightWithValue() {
-        let row = TestTableViewRow()
+        var row = TestTableViewRow()
         
         row.set(height: .height, 100)
         
@@ -63,7 +61,7 @@ final class OKTableViewRow_UnitTests: XCTestCase {
     }
     
     func test_removeHeight_removesAPreviouslySetHeight() {
-        let row = TestTableViewRow()
+        var row = TestTableViewRow()
         
         row.set(height: .height, 100)
         row.set(height: .estimatedHeight, 100)
@@ -76,15 +74,15 @@ final class OKTableViewRow_UnitTests: XCTestCase {
     }
     
     func test_setPrefetchCommand_setPrefetchCommandClosure() {
-        let row = TestTableViewRow()
+        var row = TestTableViewRow()
         
         var prefetch = false
-        row.set(prefetchCommand: .prefetch) { _, _ in
+        row.set(prefetchCommand: .prefetch) { _ in
             prefetch = true
         }
         
         var cancel = false
-        row.set(prefetchCommand: .cancel) { _, _ in
+        row.set(prefetchCommand: .cancel) { _ in
             cancel = true
         }
         
@@ -96,15 +94,15 @@ final class OKTableViewRow_UnitTests: XCTestCase {
     }
     
     func test_removePrefetchCommand_removesPreviouslySetPrefetchCommands() {
-        let row = TestTableViewRow()
+        var row = TestTableViewRow()
         
         var prefetch = false
-        row.set(prefetchCommand: .prefetch) { _, _ in
+        row.set(prefetchCommand: .prefetch) { _ in
             prefetch = true
         }
         
         var cancel = false
-        row.set(prefetchCommand: .cancel) { _, _ in
+        row.set(prefetchCommand: .cancel) { _ in
             cancel = true
         }
         
@@ -157,9 +155,9 @@ final class OKTableViewRow_UnitTests: XCTestCase {
     }
     
     func test_cellForTableViewAt_returnsConfiguredCellForRow() {
-        let row = TestTableViewRow()
+        var row = TestTableViewRow()
         let string = "Test"
-        row.set(command: .configuration) { (cell, _, indexPath) in
+        row.set(command: .configuration) { (cell, indexPath) in
             cell.accessibilityIdentifier = string
         }
         
@@ -173,10 +171,10 @@ final class OKTableViewRow_UnitTests: XCTestCase {
     }
     
     func test_perform_ignoresCommandPerformanceForIncorrectCellType() {
-        let row = TableViewRow<TestTableViewCell, Void>()
+        var row = TableViewRow<TestTableViewCell>()
         var configured = false
         
-        row.set(command: .configuration) { _, _, _ in
+        row.set(command: .configuration) { _, _ in
             configured = true
         }
             
