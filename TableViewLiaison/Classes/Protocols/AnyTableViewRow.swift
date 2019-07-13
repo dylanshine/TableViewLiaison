@@ -8,7 +8,7 @@
 import UIKit
 
 public protocol AnyTableViewRow: TableViewContent {
-    var identifier: String? { get }
+    var id: String? { get }
     var editable: Bool { get }
     var movable: Bool { get }
     var editActions: [UITableViewRowAction]? { get }

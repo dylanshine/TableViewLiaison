@@ -9,7 +9,7 @@ import UIKit
 
 public extension TableViewLiaison {
     
-    func append(sections: [TableViewSection], animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
+    func append(sections: [TableViewSection], with animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
         
         if waitingForPaginatedResults {
             endPagination(sections: sections, animation: animation, animated: animated)
@@ -31,8 +31,8 @@ public extension TableViewLiaison {
         
     }
     
-    func append(section: TableViewSection, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
-        append(sections: [section], animation: animation, animated: animated)
+    func append(section: TableViewSection, with animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
+        append(sections: [section], with: animation, animated: animated)
     }
     
     func insert(sections: [TableViewSection], startingAt index: Int, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
@@ -62,7 +62,7 @@ public extension TableViewLiaison {
         }
     }
     
-    func emptySection(at index: Int, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
+    func emptySection(at index: Int, with animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
         
         guard sections.indices.contains(index) else { return }
         
@@ -74,7 +74,7 @@ public extension TableViewLiaison {
         }
     }
     
-    func emptySections(at indexes: [Int], animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
+    func emptySections(at indexes: [Int], with animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
         
         guard !indexes.isEmpty else { return }
         
@@ -95,17 +95,17 @@ public extension TableViewLiaison {
         }
     }
     
-    func emptySections(with identifiers: [String], animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
-        guard !identifiers.isEmpty else { return }
+    func emptySections(ids: [String], with animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
+        guard !ids.isEmpty else { return }
         
-        let indexes = Set(identifiers).map { sectionIndexes(for: $0) }
+        let indexes = Set(ids).map { sectionIndexes(for: $0) }
             .reduce([], +)
         
-        emptySections(at: indexes, animation: animation, animated: animated)
+        emptySections(at: indexes, with: animation, animated: animated)
     }
     
-    func emptySections(with identifier: String, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
-        emptySections(with: [identifier], animation: animation, animated: animated)
+    func emptySections(with id: String, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
+        emptySections(ids: [id], with: animation, animated: animated)
     }
     
     func deleteSection(at index: Int, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
@@ -163,19 +163,15 @@ public extension TableViewLiaison {
     }
     
     func reloadSection(at index: Int, animation: UITableView.RowAnimation = .automatic) {
-        tableView?.beginUpdates()
         tableView?.reloadSections(IndexSet(integer: index), with: animation)
-        tableView?.endUpdates()
     }
     
-    func reloadSections(at indexes: Set<Int>, animation: UITableView.RowAnimation = .automatic) {
-        tableView?.beginUpdates()
+    func reloadSections(at indexes: [Int], animation: UITableView.RowAnimation = .automatic) {
         tableView?.reloadSections(IndexSet(indexes), with: animation)
-        tableView?.endUpdates()
     }
     
     func reloadSections(with identifier: String, animation: UITableView.RowAnimation = .automatic) {
-        let indexes = sectionIndexes(for: identifier)
+        let indexes = Array(sectionIndexes(for: identifier))
         reloadSections(at: indexes, animation: animation)
     }
     
@@ -206,7 +202,7 @@ public extension TableViewLiaison {
             }
         }
         
-        append(sections: sections, animation: animation, animated: animated)
+        append(sections: sections, with: animation, animated: animated)
     }
     
     func swapSection(at source: Int, with destination: Int, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {

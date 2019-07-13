@@ -9,30 +9,20 @@ import UIKit
 
 extension TableViewLiaison: UITableViewDelegate {
     
-    @discardableResult
-    private func perform(command: TableViewRowCommand, for tableView: UITableView, at indexPath: IndexPath) -> IndexPath? {
-        
-        guard let cell = tableView.cellForRow(at: indexPath) else { return nil }
-        
-        row(for: indexPath)?.perform(command: command, for: cell, at: indexPath)
-        
-        return indexPath
-    }
-    
     public func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        return perform(command: .willSelect, for: tableView, at: indexPath)
+        return perform(command: .willSelect, at: indexPath)
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        perform(command: .didSelect, for: tableView, at: indexPath)
+        perform(command: .didSelect, at: indexPath)
     }
     
     public func tableView(_ tableView: UITableView, willDeselectRowAt indexPath: IndexPath) -> IndexPath? {
-        return perform(command: .willDeselect, for: tableView, at: indexPath)
+        return perform(command: .willDeselect, at: indexPath)
     }
     
     public func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        perform(command: .didDeselect, for: tableView, at: indexPath)
+        perform(command: .didDeselect, at: indexPath)
     }
     
     public func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
@@ -54,20 +44,20 @@ extension TableViewLiaison: UITableViewDelegate {
     }
     
     public func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {
-        perform(command: .willBeginEditing, for: tableView, at: indexPath)
+        perform(command: .willBeginEditing, at: indexPath)
     }
     
     public func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
         guard let indexPath = indexPath else { return }
-        perform(command: .didEndEditing, for: tableView, at: indexPath)
+        perform(command: .didEndEditing, at: indexPath)
     }
     
     public func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
-        perform(command: .didHighlight, for: tableView, at: indexPath)
+        perform(command: .didHighlight, at: indexPath)
     }
     
     public func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
-        perform(command: .didUnhighlight, for: tableView, at: indexPath)
+        perform(command: .didUnhighlight, at: indexPath)
     }
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -99,7 +89,7 @@ extension TableViewLiaison: UITableViewDelegate {
     }
     
     public func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        perform(command: .accessoryButtonTapped, for: tableView, at: indexPath)
+        perform(command: .accessoryButtonTapped, at: indexPath)
     }
     
     public func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {

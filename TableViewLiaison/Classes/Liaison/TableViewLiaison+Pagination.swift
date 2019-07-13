@@ -28,7 +28,7 @@ extension TableViewLiaison {
                 waitingForPaginatedResults = true
 
                 let paginationIndexPath = IndexPath(row: 0, section: sections.count)
-                // UITableViewDelegate tableView(_:willDisplay:forRowAt:) is executed on background thread
+                // UITableViewDelegate tableView(_:willDisplay:forRowAt:) is executed off main thread
                 DispatchQueue.main.async {
                     self.addPaginationSection()
                     self.paginationDelegate?.paginationStarted(indexPath: paginationIndexPath)
@@ -61,7 +61,7 @@ extension TableViewLiaison {
         
         guard !sections.isEmpty else { return }
         let firstNewIndexPath = IndexPath(row: 0, section: self.sections.count)
-        append(sections: sections, animation: animation, animated: animated)
+        append(sections: sections, with: animation, animated: animated)
         paginationDelegate?.paginationEnded(indexPath: firstNewIndexPath)
     }
 

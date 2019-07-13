@@ -98,10 +98,6 @@ public final class TableViewLiaison: NSObject {
         guard row(for: indexPath) != nil else { return }
         tableView?.scrollToRow(at: indexPath, at: scrollPosition, animated: animated)
     }
-
-    public func toggleIsEditing() {        
-        tableView?.isEditing.toggle()
-    }
     
     public func lastIndexPath(in section: Int) -> IndexPath? {
         guard let row = sections.element(at: section)?.rows.count else { return nil }
@@ -119,27 +115,27 @@ public final class TableViewLiaison: NSObject {
         tableView?.deselectRow(at: indexPath, animated: animated)
     }
     
-    func sectionIndexes(for identifier: String) -> Set<Int> {
-        return Set(sections.enumerated()
-            .filter { $0.1.identifier == identifier }
-            .map { $0.0 })
+    func sectionIndexes(for id: String) -> [Int] {
+        return sections.enumerated()
+            .filter { $0.1.id == id }
+            .map { $0.0 }
     }
     
-    func rowIndexPaths(for identifier: String) -> Set<IndexPath> {
-        return Set(sections
+    func rowIndexPaths(for id: String) -> [IndexPath] {
+        return sections
             .enumerated()
             .reduce([]) { (result, tuple) -> [IndexPath] in
                 let (index, section) = tuple
-                return result + section.rowIndexPaths(for: identifier, section: index)
-        })
+                return result + section.rowIndexPaths(for: id, section: index)
+        }
     }
     
-    func rowIndexPaths(for identifier: String, in sectionIdentfier: String) -> Set<IndexPath> {
-        let sectionIndexes = self.sectionIndexes(for: sectionIdentfier)
+    func rowIndexPaths(for id: String, in sectionId: String) -> [IndexPath] {
+        let sectionIndexes = self.sectionIndexes(for: sectionId)
         
-        return Set(sectionIndexes.reduce([]) { (result, index) -> [IndexPath] in
-            return result + sections[index].rowIndexPaths(for: identifier, section: index)
-        })
+        return sectionIndexes.reduce([]) { (result, index) -> [IndexPath] in
+            return result + sections[index].rowIndexPaths(for: id, section: index)
+        }
     }
     
     func row(for indexPath: IndexPath) -> AnyTableViewRow? {
@@ -160,6 +156,20 @@ public final class TableViewLiaison: NSObject {
         } else {
             reloadData()
         }
+    }
+    
+    func cell(at indexPath: IndexPath) -> UITableViewCell? {
+        return tableView?.cellForRow(at: indexPath)
+    }
+    
+    @discardableResult
+    func perform(command: TableViewRowCommand, at indexPath: IndexPath) -> IndexPath? {
+        
+        guard let cell = cell(at: indexPath) else { return nil }
+        
+        row(for: indexPath)?.perform(command: command, for: cell, at: indexPath)
+        
+        return indexPath
     }
     
     private func registerSections() {

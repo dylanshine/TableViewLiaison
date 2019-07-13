@@ -11,47 +11,40 @@ import UIKit
 
 enum TableViewContentFactory {
     
-    static func imageRow(imageSize: CGSize, tableView: UITableView) -> TableViewRow<ImageTableViewCell> {
+    static func imageRow(imageSize: CGSize) -> TableViewRow<ImageTableViewCell> {
         
         var row = TableViewRow<ImageTableViewCell>(registrationType: .defaultNibType)
         
-        row.set(height: .height) { [weak tableView] in
-            
-            guard let tableView = tableView else {
-                return 0
-            }
+        row.set(height: .height) {
             
             let ratio = imageSize.width / imageSize.height
             
-            return tableView.frame.width / ratio
+            return UIScreen.main.bounds.width / ratio
         }
         
-        row.set(command: .configuration) { cell, _ in
+        func fetchImage(for indexPath: IndexPath, completion: ((UIImage?) -> Void)? = nil) {
+            if let image = NetworkManager.imageCache[indexPath] {
+                completion?(image)
+                return
+            }
             
             let width = Int(imageSize.width)
             let height = Int(imageSize.height)
             
-            NetworkManager.fetchRandomPostImage(width: width, height: height) { [weak cell] image in
-                cell?.contentImage = image
+            NetworkManager.fetchRandomPostImage(width: width, height: height) { image in
+                NetworkManager.imageCache[indexPath] = image
+                completion?(image)
             }
         }
         
-        return row
-    }
-    
-    static func actionButtonRow() -> TableViewRow<ActionButtonsTableViewCell> {
+        row.set(prefetchCommand: .prefetch) { indexPath in
+            fetchImage(for: indexPath)
+        }
         
-        var row = TableViewRow<ActionButtonsTableViewCell>(identifier: "actionButtons",
-                                                           registrationType: .defaultNibType)
-        
-        row.set(height: .height, 30)
-        
-        row.set(command: .configuration) { cell, _ in
-            cell.likeButton.setTitle("❤️", for: .normal)
-            cell.commentButton.setTitle("💬", for: .normal)
-            cell.messageButton.setTitle("📮", for: .normal)
-            cell.bookmarkButton.setTitle("📚", for: .normal)
-            cell.selectionStyle = .none
+        row.set(command: .configuration) { (cell: ImageTableViewCell, indexPath: IndexPath) in
+            fetchImage(for: indexPath) { [weak cell] image in
+                cell?.contentImage = image
+            }
         }
         
         return row
@@ -74,11 +67,33 @@ enum TableViewContentFactory {
         return row
     }
     
-    static func captionRow(user: String, tableView: UITableView) -> TableViewRow<TextTableViewCell> {
+    static func captionRow(user: String, liaison: TableViewLiaison) -> TableViewRow<TextTableViewCell> {
         
         var row = textTableViewRow()
         
-        row.set(command: .configuration) { cell, _ in
+        let fetchFact: ((IndexPath, ((String?) -> Void)?) -> ()) = { [weak liaison] indexPath, completion in
+            
+            if let fact = NetworkManager.factCache[indexPath] {
+                completion?(fact)
+                return
+            }
+            
+            NetworkManager.fetchRandomFact { fact in
+                NetworkManager.factCache[indexPath] = fact
+                completion?(fact)
+                
+                DispatchQueue.main.async {
+                    liaison?.reloadRow(at: indexPath)
+                }
+            }
+        }
+    
+        
+        row.set(prefetchCommand: .prefetch) { indexPath in
+            fetchFact(indexPath, nil)
+        }
+        
+        row.set(command: .configuration) { cell, indexPath in
             
             cell.contentTextLabel.numberOfLines = 0
             cell.selectionStyle = .none
@@ -93,20 +108,18 @@ enum TableViewContentFactory {
                 .foregroundColor: UIColor.black
             ]
             
-            NetworkManager.fetchRandomFact { [weak cell, weak tableView] fact in
+            let attributedString = NSMutableAttributedString(string: user, attributes: mediumAttributes)
+            
+            let completion: (String?) -> Void = { [weak cell] fact in
                 guard let fact = fact else { return }
-                let attributedString = NSMutableAttributedString(string: user, attributes: mediumAttributes)
                 
                 attributedString.append(NSMutableAttributedString(string: " \(fact)", attributes: regularAttributes))
                 
                 cell?.contentTextLabel.attributedText = attributedString
                 
-                UIView.performWithoutAnimation {
-                    tableView?.reloadData()
-                    tableView?.beginUpdates()
-                    tableView?.endUpdates()
-                }
             }
+            
+            fetchFact(indexPath, completion)
         }
         
         return row

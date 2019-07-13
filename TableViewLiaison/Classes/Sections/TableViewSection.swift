@@ -11,14 +11,14 @@ public struct TableViewSection {
     
     public internal(set) var rows: [AnyTableViewRow]
     
-    public let identifier: String?
+    public let id: String?
     public let componentDisplayOption: TableViewSectionComponentDisplayOption
     
-    public init(rows: [AnyTableViewRow] = [],
-                identifier: String? = nil,
+    public init(id: String? = nil,
+                rows: [AnyTableViewRow] = [],
                 componentDisplayOption: TableViewSectionComponentDisplayOption = .none) {
         self.rows = rows
-        self.identifier = identifier
+        self.id = id
         self.componentDisplayOption = componentDisplayOption
     }
     
@@ -78,7 +78,7 @@ public struct TableViewSection {
     
     func rowIndexPaths(for identifier: String, section: Int) -> [IndexPath] {
         return rows.enumerated()
-            .filter { index, row in row.identifier == identifier }
+            .filter { index, row in row.id == identifier }
             .map { item, _ -> IndexPath in
             return IndexPath(item: item, section: section)
         }

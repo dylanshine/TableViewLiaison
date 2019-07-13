@@ -9,6 +9,10 @@
 import UIKit
 
 enum NetworkManager {
+    
+    static var imageCache = [IndexPath: UIImage]()
+    static var factCache = [IndexPath: String]()
+
     private static func fetchData(from url: URL, completion: @escaping (Data?) -> ()) {
         URLSession.shared.dataTask(with: url) { data, _, _ in
             guard let data = data else { return completion(nil) }
@@ -34,7 +38,7 @@ enum NetworkManager {
     }
     
     static func fetchRandomFact(completion: @escaping (String?) -> ()) {
-        let url = URL(string: "http://randomuselessfact.appspot.com/random.json?language=en")!
+        let url = URL(string: "https://randomuselessfact.appspot.com/random.json?language=en")!
         
         fetchData(from: url) { data in
             guard let data = data else { return completion(nil) }

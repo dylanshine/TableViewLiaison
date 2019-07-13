@@ -10,7 +10,7 @@ import UIKit
 
 public struct TableViewRow<Cell: UITableViewCell>: AnyTableViewRow {
     
-    public let identifier: String?
+    public let id: String?
     public var editingStyle: UITableViewCell.EditingStyle
     public var movable: Bool
     public var editActions: [UITableViewRowAction]?
@@ -23,7 +23,7 @@ public struct TableViewRow<Cell: UITableViewCell>: AnyTableViewRow {
     private var prefetchCommands = [TableViewPrefetchCommand: (IndexPath) -> Void]()
     private var heights = [TableViewHeightType: () -> CGFloat]()
     
-    public init(identifier: String? = nil,
+    public init(id: String? = nil,
                 commands: [TableViewRowCommand: (Cell, IndexPath) -> Void] = [:],
                 prefetchCommands: [TableViewPrefetchCommand: (IndexPath) -> Void] = [:],
                 heights: [TableViewHeightType: () -> CGFloat] = [:],
@@ -34,7 +34,7 @@ public struct TableViewRow<Cell: UITableViewCell>: AnyTableViewRow {
                 deleteConfirmationTitle: String? = nil,
                 deleteRowAnimation: UITableView.RowAnimation = .automatic,
                 registrationType: TableViewRegistrationType<Cell> = .defaultClassType) {
-        self.identifier = identifier
+        self.id = id
         self.commands = commands
         self.prefetchCommands = prefetchCommands
         self.heights = heights

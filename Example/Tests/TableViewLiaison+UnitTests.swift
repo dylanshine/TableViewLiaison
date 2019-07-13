@@ -57,11 +57,39 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         XCTAssert(liaison.tableView == nil)
     }
 
-    func test_toggleIsEditing_togglesTableViewEditingMode() {
+    func test_isEditing_changesTableViewsIsEditing() {
         tableView.isEditing = true
-        liaison.toggleIsEditing()
+        liaison.isEditing = false
 
         XCTAssertFalse(tableView.isEditing)
+    }
+    
+    func test_allowSelection_changesTableViewsAllowsSelection() {
+        tableView.allowsSelection = true
+        liaison.allowsSelection = false
+        
+        XCTAssertFalse(tableView.allowsSelection)
+    }
+ 
+    func test_allowsSelectionDuringEditing_changesTableViewsAllowsSelectionDuringEditing() {
+        tableView.allowsSelectionDuringEditing = true
+        liaison.allowsSelectionDuringEditing = false
+        
+        XCTAssertFalse(tableView.allowsSelectionDuringEditing)
+    }
+    
+    func test_allowsMultipleSelection_changesTableViewsAllowsMultipleSelection() {
+        tableView.allowsMultipleSelection = true
+        liaison.allowsMultipleSelection = false
+        
+        XCTAssertFalse(tableView.allowsMultipleSelection)
+    }
+    
+    func test_allowsMultipleSelectionDuringEditing_changesTableViewsAllowsMultipleSelectionDuringEditing() {
+        tableView.allowsMultipleSelectionDuringEditing = true
+        liaison.allowsMultipleSelectionDuringEditing = false
+        
+        XCTAssertFalse(tableView.allowsMultipleSelectionDuringEditing)
     }
 
     func test_init_initializesWithSections() {
@@ -222,6 +250,31 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         XCTAssertEqual(capturedHeader?.accessibilityIdentifier, string)
     }
     
+    func test_reloadSections_reloadsSectionsWithId() {
+        
+        var header = TestTableViewSectionComponent()
+        header.set(height: .estimatedHeight, 15)
+        var capturedHeader: UITableViewHeaderFooterView?
+        
+        let string = "Test"
+        header.set(command: .configuration) { view, _ in
+            view.accessibilityIdentifier = string
+            capturedHeader = view
+        }
+        
+        let section = TableViewSection(id: "section",
+                                       componentDisplayOption: .header(component: header))
+        
+        liaison.append(section: section)
+        liaison.reloadData()
+        
+        capturedHeader?.accessibilityIdentifier = "Changed"
+        
+        liaison.reloadSections(with: "section")
+        
+        XCTAssertEqual(capturedHeader?.accessibilityIdentifier, string)
+    }
+    
     func test_clearSections_removesAllSectionsFromTableView() {
 
         let section1 = TableViewSection()
@@ -285,6 +338,30 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         XCTAssertTrue(inserted)
         XCTAssertEqual(actualIndexPath, expectedIndexPath)
     }
+    
+    func test_appendRow_appendsRowToSectionWithIdentifier() {
+        let section = TableViewSection(id: "test")
+        var row = TestTableViewRow()
+        
+        var inserted = false
+        var actualIndexPath: IndexPath?
+        let expectedIndexPath = IndexPath(row: 0, section: 0)
+        row.set(command: .insert) { (_, indexPath) in
+            inserted = true
+            actualIndexPath = indexPath
+        }
+        
+        liaison.append(section: section)
+        
+        tableView.stubCell = UITableViewCell()
+        tableView.performInSwizzledEnvironment {
+            liaison.append(row: row, to: "test")
+        }
+        
+        XCTAssertEqual(tableView.numberOfRows(inSection: 0), 1)
+        XCTAssertTrue(inserted)
+        XCTAssertEqual(actualIndexPath, expectedIndexPath)
+    }
 
     func test_appendRows_appendsRowsToSection() {
         let section = TableViewSection()
@@ -316,6 +393,43 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
             liaison.append(rows: [row1, row2])
         }
 
+        XCTAssertEqual(tableView.numberOfRows(inSection: 0), 2)
+        XCTAssertTrue(insertedRow1)
+        XCTAssertTrue(insertedRow2)
+        XCTAssertEqual(actualIndexPathRow1, expectedIndexPathRow1)
+        XCTAssertEqual(actualIndexPathRow2, expectedIndexPathRow2)
+    }
+    
+    func test_appendRows_appendsRowsToSectionWithIdentifier() {
+        let section = TableViewSection(id: "test")
+        var row1 = TestTableViewRow()
+        var row2 = TestTableViewRow()
+        
+        var insertedRow1 = false
+        var actualIndexPathRow1: IndexPath?
+        let expectedIndexPathRow1 = IndexPath(row: 0, section: 0)
+        row1.set(command: .insert) { (_, indexPath) in
+            insertedRow1 = true
+            actualIndexPathRow1 = indexPath
+        }
+        
+        var insertedRow2 = false
+        var actualIndexPathRow2: IndexPath?
+        let expectedIndexPathRow2 = IndexPath(row: 1, section: 0)
+        row2.set(command: .insert) { (_, indexPath) in
+            insertedRow2 = true
+            actualIndexPathRow2 = indexPath
+        }
+        
+        liaison.append(section: section)
+        
+        XCTAssert(section.rows.count == 0)
+        
+        tableView.stubCell = UITableViewCell()
+        tableView.performInSwizzledEnvironment {
+            liaison.append(rows: [row1, row2], to: "test")
+        }
+        
         XCTAssertEqual(tableView.numberOfRows(inSection: 0), 2)
         XCTAssertTrue(insertedRow1)
         XCTAssertTrue(insertedRow2)
@@ -404,9 +518,9 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
     
     func test_deleteRowsByIdentifier_removesRowsFromTableView() {
         let identifier = "test"
-        var row1 = TestTableViewRow(identifier: identifier)
+        var row1 = TestTableViewRow(id: identifier)
         let row2 = TestTableViewRow()
-        var row3 = TestTableViewRow(identifier: identifier)
+        var row3 = TestTableViewRow(id: identifier)
         
         let row1IndexPath = IndexPath(row: 0, section: 0)
         var deletedRow1 = false
@@ -466,7 +580,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         XCTAssertEqual(actualIndexPathRow, expectedIndexPath)
     }
 
-    func test_reloadRows_reloadsRowsInSection() {
+    func test_reloadRows_reloadsRowsAtIndexPaths() {
         var row1 = TestTableViewRow()
         var row2 = TestTableViewRow()
 
@@ -497,7 +611,38 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         XCTAssertTrue(reloaded2)
     }
     
-    func test_reloadRow_reloadsRowInSection() {
+    func test_reloadRows_reloadsRowsWithId() {
+        var row1 = TestTableViewRow(id: "test")
+        var row2 = TestTableViewRow(id: "test")
+        
+        var reloaded1 = false
+        var reloaded2 = false
+        
+        row1.set(command: .reload) { _, _ in
+            reloaded1 = true
+        }
+        
+        row2.set(command: .reload) { _, _ in
+            reloaded2 = true
+        }
+        
+        let section = TableViewSection(rows: [row1, row2])
+        
+        liaison.append(section: section)
+        
+        tableView.stubCell = UITableViewCell()
+        tableView.performInSwizzledEnvironment {
+            liaison.reloadRows(with: "test")
+        }
+        
+        let count = tableView.callCounts[.reloadRows]
+        
+        XCTAssertEqual(count, 1)
+        XCTAssertTrue(reloaded1)
+        XCTAssertTrue(reloaded2)
+    }
+    
+    func test_reloadRow_reloadsRowAtIndexPath() {
         var row = TestTableViewRow()
         
         var reloaded = false
@@ -1570,24 +1715,36 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         XCTAssertEqual(indexPath, IndexPath(row: 1, section: 0))
     }
     
-    func test_sectionIndexesForIdentifier_returnsCorrectIndexesForIdentifier() {
+    func test_sectionIndexesForId_returnsCorrectIndexesForId() {
         let identifier = "test"
-        let section = TableViewSection(identifier: identifier)
+        let section = TableViewSection(id: identifier)
         liaison.append(section: section)
         
         let indexes = liaison.sectionIndexes(for: identifier)
-        XCTAssertEqual(indexes, Set([0]))
+        XCTAssertEqual(indexes, [0])
     }
     
-    func test_rowIndexPathsForIdentifier_returnCorrectIndexForIdentifier() {
+    func test_rowIndexPathsForId_returnCorrectIndexForId() {
         let identifier = "test"
 
-        let row = TestTableViewRow(identifier: identifier)
+        let row = TestTableViewRow(id: identifier)
         let section = TableViewSection(rows: [row])
         liaison.append(section: section)
 
         let indexPaths = liaison.rowIndexPaths(for: identifier)
-        XCTAssertEqual(indexPaths, Set([IndexPath(row: 0, section: 0)]))
+        XCTAssertEqual(indexPaths, [IndexPath(row: 0, section: 0)])
+    }
+    
+    func test_rowIndexPathsForIdInSectionId_returnCorrectIndexForIdInSection() {
+        let rowId = "row"
+        let sectionId = "section"
+        
+        let row = TestTableViewRow(id: rowId)
+        let section = TableViewSection(id: sectionId, rows: [row])
+        liaison.append(section: section)
+        
+        let indexPaths = liaison.rowIndexPaths(for: rowId, in: sectionId)
+        XCTAssertEqual(indexPaths, [IndexPath(row: 0, section: 0)])
     }
     
 }

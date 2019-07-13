@@ -28,19 +28,13 @@ final class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
        
-        
         liaison.append(sections: randomPostSections(), animated: false)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.liaison.append(row: TableViewContentFactory.actionButtonRow(), to: "1")
-            self.liaison.append(row: TableViewContentFactory.actionButtonRow(), to: "2")
-        }
     }
     
     private func randomPostSections() -> [TableViewSection] {
-        return (0...5).map { _ in
+        return (0...8).map { _ in
             let post = Post()
-            return PostTableViewSectionFactory.section(for: post, tableView: tableView)
+            return PostTableViewSectionFactory.section(for: post, liaison: liaison)
         }
     }
     
