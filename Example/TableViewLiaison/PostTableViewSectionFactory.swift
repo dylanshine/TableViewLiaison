@@ -11,17 +11,16 @@ import TableViewLiaison
 
 enum PostTableViewSectionFactory {
     
-    static func section(for post: Post,
-                        liaison: TableViewLiaison) -> TableViewSection {
+    static func section(for post: Post) -> TableViewSection {
         let rows: [AnyTableViewRow] = [
             TableViewContentFactory.imageRow(imageSize: post.imageSize),
             TableViewContentFactory.likesRow(numberOfLikes: post.numberOfLikes),
-            TableViewContentFactory.captionRow(user: post.user.username, liaison: liaison),
+            TableViewContentFactory.captionRow(user: post.user.username),
             TableViewContentFactory.commentRow(commentCount: post.numberOfComments),
             TableViewContentFactory.timeRow(numberOfSeconds: post.timePosted)
         ]
         
-        let header = TableViewContentFactory.postSectionHeaderComponent(user: post.user)
+        let header = TableViewContentFactory.postSectionHeaderComponent(post: post)
         
         return TableViewSection(id: post.id,
                                 rows: rows,

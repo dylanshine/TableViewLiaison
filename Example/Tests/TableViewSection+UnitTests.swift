@@ -11,6 +11,16 @@ import XCTest
 
 final class OKTableViewSection_UnitTests: XCTestCase {
     
+    var liaison: TableViewLiaison!
+    var tableView: UITableView!
+    
+    override func setUp() {
+        super.setUp()
+        liaison = TableViewLiaison()
+        tableView = UITableView()
+        liaison.liaise(tableView: tableView)
+    }
+    
     func test_calculateHeight_setsHeightOfSupplementaryViewsWithClosure() {
         
         var header = TestTableViewSectionComponent()
@@ -152,40 +162,42 @@ final class OKTableViewSection_UnitTests: XCTestCase {
     }
     
     func test_headerForTableView_returnsConfiguredHeaderForSection() {
+        let liaison = TableViewLiaison()
         let tableView = UITableView()
+        liaison.liaise(tableView: tableView)
+        
         var header = TestTableViewSectionComponent()
         
         let reuseIdentifier = String(describing: UITableViewHeaderFooterView.self)
         tableView.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: reuseIdentifier)
         
         let string = "Test"
-        header.set(command: .configuration) { view, _ in
+        header.set(command: .configuration) { _, view, _ in
             view.accessibilityIdentifier = string
         }
         
         let section = TableViewSection(componentDisplayOption: .header(component: header))
         
-        let headerView = section.view(componentView: .header, for: tableView, in: 0)
+        let headerView = section.view(componentView: .header, for: liaison, in: 0)
         
         XCTAssertEqual(headerView?.accessibilityIdentifier, string)
         XCTAssert(headerView is UITableViewHeaderFooterView)
     }
     
     func test_footerForTableView_returnsConfiguredFooterForSection() {
-        let tableView = UITableView()
         var footer = TestTableViewSectionComponent()
 
         let reuseIdentifier = String(describing: UITableViewHeaderFooterView.self)
         tableView.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: reuseIdentifier)
         
         let string = "Test"
-        footer.set(command: .configuration) { view, _ in
+        footer.set(command: .configuration) { _, view, _ in
             view.accessibilityIdentifier = string
         }
         
         let section = TableViewSection(componentDisplayOption: .footer(component: footer))
 
-        let footerView = section.view(componentView: .footer, for: tableView, in: 0)
+        let footerView = section.view(componentView: .footer, for: liaison, in: 0)
         
         XCTAssertEqual(footerView?.accessibilityIdentifier, string)
         XCTAssert(footerView is UITableViewHeaderFooterView)
@@ -203,39 +215,39 @@ final class OKTableViewSection_UnitTests: XCTestCase {
         var footerDidEndDisplaying = ""
         var footerWillDisplay = ""
         
-        header.set(command: .configuration) { view, section in
+        header.set(command: .configuration) { _, view, section in
             headerConfiguration = "Configured!"
         }
         
-        header.set(command: .didEndDisplaying) { view, section in
+        header.set(command: .didEndDisplaying) { _, view, section in
             headerDidEndDisplaying = "DidEndDisplaying!"
         }
         
-        header.set(command: .willDisplay) { view, section in
+        header.set(command: .willDisplay) { _, view, section in
             headerWillDisplay = "WillDisplay!"
         }
         
-        footer.set(command: .configuration) { view, section in
+        footer.set(command: .configuration) { _, view, section in
             footerConfiguration = "Configured!"
         }
         
-        footer.set(command: .didEndDisplaying) { view, section in
+        footer.set(command: .didEndDisplaying) { _, view, section in
             footerDidEndDisplaying = "DidEndDisplaying!"
         }
         
-        footer.set(command: .willDisplay) { view, section in
+        footer.set(command: .willDisplay) { _, view, section in
             footerWillDisplay = "WillDisplay!"
         }
         
         let view = UITableViewHeaderFooterView()
         let section = TableViewSection(componentDisplayOption: .both(headerComponent: header, footerComponent: footer))
         
-        section.perform(command: .configuration, componentView: .header, for: view, in: 0)
-        section.perform(command: .configuration, componentView: .footer, for: view, in: 0)
-        section.perform(command: .didEndDisplaying, componentView: .header, for: view, in: 0)
-        section.perform(command: .didEndDisplaying, componentView: .footer, for: view, in: 0)
-        section.perform(command: .willDisplay, componentView: .header, for: view, in: 0)
-        section.perform(command: .willDisplay, componentView: .footer, for: view, in: 0)
+        section.perform(command: .configuration, componentView: .header, liaison: liaison, view: view, section: 0)
+        section.perform(command: .configuration, componentView: .footer, liaison: liaison, view: view, section: 0)
+        section.perform(command: .didEndDisplaying, componentView: .header, liaison: liaison, view: view, section: 0)
+        section.perform(command: .didEndDisplaying, componentView: .footer, liaison: liaison, view: view, section: 0)
+        section.perform(command: .willDisplay, componentView: .header, liaison: liaison, view: view, section: 0)
+        section.perform(command: .willDisplay, componentView: .footer, liaison: liaison, view: view, section: 0)
         
         XCTAssertEqual(headerConfiguration, "Configured!")
         XCTAssertEqual(footerConfiguration, "Configured!")
@@ -252,19 +264,19 @@ final class OKTableViewSection_UnitTests: XCTestCase {
         var headerConfiguration = ""
         var footerConfiguration = ""
         
-        header.set(command: .configuration) { view, section in
+        header.set(command: .configuration) { _, view, section in
             headerConfiguration = "Configured!"
         }
         
-        footer.set(command: .configuration) { view, section in
+        footer.set(command: .configuration) { _, view, section in
             footerConfiguration = "Configured!"
         }
         
         let view = UIView()
         
         let section = TableViewSection(componentDisplayOption: .both(headerComponent: header, footerComponent: footer))
-        section.perform(command: .configuration, componentView: .header, for: view, in: 0)
-        section.perform(command: .configuration, componentView: .footer, for: view, in: 0)
+        section.perform(command: .configuration, componentView: .header, liaison: liaison, view: view, section: 0)
+        section.perform(command: .configuration, componentView: .footer, liaison: liaison, view: view, section: 0)
         
         XCTAssertEqual(headerConfiguration, "")
         XCTAssertEqual(footerConfiguration, "")

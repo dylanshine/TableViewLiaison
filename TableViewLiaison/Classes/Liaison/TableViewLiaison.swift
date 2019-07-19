@@ -47,6 +47,14 @@ public final class TableViewLiaison: NSObject {
         set { tableView?.allowsMultipleSelectionDuringEditing = newValue }
     }
     
+    public var visibleCells: [UITableViewCell] {
+        return tableView?.visibleCells ?? []
+    }
+    
+    public var indexPathsForVisibleRows: [IndexPath] {
+         return tableView?.indexPathsForVisibleRows ?? []
+    }
+
     public var indexPathForSelectedRow: IndexPath? {
         return tableView?.indexPathForSelectedRow
     }
@@ -90,13 +98,16 @@ public final class TableViewLiaison: NSObject {
     }
     
     public func reloadVisibleRows() {
-        guard let indexPaths = tableView?.indexPathsForVisibleRows else { return }
-        reloadRows(at: indexPaths)
+        reloadRows(at: indexPathsForVisibleRows)
     }
     
     public func scroll(to indexPath: IndexPath, at scrollPosition: UITableView.ScrollPosition = .none, animated: Bool = true) {
         guard row(for: indexPath) != nil else { return }
         tableView?.scrollToRow(at: indexPath, at: scrollPosition, animated: animated)
+    }
+    
+    public func scrollToNearestSelectedRow(at scrollPosition: UITableView.ScrollPosition = .none, animated: Bool = true) {
+        tableView?.scrollToNearestSelectedRow(at: scrollPosition, animated: animated)
     }
     
     public func lastIndexPath(in section: Int) -> IndexPath? {
@@ -115,13 +126,49 @@ public final class TableViewLiaison: NSObject {
         tableView?.deselectRow(at: indexPath, animated: animated)
     }
     
-    func sectionIndexes(for id: String) -> [Int] {
+    public func cell(at indexPath: IndexPath) -> UITableViewCell? {
+        return tableView?.cellForRow(at: indexPath)
+    }
+    
+    public func headerView(for section: Int) -> UITableViewHeaderFooterView? {
+        return tableView?.headerView(forSection: section)
+    }
+    
+    public func footerView(for section: Int) -> UITableViewHeaderFooterView? {
+        return tableView?.footerView(forSection: section)
+    }
+    
+    public func indexPath(for cell: UITableViewCell) -> IndexPath? {
+        return tableView?.indexPath(for: cell)
+    }
+    
+    public func indexPathForRow(at point: CGPoint) -> IndexPath? {
+        return tableView?.indexPathForRow(at: point)
+    }
+    
+    public func sectionIndexes(for id: String) -> [Int] {
         return sections.enumerated()
             .filter { $0.1.id == id }
             .map { $0.0 }
     }
     
-    func rowIndexPaths(for id: String) -> [IndexPath] {
+    public func rect(for section: Int) -> CGRect {
+        return tableView?.rect(forSection: section) ?? .zero
+    }
+    
+    public func rectForHeader(in section: Int) -> CGRect {
+        return tableView?.rectForHeader(inSection: section) ?? .zero
+    }
+    
+    public func rectForFooter(in section: Int) -> CGRect {
+        return tableView?.rectForFooter(inSection: section) ?? .zero
+    }
+    
+    public func rectForRow(at indexPath: IndexPath) -> CGRect {
+        return tableView?.rectForRow(at: indexPath) ?? .zero
+    }
+    
+    public func rowIndexPaths(for id: String) -> [IndexPath] {
         return sections
             .enumerated()
             .reduce([]) { (result, tuple) -> [IndexPath] in
@@ -130,7 +177,7 @@ public final class TableViewLiaison: NSObject {
         }
     }
     
-    func rowIndexPaths(for id: String, in sectionId: String) -> [IndexPath] {
+    public func rowIndexPaths(for id: String, in sectionId: String) -> [IndexPath] {
         let sectionIndexes = self.sectionIndexes(for: sectionId)
         
         return sectionIndexes.reduce([]) { (result, index) -> [IndexPath] in
@@ -158,16 +205,15 @@ public final class TableViewLiaison: NSObject {
         }
     }
     
-    func cell(at indexPath: IndexPath) -> UITableViewCell? {
-        return tableView?.cellForRow(at: indexPath)
-    }
-    
     @discardableResult
     func perform(command: TableViewRowCommand, at indexPath: IndexPath) -> IndexPath? {
         
         guard let cell = cell(at: indexPath) else { return nil }
         
-        row(for: indexPath)?.perform(command: command, for: cell, at: indexPath)
+        row(for: indexPath)?.perform(command: command,
+                                     liaison: self,
+                                     cell: cell,
+                                     indexPath: indexPath)
         
         return indexPath
     }

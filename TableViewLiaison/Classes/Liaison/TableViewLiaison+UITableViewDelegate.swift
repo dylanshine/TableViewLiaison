@@ -35,12 +35,19 @@ extension TableViewLiaison: UITableViewDelegate {
     }
     
     public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        row(for: indexPath)?.perform(command: .willDisplay, for: cell, at: indexPath)
+        row(for: indexPath)?.perform(command: .willDisplay,
+                                     liaison: self,
+                                     cell: cell,
+                                     indexPath: indexPath)
+        
         showPaginationSpinner(after: indexPath)
     }
     
     public func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        row(for: indexPath)?.perform(command: .didEndDisplaying, for: cell, at: indexPath)
+        row(for: indexPath)?.perform(command: .didEndDisplaying,
+                                     liaison: self,
+                                     cell: cell,
+                                     indexPath: indexPath)
     }
     
     public func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {
@@ -61,11 +68,11 @@ extension TableViewLiaison: UITableViewDelegate {
     }
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return sections.element(at: section)?.view(componentView: .header, for: tableView, in: section)
+        return sections.element(at: section)?.view(componentView: .header, for: self, in: section)
     }
     
     public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return sections.element(at: section)?.view(componentView: .footer, for: tableView, in: section)
+        return sections.element(at: section)?.view(componentView: .footer, for: self, in: section)
     }
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -113,19 +120,35 @@ extension TableViewLiaison: UITableViewDelegate {
     }
     
     public func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        sections.element(at: section)?.perform(command: .willDisplay, componentView: .header, for: view, in: section)
+        sections.element(at: section)?.perform(command: .willDisplay,
+                                               componentView: .header,
+                                               liaison: self,
+                                               view: view,
+                                               section: section)
     }
     
     public func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
-        sections.element(at: section)?.perform(command: .willDisplay, componentView: .footer, for: view, in: section)
+        sections.element(at: section)?.perform(command: .willDisplay,
+                                               componentView: .footer,
+                                               liaison: self,
+                                               view: view,
+                                               section: section)
     }
     
     public func tableView(_ tableView: UITableView, didEndDisplayingHeaderView view: UIView, forSection section: Int) {
-        sections.element(at: section)?.perform(command: .didEndDisplaying, componentView: .header, for: view, in: section)
+        sections.element(at: section)?.perform(command: .didEndDisplaying,
+                                               componentView: .header,
+                                               liaison: self,
+                                               view: view,
+                                               section: section)
     }
     
     public func tableView(_ tableView: UITableView, didEndDisplayingFooterView view: UIView, forSection section: Int) {
-        sections.element(at: section)?.perform(command: .didEndDisplaying, componentView: .footer, for: view, in: section)
+        sections.element(at: section)?.perform(command: .didEndDisplaying,
+                                               componentView: .footer,
+                                               liaison: self,
+                                               view: view,
+                                               section: section)
     }
     
 }

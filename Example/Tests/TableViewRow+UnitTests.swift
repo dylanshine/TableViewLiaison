@@ -11,15 +11,25 @@ import XCTest
 
 final class OKTableViewRow_UnitTests: XCTestCase {
     
+    var liaison: TableViewLiaison!
+    var tableView: UITableView!
+    
+    override func setUp() {
+        super.setUp()
+        liaison = TableViewLiaison()
+        tableView = UITableView()
+        liaison.liaise(tableView: tableView)
+    }
+    
     func test_setCommand_setsCommandClosure() {
         var row = TestTableViewRow()
         
         var set = false
-        row.set(command: .configuration) { _, _ in
+        row.set(command: .configuration) { _, _, _ in
             set = true
         }
        
-        row.perform(command: .configuration, for: UITableViewCell(), at: IndexPath())
+        row.perform(command: .configuration, liaison: liaison, cell: UITableViewCell(), indexPath: IndexPath())
         
         XCTAssertTrue(set)
     }
@@ -28,13 +38,13 @@ final class OKTableViewRow_UnitTests: XCTestCase {
         var row = TestTableViewRow()
         
         var set = false
-        row.set(command: .configuration) { _, _ in
+        row.set(command: .configuration) { _, _, _ in
             set = true
         }
         
         row.remove(command: .configuration)
-        row.perform(command: .configuration, for: UITableViewCell(), at: IndexPath())
-        
+        row.perform(command: .configuration, liaison: liaison, cell: UITableViewCell(), indexPath: IndexPath())
+
         XCTAssertFalse(set)
     }
     
@@ -145,9 +155,8 @@ final class OKTableViewRow_UnitTests: XCTestCase {
     
     func test_register_registersCellForRow() {
         let row = TestTableViewRow(registrationType: .class(reuseIdentifier: "Test"))
-        let tableView = UITableView()
         
-        row.register(with: tableView)
+        row.register(with: liaison)
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "Test")
         
@@ -157,15 +166,13 @@ final class OKTableViewRow_UnitTests: XCTestCase {
     func test_cellForTableViewAt_returnsConfiguredCellForRow() {
         var row = TestTableViewRow()
         let string = "Test"
-        row.set(command: .configuration) { (cell, indexPath) in
+        row.set(command: .configuration) { _, cell, indexPath in
             cell.accessibilityIdentifier = string
         }
+                
+        row.register(with: liaison)
         
-        let tableView = UITableView()
-        
-        row.register(with: tableView)
-        
-        let cell = row.cell(for: tableView, at: IndexPath())
+        let cell = row.cell(for: liaison, at: IndexPath())
         
         XCTAssertEqual(cell.accessibilityIdentifier, string)
     }
@@ -174,11 +181,11 @@ final class OKTableViewRow_UnitTests: XCTestCase {
         var row = TableViewRow<TestTableViewCell>()
         var configured = false
         
-        row.set(command: .configuration) { _, _ in
+        row.set(command: .configuration) { _, _, _ in
             configured = true
         }
             
-        row.perform(command: .configuration, for: UITableViewCell(), at: IndexPath())
+        row.perform(command: .configuration, liaison: liaison, cell: UITableViewCell(), indexPath: IndexPath())
         
         XCTAssertFalse(configured)
     }

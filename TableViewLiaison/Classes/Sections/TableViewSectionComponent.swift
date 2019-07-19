@@ -8,12 +8,12 @@
 import Foundation
 
 public struct TableViewSectionComponent<View: UITableViewHeaderFooterView>: AnyTableViewSectionComponent {
-    
+
     private let registrationType: TableViewRegistrationType<View>
-    private var commands = [TableViewSectionComponentCommand: (View, Int) -> Void]()
+    private var commands = [TableViewSectionComponentCommand: (TableViewLiaison, View, Int) -> Void]()
     private var heights = [TableViewHeightType: () -> CGFloat]()
     
-    public init(commands: [TableViewSectionComponentCommand: (View, Int) -> Void] = [:],
+    public init(commands: [TableViewSectionComponentCommand: (TableViewLiaison, View, Int) -> Void] = [:],
                 heights: [TableViewHeightType: () -> CGFloat] = [:],
                 registrationType: TableViewRegistrationType<View> = .defaultClassType) {
         self.commands = commands
@@ -21,30 +21,29 @@ public struct TableViewSectionComponent<View: UITableViewHeaderFooterView>: AnyT
         self.registrationType = registrationType
     }
     
-    public func view(for tableView: UITableView, in section: Int) -> UITableViewHeaderFooterView? {
-        let view = tableView.dequeue(View.self, with: reuseIdentifier)
-        commands[.configuration]?(view, section)
+    public func view(for liaison: TableViewLiaison, in section: Int) -> UITableViewHeaderFooterView? {
+        let view = liaison.dequeue(View.self, with: reuseIdentifier)
+        commands[.configuration]?(liaison, view, section)
         return view
     }
     
-    public func register(with tableView: UITableView) {
+    public func register(with liaison: TableViewLiaison) {
         switch registrationType {
         case let .class(identifier):
-            tableView.register(View.self, with: identifier)
+            liaison.register(View.self, with: identifier)
         case let .nib(nib, identifier):
-            tableView.register(nib, forHeaderFooterViewReuseIdentifier: identifier)
+            liaison.registerHeaderFooterView(nib: nib, with: identifier)
         }
     }
 
     // MARK: - Commands
-    public func perform(command: TableViewSectionComponentCommand, for view: UIView, in section: Int) {
-        
+    public func perform(command: TableViewSectionComponentCommand, liaison: TableViewLiaison, view: UIView, section: Int) {
         guard let view = view as? View else { return }
-        
-        commands[command]?(view, section)
+        commands[command]?(liaison, view, section)
+
     }
-    
-    public mutating func set(command: TableViewSectionComponentCommand, with closure: @escaping (View, Int) -> Void) {
+
+    public mutating func set(command: TableViewSectionComponentCommand, with closure: @escaping (TableViewLiaison, View, Int) -> Void) {
         commands[command] = closure
     }
     

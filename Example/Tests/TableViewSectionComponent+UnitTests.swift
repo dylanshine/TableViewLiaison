@@ -10,16 +10,28 @@ import XCTest
 @testable import TableViewLiaison
 
 final class OKTableViewSectionComponent_UnitTests: XCTestCase {
+    var liaison: TableViewLiaison!
+    var tableView: UITableView!
+    
+    override func setUp() {
+        super.setUp()
+        liaison = TableViewLiaison()
+        tableView = UITableView()
+        liaison.liaise(tableView: tableView)
+    }
     
     func test_setCommand_setsCommandClosure() {
         var component = TestTableViewSectionComponent()
 
         var set = false
-        component.set(command: .configuration) { _, _ in
+        component.set(command: .configuration) { _, _, _ in
             set = true
         }
         
-        component.perform(command: .configuration, for: UITableViewHeaderFooterView(), in: 0)
+        component.perform(command: .configuration,
+                          liaison: TableViewLiaison(),
+                          view: UITableViewHeaderFooterView(),
+                          section: 0)
         
         XCTAssertTrue(set)
     }
@@ -28,12 +40,15 @@ final class OKTableViewSectionComponent_UnitTests: XCTestCase {
         var component = TestTableViewSectionComponent()
 
         var set = false
-        component.set(command: .configuration) { _, _ in
+        component.set(command: .configuration) { _, _, _ in
             set = true
         }
         
         component.remove(command: .configuration)
-        component.perform(command: .configuration, for: UITableViewHeaderFooterView(), in: 0)
+        component.perform(command: .configuration,
+                          liaison: TableViewLiaison(),
+                          view: UITableViewHeaderFooterView(),
+                          section: 0)
 
         XCTAssertFalse(set)
     }
@@ -86,9 +101,8 @@ final class OKTableViewSectionComponent_UnitTests: XCTestCase {
     
     func test_register_registersViewForSectionComponent() {
         let component = TestTableViewSectionComponent(registrationType: .class(reuseIdentifier: "Test"))
-        let tableView = UITableView()
         
-        component.register(with: tableView)
+        component.register(with: liaison)
         
         let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: "Test")
         
@@ -99,14 +113,13 @@ final class OKTableViewSectionComponent_UnitTests: XCTestCase {
         
         var component = TestTableViewSectionComponent()
         let string = "Test"
-        component.set(command: .configuration) { view, _ in
+        component.set(command: .configuration) { _, view, _ in
             view.accessibilityIdentifier = string
         }
         
-        let tableView = UITableView()
-        component.register(with: tableView)
+        component.register(with: liaison)
         
-        let view = component.view(for: tableView, in: 0)
+        let view = component.view(for: liaison, in: 0)
         
         XCTAssertEqual(view?.accessibilityIdentifier, string)
     }
@@ -115,11 +128,11 @@ final class OKTableViewSectionComponent_UnitTests: XCTestCase {
         var component = TestTableViewSectionComponent()
         var configured = false
         
-        component.set(command: .configuration) { _, _ in
+        component.set(command: .configuration) { _, _, _ in
             configured = true
         }
         
-        component.perform(command: .configuration, for: UIView(), in: 0)
+        component.perform(command: .configuration, liaison: liaison, view: UIView(), section: 0)
         
         XCTAssertFalse(configured)
     }

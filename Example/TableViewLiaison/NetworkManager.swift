@@ -10,9 +10,14 @@ import UIKit
 
 enum NetworkManager {
     
-    static var imageCache = [IndexPath: UIImage]()
-    static var factCache = [IndexPath: String]()
+    private static var imageCache = [Int: UIImage]()
+    static var factCache = [Int: String]()
 
+    static func flushCache(for section: Int) {
+        imageCache[section] = nil
+        factCache[section] = nil
+    }
+    
     private static func fetchData(from url: URL, completion: @escaping (Data?) -> ()) {
         URLSession.shared.dataTask(with: url) { data, _, _ in
             guard let data = data else { return completion(nil) }
@@ -21,32 +26,56 @@ enum NetworkManager {
         }.resume()
     }
     
-    static func fetchImage(url: String, completion: @escaping (UIImage?) -> ()) {
-        let url = URL(string: url)!
+    static func fetchRandomPostImage(section: Int,
+                                     width: Int,
+                                     height: Int,
+                                     completion: @escaping (UIImage?) -> ()) {
+        
+        if let image = NetworkManager.imageCache[section] {
+            completion(image)
+            return
+        }
+        
+        let url = URL(string: "https://picsum.photos/\(width)/\(height)")!
         
         fetchData(from: url) { data in
-            guard let data = data else { return completion(nil) }
-   
+            guard let data = data else {
+                completion(nil)
+                return
+            }
+            
+            let image = UIImage(data: data)
+            NetworkManager.imageCache[section] = image
+            
             DispatchQueue.main.async() {
-                completion(UIImage(data: data))
+                completion(image)
             }
         }
     }
     
-    static func fetchRandomPostImage(width: Int, height: Int, completion: @escaping (UIImage?) -> ()) {
-        fetchImage(url: "https://picsum.photos/\(width)/\(height)", completion: completion)
-    }
-    
-    static func fetchRandomFact(completion: @escaping (String?) -> ()) {
+    static func fetchRandomFact(section: Int,
+                                completion: ((String?) -> ())? = nil) {
+        
+        if let fact = NetworkManager.factCache[section] {
+            completion?(fact)
+            return
+        }
+        
         let url = URL(string: "https://randomuselessfact.appspot.com/random.json?language=en")!
         
         fetchData(from: url) { data in
-            guard let data = data else { return completion(nil) }
+            guard let data = data else {
+                completion?(nil)
+                return
+            }
             
             let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+            let fact = json?["text"] as? String
+            
+            NetworkManager.factCache[section] = fact
             
             DispatchQueue.main.async() {
-                completion(json?["text"] as? String)
+                completion?(fact)
             }
         }
     }

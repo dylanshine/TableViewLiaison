@@ -19,12 +19,12 @@ public struct TableViewRow<Cell: UITableViewCell>: AnyTableViewRow {
     public var deleteRowAnimation: UITableView.RowAnimation
     
     private let registrationType: TableViewRegistrationType<Cell>
-    private var commands = [TableViewRowCommand: (Cell, IndexPath) -> Void]()
+    private var commands = [TableViewRowCommand: (TableViewLiaison, Cell, IndexPath) -> Void]()
     private var prefetchCommands = [TableViewPrefetchCommand: (IndexPath) -> Void]()
     private var heights = [TableViewHeightType: () -> CGFloat]()
     
     public init(id: String? = nil,
-                commands: [TableViewRowCommand: (Cell, IndexPath) -> Void] = [:],
+                commands: [TableViewRowCommand: (TableViewLiaison, Cell, IndexPath) -> Void] = [:],
                 prefetchCommands: [TableViewPrefetchCommand: (IndexPath) -> Void] = [:],
                 heights: [TableViewHeightType: () -> CGFloat] = [:],
                 editingStyle: UITableViewCell.EditingStyle = .none,
@@ -48,34 +48,34 @@ public struct TableViewRow<Cell: UITableViewCell>: AnyTableViewRow {
     }
     
     // MARK: - Cell
-    public func cell(for tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeue(Cell.self, with: reuseIdentifier)
-        commands[.configuration]?(cell, indexPath)
+    public func cell(for liaison: TableViewLiaison, at indexPath: IndexPath) -> UITableViewCell {
+        let cell = liaison.dequeue(Cell.self, with: reuseIdentifier)
+        commands[.configuration]?(liaison, cell, indexPath)
         return cell
     }
     
-    public func register(with tableView: UITableView) {
+    public func register(with liaison: TableViewLiaison) {
         switch registrationType {
         case let .class(identifier):
-            tableView.register(Cell.self, with: identifier)
+            liaison.register(Cell.self, with: identifier)
         case let .nib(nib, identifier):
-            tableView.register(nib, forCellReuseIdentifier: identifier)
+            liaison.registerCell(nib: nib, with: identifier)
         }
     }
     
     // MARK: - Commands
-    public func perform(command: TableViewRowCommand, for cell: UITableViewCell, at indexPath: IndexPath) {
+    public func perform(command: TableViewRowCommand, liaison: TableViewLiaison, cell: UITableViewCell, indexPath: IndexPath) {
         
         guard let cell = cell as? Cell else { return }
         
-        commands[command]?(cell, indexPath)
+        commands[command]?(liaison, cell, indexPath)
     }
     
     public func perform(prefetchCommand: TableViewPrefetchCommand, for indexPath: IndexPath) {
         prefetchCommands[prefetchCommand]?(indexPath)
     }
     
-    public mutating func set(command: TableViewRowCommand, with closure: @escaping (Cell, IndexPath) -> Void) {
+    public mutating func set(command: TableViewRowCommand, with closure: @escaping (TableViewLiaison, Cell, IndexPath) -> Void) {
         commands[command] = closure
     }
     

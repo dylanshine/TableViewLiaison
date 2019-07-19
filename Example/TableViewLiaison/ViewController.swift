@@ -34,7 +34,7 @@ final class ViewController: UIViewController {
     private func randomPostSections() -> [TableViewSection] {
         return (0...8).map { _ in
             let post = Post()
-            return PostTableViewSectionFactory.section(for: post, liaison: liaison)
+            return PostTableViewSectionFactory.section(for: post)
         }
     }
     

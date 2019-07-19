@@ -11,5 +11,5 @@ public protocol TableViewContent {
     var height: CGFloat { get }
     var estimatedHeight: CGFloat { get }
     var reuseIdentifier: String { get }
-    func register(with tableView: UITableView)
+    func register(with liaison: TableViewLiaison)
 }

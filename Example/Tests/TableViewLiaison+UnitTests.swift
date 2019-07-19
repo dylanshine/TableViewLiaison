@@ -233,7 +233,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         var capturedHeader: UITableViewHeaderFooterView?
 
         let string = "Test"
-        header.set(command: .configuration) { view, _ in
+        header.set(command: .configuration) { _, view, _ in
             view.accessibilityIdentifier = string
             capturedHeader = view
         }
@@ -257,7 +257,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         var capturedHeader: UITableViewHeaderFooterView?
         
         let string = "Test"
-        header.set(command: .configuration) { view, _ in
+        header.set(command: .configuration) { _, view, _ in
             view.accessibilityIdentifier = string
             capturedHeader = view
         }
@@ -322,7 +322,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         var inserted = false
         var actualIndexPath: IndexPath?
         let expectedIndexPath = IndexPath(row: 0, section: 0)
-        row.set(command: .insert) { (_, indexPath) in
+        row.set(command: .insert) { _, _, indexPath in
             inserted = true
             actualIndexPath = indexPath
         }
@@ -346,7 +346,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         var inserted = false
         var actualIndexPath: IndexPath?
         let expectedIndexPath = IndexPath(row: 0, section: 0)
-        row.set(command: .insert) { (_, indexPath) in
+        row.set(command: .insert) { _, _, indexPath in
             inserted = true
             actualIndexPath = indexPath
         }
@@ -371,7 +371,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         var insertedRow1 = false
         var actualIndexPathRow1: IndexPath?
         let expectedIndexPathRow1 = IndexPath(row: 0, section: 0)
-        row1.set(command: .insert) { (_, indexPath) in
+        row1.set(command: .insert) { _, _, indexPath in
             insertedRow1 = true
             actualIndexPathRow1 = indexPath
         }
@@ -379,7 +379,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         var insertedRow2 = false
         var actualIndexPathRow2: IndexPath?
         let expectedIndexPathRow2 = IndexPath(row: 1, section: 0)
-        row2.set(command: .insert) { (_, indexPath) in
+        row2.set(command: .insert) { _, _, indexPath in
             insertedRow2 = true
             actualIndexPathRow2 = indexPath
         }
@@ -408,7 +408,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         var insertedRow1 = false
         var actualIndexPathRow1: IndexPath?
         let expectedIndexPathRow1 = IndexPath(row: 0, section: 0)
-        row1.set(command: .insert) { (_, indexPath) in
+        row1.set(command: .insert) { _, _, indexPath in
             insertedRow1 = true
             actualIndexPathRow1 = indexPath
         }
@@ -416,7 +416,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         var insertedRow2 = false
         var actualIndexPathRow2: IndexPath?
         let expectedIndexPathRow2 = IndexPath(row: 1, section: 0)
-        row2.set(command: .insert) { (_, indexPath) in
+        row2.set(command: .insert) { _, _, indexPath in
             insertedRow2 = true
             actualIndexPathRow2 = indexPath
         }
@@ -451,7 +451,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         var insertedRow = false
         var actualIndexPathRow: IndexPath?
 
-        row3.set(command: .insert) { (_, indexPath) in
+        row3.set(command: .insert) { _, _, indexPath in
             insertedRow = true
             actualIndexPathRow = indexPath
         }
@@ -476,7 +476,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         let row1IndexPath = IndexPath(row: 0, section: 0)
         var deletedRow1 = false
         var actualIndexPathRow1: IndexPath?
-        row1.set(command: .delete) { (_, indexPath) in
+        row1.set(command: .delete) { _, _, indexPath in
             deletedRow1 = true
             actualIndexPathRow1 = indexPath
         }
@@ -484,7 +484,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         let row2IndexPath = IndexPath(row: 1, section: 0)
         var deletedRow2 = false
         var actualIndexPathRow2: IndexPath?
-        row2.set(command: .delete) { (_, indexPath) in
+        row2.set(command: .delete) { _, _, indexPath in
             deletedRow2 = true
             actualIndexPathRow2 = indexPath
         }
@@ -492,7 +492,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         let row3IndexPath = IndexPath(row: 0, section: 1)
         var deletedRow3 = false
         var actualIndexPathRow3: IndexPath?
-        row3.set(command: .delete) { (_, indexPath) in
+        row3.set(command: .delete) { _, _, indexPath in
             deletedRow3 = true
             actualIndexPathRow3 = indexPath
         }
@@ -525,7 +525,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         let row1IndexPath = IndexPath(row: 0, section: 0)
         var deletedRow1 = false
         var actualIndexPathRow1: IndexPath?
-        row1.set(command: .delete) { (_, indexPath) in
+        row1.set(command: .delete) { _, _, indexPath in
             deletedRow1 = true
             actualIndexPathRow1 = indexPath
         }
@@ -534,7 +534,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         let row3IndexPath = IndexPath(row: 2, section: 0)
         var deletedRow3 = false
         var actualIndexPathRow3: IndexPath?
-        row3.set(command: .delete) { (_, indexPath) in
+        row3.set(command: .delete) { _, _, indexPath in
             deletedRow3 = true
             actualIndexPathRow3 = indexPath
         }
@@ -562,7 +562,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         let expectedIndexPath = IndexPath(row: 0, section: 0)
         var deletedRow = false
         var actualIndexPathRow: IndexPath?
-        row1.set(command: .delete) { (_, indexPath) in
+        row1.set(command: .delete) { _, _, indexPath in
             deletedRow = true
             actualIndexPathRow = indexPath
         }
@@ -587,11 +587,11 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         var reloaded1 = false
         var reloaded2 = false
 
-        row1.set(command: .reload) { _, _ in
+        row1.set(command: .reload) { _, _, _ in
             reloaded1 = true
         }
         
-        row2.set(command: .reload) { _, _ in
+        row2.set(command: .reload) { _, _, _ in
             reloaded2 = true
         }
 
@@ -618,11 +618,11 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         var reloaded1 = false
         var reloaded2 = false
         
-        row1.set(command: .reload) { _, _ in
+        row1.set(command: .reload) { _, _, _ in
             reloaded1 = true
         }
         
-        row2.set(command: .reload) { _, _ in
+        row2.set(command: .reload) { _, _, _ in
             reloaded2 = true
         }
         
@@ -646,7 +646,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         var row = TestTableViewRow()
         
         var reloaded = false
-        row.set(command: .reload) { _, _ in
+        row.set(command: .reload) { _, _, _ in
             reloaded = true
         }
         
@@ -670,12 +670,12 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         var row2 = TestTableViewRow()
     
         var deleted = false
-        row1.set(command: .delete) { _, _ in
+        row1.set(command: .delete) { _, _, _ in
             deleted = true
         }
 
         var inserted = false
-        row2.set(command: .insert) { _, _ in
+        row2.set(command: .insert) { _, _, _ in
             inserted = true
         }
 
@@ -701,7 +701,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         var moved = false
         var actualDestination: IndexPath?
         let destination = IndexPath(row: 2, section: 0)
-        row1.set(command: .move) { _, indexPath in
+        row1.set(command: .move) { _, _, indexPath in
             moved = true
             actualDestination = indexPath
         }
@@ -732,7 +732,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         var moved = false
         var actualDestination: IndexPath?
         let destination = IndexPath(row: 2, section: 1)
-        row1.set(command: .move) { _, indexPath in
+        row1.set(command: .move) { _, _, indexPath in
             moved = true
             actualDestination = indexPath
         }
@@ -763,7 +763,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         var sourceMoved = false
         var swappedSourceIndexPath: IndexPath?
         let sourceIndexPath = IndexPath(row: 0, section: 0)
-        row1.set(command: .move) { _, indexPath in
+        row1.set(command: .move) { _, _, indexPath in
             sourceMoved = true
             swappedSourceIndexPath = indexPath
         }
@@ -771,7 +771,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         var destinationMoved = false
         var swappedDestinationIndexPath: IndexPath?
         let destinationIndexPath = IndexPath(row: 2, section: 0)
-        row3.set(command: .move) { _, indexPath in
+        row3.set(command: .move) { _, _, indexPath in
             destinationMoved = true
             swappedDestinationIndexPath = indexPath
         }
@@ -803,7 +803,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         var sourceMoved = false
         var swappedSourceIndexPath: IndexPath?
         let sourceIndexPath = IndexPath(row: 0, section: 0)
-        row1.set(command: .move) { _, indexPath in
+        row1.set(command: .move) { _, _, indexPath in
             sourceMoved = true
             swappedSourceIndexPath = indexPath
         }
@@ -811,7 +811,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         var destinationMoved = false
         var swappedDestinationIndexPath: IndexPath?
         let destinationIndexPath = IndexPath(row: 1, section: 1)
-        row4.set(command: .move) { _, indexPath in
+        row4.set(command: .move) { _, _, indexPath in
             destinationMoved = true
             swappedDestinationIndexPath = indexPath
         }
@@ -839,7 +839,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         var row = TestTableViewRow()
         let string = "Test"
         
-        row.set(command: .configuration) { cell, _ in
+        row.set(command: .configuration) { _, cell, _ in
             cell.accessibilityIdentifier = string
         }
 
@@ -925,11 +925,11 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         var deleted = false
         var inserted = false
 
-        row1.set(command: .delete) { _, _ in
+        row1.set(command: .delete) { _, _, _ in
             deleted = true
         }
 
-        row2.set(command: .insert) { _, _ in
+        row2.set(command: .insert) { _, _, _ in
             inserted = true
         }
 
@@ -952,7 +952,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
 
         var moved = false
         var row1 = TestTableViewRow()
-        row1.set(command: .move) { _, _ in
+        row1.set(command: .move) { _, _, _ in
             moved = true
         }
 
@@ -978,7 +978,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         var row = TestTableViewRow()
         var willSelect = false
 
-        row.set(command: .willSelect) { _, _ in
+        row.set(command: .willSelect) { _, _, _ in
             willSelect = true
         }
 
@@ -1000,7 +1000,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         var row = TestTableViewRow()
         var didSelected = false
 
-        row.set(command: .didSelect) { _, _ in
+        row.set(command: .didSelect) { _, _, _ in
             didSelected = true
         }
 
@@ -1019,7 +1019,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         var row = TestTableViewRow()
         var willDeselect = false
 
-        row.set(command: .willDeselect) { _, _ in
+        row.set(command: .willDeselect) { _, _, _ in
             willDeselect = true
         }
 
@@ -1041,7 +1041,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         var row = TestTableViewRow()
         var didDeselect = false
 
-        row.set(command: .didDeselect) { _, _ in
+        row.set(command: .didDeselect) { _, _, _ in
             didDeselect = true
         }
 
@@ -1091,7 +1091,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         var row = TestTableViewRow()
         var willDisplay = false
 
-        row.set(command: .willDisplay) { _, _ in
+        row.set(command: .willDisplay) { _, _, _ in
             willDisplay = true
         }
 
@@ -1197,7 +1197,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         var row = TestTableViewRow()
         var didEndDisplaying = false
 
-        row.set(command: .didEndDisplaying) { _, _ in
+        row.set(command: .didEndDisplaying) { _, _, _ in
             didEndDisplaying = true
         }
 
@@ -1213,7 +1213,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         var row = TestTableViewRow()
         var willBeginEditing = false
 
-        row.set(command: .willBeginEditing) { _, _ in
+        row.set(command: .willBeginEditing) { _, _, _ in
             willBeginEditing = true
         }
 
@@ -1232,7 +1232,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         var row = TestTableViewRow()
         var didEndEditing = false
 
-        row.set(command: .didEndEditing) { _, _ in
+        row.set(command: .didEndEditing) { _, _, _ in
             didEndEditing = true
         }
 
@@ -1250,7 +1250,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         var row = TestTableViewRow()
         var didHighlight = false
 
-        row.set(command: .didHighlight) { _, _ in
+        row.set(command: .didHighlight) { _, _, _ in
             didHighlight = true
         }
 
@@ -1269,7 +1269,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         var row = TestTableViewRow()
         var didUnhighlight = false
 
-        row.set(command: .didUnhighlight) { _, _ in
+        row.set(command: .didUnhighlight) { _, _, _ in
             didUnhighlight = true
         }
 
@@ -1288,7 +1288,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
 
         var header = TestTableViewSectionComponent()
 
-        header.set(command: .configuration) { view, section in
+        header.set(command: .configuration) { _, view, section in
             view.accessibilityIdentifier = "\(section)"
         }
 
@@ -1308,7 +1308,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
 
         var footer = TestTableViewSectionComponent()
 
-        footer.set(command: .configuration) { view, section in
+        footer.set(command: .configuration) { _, view, section in
             view.accessibilityIdentifier = "\(section)"
         }
 
@@ -1424,7 +1424,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         var row = TestTableViewRow()
         var accessoryButtonTapped = false
 
-        row.set(command: .accessoryButtonTapped) { _, _ in
+        row.set(command: .accessoryButtonTapped) { _, _, _ in
             accessoryButtonTapped = true
         }
 
@@ -1569,7 +1569,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         var header = TestTableViewSectionComponent()
 
         var willDisplay = false
-        header.set(command: .willDisplay) { _, _ in
+        header.set(command: .willDisplay) { _, _, _ in
             willDisplay = true
         }
 
@@ -1587,7 +1587,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         var footer = TestTableViewSectionComponent()
 
         var willDisplay = false
-        footer.set(command: .willDisplay) { _, _ in
+        footer.set(command: .willDisplay) { _, _, _ in
             willDisplay = true
         }
 
@@ -1605,7 +1605,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         var header = TestTableViewSectionComponent()
 
         var didEndDisplaying = false
-        header.set(command: .didEndDisplaying) { _, _ in
+        header.set(command: .didEndDisplaying) { _, _, _ in
             didEndDisplaying = true
         }
 
@@ -1623,7 +1623,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         var footer = TestTableViewSectionComponent()
 
         var didEndDisplaying = false
-        footer.set(command: .didEndDisplaying) { _, _ in
+        footer.set(command: .didEndDisplaying) { _, _, _ in
             didEndDisplaying = true
         }
 
@@ -1671,7 +1671,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         var row2 = TestTableViewRow()
         
         var correctRow = false
-        row2.set(command: .didSelect) { _, _ in
+        row2.set(command: .didSelect) { _, _, _ in
             correctRow = true
         }
         
@@ -1680,7 +1680,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         let indexPath = IndexPath(row: 1, section: 0)
 
         let row = liaison.row(for: indexPath)
-        row?.perform(command: .didSelect, for: UITableViewCell(), at: indexPath)
+        row?.perform(command: .didSelect, liaison: liaison, cell: UITableViewCell(), indexPath: indexPath)
         
         XCTAssertTrue(correctRow)
     }

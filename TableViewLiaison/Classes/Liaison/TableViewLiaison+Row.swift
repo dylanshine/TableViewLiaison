@@ -35,7 +35,7 @@ public extension TableViewLiaison {
         
         zip(rows, indexPaths).forEach { row, indexPath in
             if let cell = cell(at: indexPath) {
-                row.perform(command: .insert, for: cell, at: indexPath)
+                row.perform(command: .insert, liaison: self, cell: cell, indexPath: indexPath)
             }
         }
         
@@ -71,7 +71,7 @@ public extension TableViewLiaison {
         
         rowIndexPathZip.forEach { row, indexPath in
             if let cell = cell(at: indexPath) {
-                row.perform(command: .insert, for: cell, at: indexPath)
+                row.perform(command: .insert, liaison: self, cell: cell, indexPath: indexPath)
             }
         }
     }
@@ -118,7 +118,7 @@ public extension TableViewLiaison {
                         deletedRows.append(row)
                         
                         if let cell = cell(at: $0) {
-                            row.perform(command: .delete, for: cell, at: $0)
+                            row.perform(command: .delete, liaison: self, cell: cell, indexPath: $0)
                         }
                     }
                 }
@@ -158,7 +158,7 @@ public extension TableViewLiaison {
         let row = sections[indexPath.section].deleteRow(at: indexPath)
         
         if let cell = cell(at: indexPath) {
-            row?.perform(command: .delete, for: cell, at: indexPath)
+            row?.perform(command: .delete, liaison: self, cell: cell, indexPath: indexPath)
         }
         
         performTableViewUpdates(animated: animated) {
@@ -192,7 +192,7 @@ public extension TableViewLiaison {
         
         let deletedRow = sections[indexPath.section].deleteRow(at: indexPath)
         if let cell = cell(at: indexPath) {
-            deletedRow?.perform(command: .delete, for: cell, at: indexPath)
+            deletedRow?.perform(command: .delete, liaison: self, cell: cell, indexPath: indexPath)
         }
         
         sections[indexPath.section].insert(row: row, at: indexPath)
@@ -203,8 +203,8 @@ public extension TableViewLiaison {
             tableView?.insertRows(at: [indexPath], with: animation)
         }
         
-        if let cell = tableView?.cellForRow(at: indexPath) {
-            row.perform(command: .insert, for: cell, at: indexPath)
+        if let cell = cell(at: indexPath) {
+            row.perform(command: .insert, liaison: self, cell: cell, indexPath: indexPath)
         }
     }
     

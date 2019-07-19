@@ -22,25 +22,30 @@ public struct TableViewSection {
         self.componentDisplayOption = componentDisplayOption
     }
     
-    func perform(command: TableViewSectionComponentCommand, componentView: TableViewSectionComponentView, for view: UIView, in section: Int) {
+    func perform(command: TableViewSectionComponentCommand,
+                 componentView: TableViewSectionComponentViewType,
+                 liaison: TableViewLiaison,
+                 view: UIView,
+                 section: Int) {
+        
         switch componentView {
         case .header:
-            componentDisplayOption.header?.perform(command: command, for: view, in: section)
+            componentDisplayOption.header?.perform(command: command, liaison: liaison, view: view, section: section)
         case .footer:
-            componentDisplayOption.footer?.perform(command: command, for: view, in: section)
+            componentDisplayOption.footer?.perform(command: command, liaison: liaison, view: view, section: section)
         }
     }
     
-    func view(componentView: TableViewSectionComponentView, for tableView: UITableView, in section: Int) -> UIView? {
+    func view(componentView: TableViewSectionComponentViewType, for liaison: TableViewLiaison, in section: Int) -> UIView? {
         switch componentView {
         case .header:
-            return componentDisplayOption.header?.view(for: tableView, in: section)
+            return componentDisplayOption.header?.view(for: liaison, in: section)
         case .footer:
-            return componentDisplayOption.footer?.view(for: tableView, in: section)
+            return componentDisplayOption.footer?.view(for: liaison, in: section)
         }
     }
     
-    func calculate(height: TableViewHeightType, for componentView: TableViewSectionComponentView) -> CGFloat {
+    func calculate(height: TableViewHeightType, for componentView: TableViewSectionComponentViewType) -> CGFloat {
         
         switch (componentDisplayOption, componentView) {
         case (.both(let header, _), .header):

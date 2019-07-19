@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -28,21 +28,34 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3eC-ck-Ks4">
+                    <rect key="frame" x="503" y="31" width="16" height="22"/>
+                    <state key="normal" image="hide"/>
+                    <connections>
+                        <action selector="hideButtonPressed:" destination="JiN-QW-2sc" eventType="touchUpInside" id="nfS-g9-IDh"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
+                <constraint firstItem="3eC-ck-Ks4" firstAttribute="centerY" secondItem="JiN-QW-2sc" secondAttribute="centerY" id="5nH-3h-YzB"/>
                 <constraint firstItem="a6O-hK-hhD" firstAttribute="leading" secondItem="Tx2-ma-BY3" secondAttribute="trailing" constant="8" id="COs-sm-t9x"/>
                 <constraint firstItem="a6O-hK-hhD" firstAttribute="centerY" secondItem="JiN-QW-2sc" secondAttribute="centerY" id="M9b-yk-9zK"/>
                 <constraint firstAttribute="bottom" secondItem="Tx2-ma-BY3" secondAttribute="bottom" priority="999" constant="16" id="RMG-oR-474"/>
+                <constraint firstItem="Tus-Vq-gEf" firstAttribute="trailing" secondItem="3eC-ck-Ks4" secondAttribute="trailing" constant="16" id="WdP-Wg-kNN"/>
                 <constraint firstItem="Tx2-ma-BY3" firstAttribute="leading" secondItem="Tus-Vq-gEf" secondAttribute="leading" constant="16" id="dcT-cF-cZq"/>
                 <constraint firstItem="Tx2-ma-BY3" firstAttribute="top" secondItem="JiN-QW-2sc" secondAttribute="top" priority="999" constant="16" id="ooP-FG-iOZ"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="Tus-Vq-gEf"/>
             <connections>
+                <outlet property="hideButton" destination="3eC-ck-Ks4" id="g03-bb-nco"/>
                 <outlet property="imageView" destination="Tx2-ma-BY3" id="dR0-0k-dUt"/>
                 <outlet property="titleLabel" destination="a6O-hK-hhD" id="oIf-tO-PTh"/>
             </connections>
             <point key="canvasLocation" x="-734.5" y="-311"/>
         </view>
     </objects>
+    <resources>
+        <image name="hide" width="16" height="16"/>
+    </resources>
 </document>
