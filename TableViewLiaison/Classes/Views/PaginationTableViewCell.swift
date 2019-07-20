@@ -9,24 +9,28 @@ import UIKit
 
 public final class PaginationTableViewCell: UITableViewCell {
     
-    private let verticalSpacingConstant: CGFloat = 5
-    let spinner = UIActivityIndicatorView(style: .gray)
+    private let verticalSpacingConstant: CGFloat = 8
+    let activityIndicator = UIActivityIndicatorView(style: .white)
         
     override public init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        configureLayout()
+        configure()
     }
     
     required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
+        configure()
     }
     
-    private func configureLayout() {
-        spinner.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(spinner)
+    private func configure() {
+        backgroundColor = .clear
+        contentView.backgroundColor = .clear
+        
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(activityIndicator)
 
-        spinner.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        spinner.topAnchor.constraint(equalTo: contentView.topAnchor, constant: verticalSpacingConstant).isActive = true
-        spinner.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -verticalSpacingConstant).isActive = true
+        activityIndicator.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        activityIndicator.topAnchor.constraint(equalTo: contentView.topAnchor, constant: verticalSpacingConstant).isActive = true
+        activityIndicator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -verticalSpacingConstant).isActive = true
     }
 }

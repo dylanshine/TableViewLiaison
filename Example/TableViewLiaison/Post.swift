@@ -15,7 +15,7 @@ struct Post {
                            height: CGFloat.random(in: 200...300))
     let numberOfLikes = UInt.random(in: 1...5000)
     let numberOfComments = UInt.random(in: 1...600)
-    let timePosted = TimeInterval.random(in: 1...10000)
+    let timePosted = TimeInterval.random(in: 1...1000000)
     let id: String = UUID().uuidString
     
 }

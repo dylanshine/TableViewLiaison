@@ -76,13 +76,8 @@ extension TableViewLiaison {
     public static let paginationRow: TableViewRow<PaginationTableViewCell> = {
         var commands = [TableViewRowCommand: (TableViewLiaison, PaginationTableViewCell, IndexPath) -> Void]()
         
-        commands[.configuration] = { _, cell, indexPath in
-            cell.backgroundColor = .clear
-            cell.contentView.backgroundColor = .clear
-        }
-        
-        commands[.willDisplay] = { _, cell, indexPath in
-            cell.spinner.startAnimating()
+        commands[.willDisplay] = { _, cell, _ in
+            cell.activityIndicator.startAnimating()
         }
         
         return TableViewRow<PaginationTableViewCell>(commands: commands)

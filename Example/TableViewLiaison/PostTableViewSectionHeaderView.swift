@@ -12,14 +12,14 @@ final class PostTableViewSectionHeaderView: UITableViewHeaderFooterView {
     
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var swapButton: UIButton!
     @IBOutlet var hideButton: UIButton!
-    var hideButtonAction = {}
+    var swapAction = {}
+    var hideAction = {}
     
     override func awakeFromNib() {
         super.awakeFromNib()
         imageView.layer.masksToBounds = true
-        imageView.contentMode = .scaleAspectFit
-        hideButton.imageView?.contentMode = .scaleAspectFit
     }
     
     override func layoutSubviews() {
@@ -34,10 +34,15 @@ final class PostTableViewSectionHeaderView: UITableViewHeaderFooterView {
         super.prepareForReuse()
         imageView.image = nil
         titleLabel.text = nil
-        hideButtonAction = {}
+        swapAction = {}
+        hideAction = {}
     }
     
     @IBAction private func hideButtonPressed(_ sender: Any) {
-        hideButtonAction()
+        hideAction()
+    }
+    
+    @IBAction private func swapButtonPressed(_ sender: Any) {
+        swapAction()
     }
 }

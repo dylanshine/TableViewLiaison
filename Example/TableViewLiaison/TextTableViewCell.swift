@@ -15,7 +15,6 @@ final class TextTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         contentTextLabel.text = nil
-        contentTextLabel.textColor = .black
         contentTextLabel.attributedText = nil
     }
     

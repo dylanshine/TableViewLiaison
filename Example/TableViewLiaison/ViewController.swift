@@ -2,8 +2,8 @@
 //  ViewController.swift
 //  TableViewLiaison
 //
-//  Created by [01;31m[Kacct[m[K<blob>=dylanshine on 01/31/2019.
-//  Copyright (c) 2019 [01;31m[Kacct[m[K<blob>=dylanshine. All rights reserved.
+//  Created by Dylan Shine on 01/31/2019.
+//  Copyright (c) 2019 Shine Labs. All rights reserved.
 //
 
 import UIKit
@@ -17,7 +17,7 @@ final class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        refreshControl.tintColor = .white
         refreshControl.addTarget(self, action: #selector(refreshSections), for: .valueChanged)
         tableView.addSubview(refreshControl)
         
@@ -31,6 +31,10 @@ final class ViewController: UIViewController {
         liaison.append(sections: randomPostSections(), animated: false)
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     private func randomPostSections() -> [TableViewSection] {
         return (0...8).map { _ in
             let post = Post()
@@ -40,6 +44,7 @@ final class ViewController: UIViewController {
     
     @objc private func refreshSections() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            NetworkManager.flushCache()
             self.liaison.clearSections(replacedBy: self.randomPostSections(), animated: false)
             self.refreshControl.endRefreshing()
         }

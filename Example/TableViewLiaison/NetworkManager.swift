@@ -10,12 +10,17 @@ import UIKit
 
 enum NetworkManager {
     
-    private static var imageCache = [Int: UIImage]()
-    static var factCache = [Int: String]()
+    private(set) static var imageCache = [String: UIImage]()
+    private(set) static var factCache = [String: String]()
 
-    static func flushCache(for section: Int) {
-        imageCache[section] = nil
-        factCache[section] = nil
+    static func flushCache() {
+        imageCache.removeAll()
+        factCache.removeAll()
+    }
+    
+    static func flushCache(for id: String) {
+        imageCache[id] = nil
+        factCache[id] = nil
     }
     
     private static func fetchData(from url: URL, completion: @escaping (Data?) -> ()) {
@@ -26,12 +31,12 @@ enum NetworkManager {
         }.resume()
     }
     
-    static func fetchRandomPostImage(section: Int,
+    static func fetchRandomPostImage(id: String,
                                      width: Int,
                                      height: Int,
                                      completion: @escaping (UIImage?) -> ()) {
         
-        if let image = NetworkManager.imageCache[section] {
+        if let image = NetworkManager.imageCache[id] {
             completion(image)
             return
         }
@@ -45,7 +50,7 @@ enum NetworkManager {
             }
             
             let image = UIImage(data: data)
-            NetworkManager.imageCache[section] = image
+            NetworkManager.imageCache[id] = image
             
             DispatchQueue.main.async() {
                 completion(image)
@@ -53,10 +58,10 @@ enum NetworkManager {
         }
     }
     
-    static func fetchRandomFact(section: Int,
+    static func fetchRandomFact(id: String,
                                 completion: ((String?) -> ())? = nil) {
         
-        if let fact = NetworkManager.factCache[section] {
+        if let fact = NetworkManager.factCache[id] {
             completion?(fact)
             return
         }
@@ -72,7 +77,7 @@ enum NetworkManager {
             let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
             let fact = json?["text"] as? String
             
-            NetworkManager.factCache[section] = fact
+            NetworkManager.factCache[id] = fact
             
             DispatchQueue.main.async() {
                 completion?(fact)

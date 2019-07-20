@@ -13,9 +13,10 @@ enum PostTableViewSectionFactory {
     
     static func section(for post: Post) -> TableViewSection {
         let rows: [AnyTableViewRow] = [
-            TableViewContentFactory.imageRow(imageSize: post.imageSize),
+            TableViewContentFactory.imageRow(id: post.id, imageSize: post.imageSize),
+            TableViewRow<ActionButtonsTableViewCell>(registrationType:.defaultNibType),
             TableViewContentFactory.likesRow(numberOfLikes: post.numberOfLikes),
-            TableViewContentFactory.captionRow(user: post.user.username),
+            TableViewContentFactory.captionRow(id: post.id, user: post.user.username),
             TableViewContentFactory.commentRow(commentCount: post.numberOfComments),
             TableViewContentFactory.timeRow(numberOfSeconds: post.timePosted)
         ]

@@ -11,7 +11,7 @@ import UIKit
 
 enum TableViewContentFactory {
     
-    static func imageRow(imageSize: CGSize) -> TableViewRow<ImageTableViewCell> {
+    static func imageRow(id: String, imageSize: CGSize) -> TableViewRow<ImageTableViewCell> {
         
         var row = TableViewRow<ImageTableViewCell>(registrationType: .defaultNibType)
         
@@ -27,7 +27,7 @@ enum TableViewContentFactory {
             let width = Int(imageSize.width * 2.0)
             let height = Int(imageSize.height * 2.0)
             
-            NetworkManager.fetchRandomPostImage(section: indexPath.section,
+            NetworkManager.fetchRandomPostImage(id: id,
                                                 width: width,
                                                 height: height) { image in
                 completion?(image)
@@ -58,18 +58,19 @@ enum TableViewContentFactory {
         row.set(command: .configuration) { _, cell, _ in
             cell.contentTextLabel.font = .systemFont(ofSize: 13, weight: .medium)
             cell.contentTextLabel.text = "\(numberOfLikes) likes"
+            cell.contentTextLabel.textColor = .white
             cell.selectionStyle = .none
         }
         
         return row
     }
     
-    static func captionRow(user: String) -> TableViewRow<TextTableViewCell> {
+    static func captionRow(id: String, user: String) -> TableViewRow<TextTableViewCell> {
         
         var row = textTableViewRow()
 
         row.set(prefetchCommand: .prefetch) { indexPath in
-            NetworkManager.fetchRandomFact(section: indexPath.section)
+            NetworkManager.fetchRandomFact(id: id)
         }
         
         func configureContentText(fact: String,
@@ -79,12 +80,12 @@ enum TableViewContentFactory {
             
             let mediumAttributes: [NSAttributedString.Key: Any] = [
                 .font: UIFont.systemFont(ofSize: 13, weight: .medium),
-                .foregroundColor: UIColor.black
+                .foregroundColor: UIColor.white
             ]
             
             let regularAttributes: [NSAttributedString.Key: Any] = [
                 .font: UIFont.systemFont(ofSize: 13),
-                .foregroundColor: UIColor.black
+                .foregroundColor: UIColor.white
             ]
             
             let attributedString = NSMutableAttributedString(string: user, attributes: mediumAttributes)
@@ -95,12 +96,12 @@ enum TableViewContentFactory {
         
         row.set(command: .configuration) { liaison, cell, indexPath in
             
-            if let fact = NetworkManager.factCache[indexPath.section] {
+            if let fact = NetworkManager.factCache[id] {
                 configureContentText(fact: fact, for: cell)
                 return
             }
             
-            NetworkManager.fetchRandomFact(section: indexPath.section) { [weak liaison, weak cell] fact in
+            NetworkManager.fetchRandomFact(id: id) { [weak liaison, weak cell] fact in
                 guard let fact = fact,
                     let liaison = liaison,
                     let cell = cell else { return }
@@ -151,22 +152,21 @@ enum TableViewContentFactory {
         
         header.set(height: .height, 70)
         
-        header.set(command: .configuration) { liaison, view, section in
-            view.backgroundView = UIView(frame: view.bounds)
-            view.backgroundView?.backgroundColor = .white
+        header.set(command: .configuration) { liaison, view, _ in
             
             view.imageView.image = post.user.avatar
-            view.imageView.layer.borderColor = UIColor.gray.cgColor
-            view.imageView.layer.borderWidth = 1
-            
             view.titleLabel.text = post.user.username
-            view.titleLabel.font = .systemFont(ofSize: 13, weight: .medium)
-            view.titleLabel.textColor = .black
-            
-            view.hideButtonAction = { [weak liaison] in
-                NetworkManager.flushCache(for: section)
-                liaison?.deleteSections(with: post.id)
+
+            view.swapAction = { [weak liaison] in
+                guard let sectionIndex = liaison?.sectionIndexes(for: post.id).first else { return }
+                liaison?.swapSection(at: sectionIndex, with: sectionIndex + 1)
             }
+            
+            view.hideAction = { [weak liaison] in
+                NetworkManager.flushCache(for: post.id)
+                liaison?.deleteSections(with: post.id, animation: .fade)
+            }
+        
         }
         
         return header
