@@ -22,24 +22,23 @@ enum TableViewContentFactory {
             return UIScreen.main.bounds.width / ratio
         }
         
-        func fetchImage(for indexPath: IndexPath, completion: ((UIImage?) -> Void)? = nil) {
+        func fetchImage(completion: ((UIImage?) -> Void)? = nil) {
             
             let width = Int(imageSize.width * 2.0)
             let height = Int(imageSize.height * 2.0)
             
             NetworkManager.fetchRandomPostImage(id: id,
                                                 width: width,
-                                                height: height) { image in
-                completion?(image)
-            }
+                                                height: height,
+                                                completion: completion)
         }
         
-        row.set(prefetchCommand: .prefetch) { indexPath in
-            fetchImage(for: indexPath)
+        row.set(prefetchCommand: .prefetch) { _ in
+            fetchImage()
         }
         
-        row.set(command: .configuration) { (liaison: TableViewLiaison, cell: ImageTableViewCell, indexPath: IndexPath) in
-            fetchImage(for: indexPath) { [weak cell] image in
+        row.set(command: .configuration) { (_, cell: ImageTableViewCell, _) in
+            fetchImage { [weak cell] image in
                 cell?.contentImage = image
             }
         }
@@ -59,45 +58,29 @@ enum TableViewContentFactory {
             cell.contentTextLabel.font = .systemFont(ofSize: 13, weight: .medium)
             cell.contentTextLabel.text = "\(numberOfLikes) likes"
             cell.contentTextLabel.textColor = .white
-            cell.selectionStyle = .none
         }
         
         return row
     }
     
-    static func captionRow(id: String, user: String) -> TableViewRow<TextTableViewCell> {
+    static func captionRow(id: String) -> TableViewRow<TextTableViewCell> {
         
         var row = textTableViewRow()
 
+        row.set(height: .estimatedHeight, 50)
+        
         row.set(prefetchCommand: .prefetch) { indexPath in
             NetworkManager.fetchRandomFact(id: id)
         }
         
-        func configureContentText(fact: String,
-                                  for cell: TextTableViewCell) {
-            
-            cell.contentTextLabel.numberOfLines = 0
-            
-            let mediumAttributes: [NSAttributedString.Key: Any] = [
-                .font: UIFont.systemFont(ofSize: 13, weight: .medium),
-                .foregroundColor: UIColor.white
-            ]
-            
-            let regularAttributes: [NSAttributedString.Key: Any] = [
-                .font: UIFont.systemFont(ofSize: 13),
-                .foregroundColor: UIColor.white
-            ]
-            
-            let attributedString = NSMutableAttributedString(string: user, attributes: mediumAttributes)
-            
-            attributedString.append(NSMutableAttributedString(string: " \(fact)", attributes: regularAttributes))
-            cell.contentTextLabel.attributedText = attributedString
-        }
-        
         row.set(command: .configuration) { liaison, cell, indexPath in
             
+            cell.contentTextLabel.numberOfLines = 0
+            cell.contentTextLabel.textColor = .white
+            cell.contentTextLabel.font = .systemFont(ofSize: 13)
+            
             if let fact = NetworkManager.factCache[id] {
-                configureContentText(fact: fact, for: cell)
+                cell.contentTextLabel.text = fact
                 return
             }
             
@@ -106,12 +89,9 @@ enum TableViewContentFactory {
                     let liaison = liaison,
                     let cell = cell else { return }
                 
-                configureContentText(fact: fact, for: cell)
-                
-                DispatchQueue.main.async {
-                    liaison.reloadRow(at: indexPath)
-                }
-                
+                cell.contentTextLabel.text = fact
+
+                liaison.reloadRow(at: indexPath)
             }
         }
         
@@ -126,7 +106,6 @@ enum TableViewContentFactory {
             cell.contentTextLabel.font = .systemFont(ofSize: 13)
             cell.contentTextLabel.text = "View all \(commentCount) comments"
             cell.contentTextLabel.textColor = .gray
-            cell.selectionStyle = .none
         }
         
         return row
@@ -140,13 +119,12 @@ enum TableViewContentFactory {
             cell.contentTextLabel.font = .systemFont(ofSize: 10)
             cell.contentTextLabel.text = numberOfSeconds.timeText
             cell.contentTextLabel.textColor = .gray
-            cell.selectionStyle = .none
         }
         
         return row
     }
     
-    static func postSectionHeaderComponent(post: Post) -> TableViewSectionComponent<PostTableViewSectionHeaderView> {
+    static func postSectionHeaderComponent(id: String) -> TableViewSectionComponent<PostTableViewSectionHeaderView> {
         
         var header = TableViewSectionComponent<PostTableViewSectionHeaderView>(registrationType: .defaultNibType)
         
@@ -154,17 +132,23 @@ enum TableViewContentFactory {
         
         header.set(command: .configuration) { liaison, view, _ in
             
-            view.imageView.image = post.user.avatar
-            view.titleLabel.text = post.user.username
-
+            NetworkManager.fetchRandomUser(id: id) { [weak view] user in
+                guard let user = user else { return }
+                view?.titleLabel.text = user.username
+                
+                NetworkManager.fetchImage(url: user.thumbnail) { [weak view] image in
+                    view?.imageView.image = image
+                }
+            }
+            
             view.swapAction = { [weak liaison] in
-                guard let sectionIndex = liaison?.sectionIndexes(for: post.id).first else { return }
+                guard let sectionIndex = liaison?.sectionIndexes(for: id).first else { return }
                 liaison?.swapSection(at: sectionIndex, with: sectionIndex + 1)
             }
             
             view.hideAction = { [weak liaison] in
-                NetworkManager.flushCache(for: post.id)
-                liaison?.deleteSections(with: post.id, animation: .fade)
+                NetworkManager.flushCache(for: id)
+                liaison?.deleteSections(with: id, animation: .fade)
             }
         
         }

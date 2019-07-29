@@ -81,11 +81,14 @@ public struct TableViewSection {
         }
     }
     
-    func rowIndexPaths(for identifier: String, section: Int) -> [IndexPath] {
+    func rowIndexPaths(for section: Int, where predicate: (Any) -> Bool) -> [IndexPath] {
         return rows.enumerated()
-            .filter { index, row in row.id == identifier }
+            .filter { index, row in
+                guard let state = row.data else { return false }
+                return predicate(state)
+            }
             .map { item, _ -> IndexPath in
-            return IndexPath(item: item, section: section)
+                return IndexPath(item: item, section: section)
         }
     }
 

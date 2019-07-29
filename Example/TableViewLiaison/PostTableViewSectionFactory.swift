@@ -16,12 +16,12 @@ enum PostTableViewSectionFactory {
             TableViewContentFactory.imageRow(id: post.id, imageSize: post.imageSize),
             TableViewRow<ActionButtonsTableViewCell>(registrationType:.defaultNibType),
             TableViewContentFactory.likesRow(numberOfLikes: post.numberOfLikes),
-            TableViewContentFactory.captionRow(id: post.id, user: post.user.username),
+            TableViewContentFactory.captionRow(id: post.id),
             TableViewContentFactory.commentRow(commentCount: post.numberOfComments),
             TableViewContentFactory.timeRow(numberOfSeconds: post.timePosted)
         ]
         
-        let header = TableViewContentFactory.postSectionHeaderComponent(post: post)
+        let header = TableViewContentFactory.postSectionHeaderComponent(id: post.id)
         
         return TableViewSection(id: post.id,
                                 rows: rows,

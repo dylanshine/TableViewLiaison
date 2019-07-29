@@ -80,6 +80,6 @@ extension TableViewLiaison {
             cell.activityIndicator.startAnimating()
         }
         
-        return TableViewRow<PaginationTableViewCell>(commands: commands)
+        return  TableViewRow<PaginationTableViewCell>(commands: commands)
     }()
 }

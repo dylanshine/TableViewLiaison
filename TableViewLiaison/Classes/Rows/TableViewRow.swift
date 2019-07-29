@@ -10,22 +10,25 @@ import UIKit
 
 public struct TableViewRow<Cell: UITableViewCell>: AnyTableViewRow {
     
-    public let id: String?
+    public typealias PrefetchCommandClosure = (IndexPath) -> Void
+    public typealias CommandClosure = (TableViewLiaison, Cell, IndexPath) -> Void
+    
+    public let data: Any?
     public var editingStyle: UITableViewCell.EditingStyle
     public var movable: Bool
     public var editActions: [UITableViewRowAction]?
     public var indentWhileEditing: Bool
     public var deleteConfirmationTitle: String?
     public var deleteRowAnimation: UITableView.RowAnimation
-    
+
     private let registrationType: TableViewRegistrationType<Cell>
-    private var commands = [TableViewRowCommand: (TableViewLiaison, Cell, IndexPath) -> Void]()
-    private var prefetchCommands = [TableViewPrefetchCommand: (IndexPath) -> Void]()
+    private var prefetchCommands = [TableViewPrefetchCommand: PrefetchCommandClosure]()
+    private var commands = [TableViewRowCommand: CommandClosure]()
     private var heights = [TableViewHeightType: () -> CGFloat]()
     
-    public init(id: String? = nil,
-                commands: [TableViewRowCommand: (TableViewLiaison, Cell, IndexPath) -> Void] = [:],
-                prefetchCommands: [TableViewPrefetchCommand: (IndexPath) -> Void] = [:],
+    public init(data: Any? = nil,
+                prefetchCommands: [TableViewPrefetchCommand: PrefetchCommandClosure] = [:],
+                commands: [TableViewRowCommand: CommandClosure] = [:],
                 heights: [TableViewHeightType: () -> CGFloat] = [:],
                 editingStyle: UITableViewCell.EditingStyle = .none,
                 movable: Bool = false,
@@ -34,9 +37,10 @@ public struct TableViewRow<Cell: UITableViewCell>: AnyTableViewRow {
                 deleteConfirmationTitle: String? = nil,
                 deleteRowAnimation: UITableView.RowAnimation = .automatic,
                 registrationType: TableViewRegistrationType<Cell> = .defaultClassType) {
-        self.id = id
-        self.commands = commands
+        
+        self.data = data
         self.prefetchCommands = prefetchCommands
+        self.commands = commands
         self.heights = heights
         self.editingStyle = editingStyle
         self.movable = movable
@@ -75,7 +79,7 @@ public struct TableViewRow<Cell: UITableViewCell>: AnyTableViewRow {
         prefetchCommands[prefetchCommand]?(indexPath)
     }
     
-    public mutating func set(command: TableViewRowCommand, with closure: @escaping (TableViewLiaison, Cell, IndexPath) -> Void) {
+    public mutating func set(command: TableViewRowCommand, with closure: @escaping CommandClosure) {
         commands[command] = closure
     }
     
@@ -96,7 +100,7 @@ public struct TableViewRow<Cell: UITableViewCell>: AnyTableViewRow {
         heights[height] = nil
     }
     
-    public mutating func set(prefetchCommand: TableViewPrefetchCommand, with closure: @escaping (IndexPath) -> Void) {
+    public mutating func set(prefetchCommand: TableViewPrefetchCommand, with closure: @escaping PrefetchCommandClosure) {
         prefetchCommands[prefetchCommand] = closure
     }
     

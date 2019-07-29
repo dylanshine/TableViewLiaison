@@ -10,7 +10,6 @@ import UIKit
 
 struct Post {
     
-    let user: User = .dylan
     let imageSize = CGSize(width: CGFloat.random(in: 200...300),
                            height: CGFloat.random(in: 200...300))
     let numberOfLikes = UInt.random(in: 1...5000)

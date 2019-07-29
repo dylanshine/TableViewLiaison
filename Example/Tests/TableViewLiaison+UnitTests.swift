@@ -62,6 +62,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         liaison.isEditing = false
 
         XCTAssertFalse(tableView.isEditing)
+        XCTAssertFalse(liaison.isEditing)
     }
     
     func test_allowSelection_changesTableViewsAllowsSelection() {
@@ -69,6 +70,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         liaison.allowsSelection = false
         
         XCTAssertFalse(tableView.allowsSelection)
+        XCTAssertFalse(liaison.allowsSelection)
     }
  
     func test_allowsSelectionDuringEditing_changesTableViewsAllowsSelectionDuringEditing() {
@@ -76,6 +78,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         liaison.allowsSelectionDuringEditing = false
         
         XCTAssertFalse(tableView.allowsSelectionDuringEditing)
+        XCTAssertFalse(liaison.allowsSelectionDuringEditing)
     }
     
     func test_allowsMultipleSelection_changesTableViewsAllowsMultipleSelection() {
@@ -83,6 +86,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         liaison.allowsMultipleSelection = false
         
         XCTAssertFalse(tableView.allowsMultipleSelection)
+        XCTAssertFalse(liaison.allowsMultipleSelection)
     }
     
     func test_allowsMultipleSelectionDuringEditing_changesTableViewsAllowsMultipleSelectionDuringEditing() {
@@ -90,6 +94,7 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         liaison.allowsMultipleSelectionDuringEditing = false
         
         XCTAssertFalse(tableView.allowsMultipleSelectionDuringEditing)
+        XCTAssertFalse(liaison.allowsMultipleSelectionDuringEditing)
     }
 
     func test_init_initializesWithSections() {
@@ -188,6 +193,29 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         XCTAssertEqual(liaison.sections.count, 2)
     }
     
+    func test_deleteSectionWithId_removesSectionFromTableView() {
+        let section = TableViewSection(id: "test")
+        
+        liaison.append(section: section)
+        
+        liaison.deleteSections(with: "test")
+        
+        XCTAssertEqual(tableView.numberOfSections, 0)
+        XCTAssertEqual(liaison.sections.count, 0)
+    }
+    
+    func test_deleteSectionsWithIds_removesSectionFromTableView() {
+        let section1 = TableViewSection(id: "test1")
+        let section2 = TableViewSection(id: "test2")
+
+        liaison.append(sections: [section1, section2])
+        
+        liaison.deleteSections(with: ["test1", "test2"])
+        
+        XCTAssertEqual(tableView.numberOfSections, 0)
+        XCTAssertEqual(liaison.sections.count, 0)
+    }
+    
     func test_emptySection_removesAllRowsFromSection() {
         let section = TableViewSection(rows: [TestTableViewRow()])
         liaison.append(section: section)
@@ -195,6 +223,44 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         liaison.emptySection(at: 0)
         
         XCTAssertEqual(tableView.numberOfRows(inSection: 0), 0)
+    }
+    
+    func test_emptySectionsAtIndexes_removesAllRowsFromSections() {
+        let section1 = TableViewSection(rows: [TestTableViewRow()])
+        let section2 = TableViewSection(rows: [TestTableViewRow(), TestTableViewRow()])
+        let section3 = TableViewSection(rows: [TestTableViewRow()])
+
+        liaison.append(sections: [section1, section2, section3])
+        
+        liaison.emptySections(at: [1,2])
+        
+        XCTAssertEqual(tableView.numberOfRows(inSection: 0), 1)
+        XCTAssertEqual(tableView.numberOfRows(inSection: 1), 0)
+        XCTAssertEqual(tableView.numberOfRows(inSection: 2), 0)
+    }
+    
+    func test_emptySectionsWithId_removesAllRowsFromSection() {
+        let section = TableViewSection(id: "test", rows: [TestTableViewRow(), TestTableViewRow()])
+        
+        liaison.append(section: section)
+        
+        liaison.emptySections(with: "test")
+        
+        XCTAssertEqual(tableView.numberOfRows(inSection: 0), 0)
+    }
+    
+    func test_emptySectionsWithIds_removesAllRowsFromSections() {
+        let section1 = TableViewSection(rows: [TestTableViewRow()])
+        let section2 = TableViewSection(id: "test", rows: [TestTableViewRow(), TestTableViewRow()])
+        let section3 = TableViewSection(rows: [TestTableViewRow()])
+        
+        liaison.append(sections: [section1, section2, section3])
+        
+        liaison.emptySections(ids: ["test"])
+        
+        XCTAssertEqual(tableView.numberOfRows(inSection: 0), 1)
+        XCTAssertEqual(tableView.numberOfRows(inSection: 1), 0)
+        XCTAssertEqual(tableView.numberOfRows(inSection: 2), 1)
     }
 
     func test_replaceSection_replacesSectionOfTableView() {
@@ -516,45 +582,6 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         XCTAssertEqual(actualIndexPathRow3, row3IndexPath)
     }
     
-    func test_deleteRowsByIdentifier_removesRowsFromTableView() {
-        let identifier = "test"
-        var row1 = TestTableViewRow(id: identifier)
-        let row2 = TestTableViewRow()
-        var row3 = TestTableViewRow(id: identifier)
-        
-        let row1IndexPath = IndexPath(row: 0, section: 0)
-        var deletedRow1 = false
-        var actualIndexPathRow1: IndexPath?
-        row1.set(command: .delete) { _, _, indexPath in
-            deletedRow1 = true
-            actualIndexPathRow1 = indexPath
-        }
-    
-        
-        let row3IndexPath = IndexPath(row: 2, section: 0)
-        var deletedRow3 = false
-        var actualIndexPathRow3: IndexPath?
-        row3.set(command: .delete) { _, _, indexPath in
-            deletedRow3 = true
-            actualIndexPathRow3 = indexPath
-        }
-        
-        let section = TableViewSection(rows: [row1, row2, row3])
-        
-        liaison.append(section: section)
-        
-        tableView.stubCell = UITableViewCell()
-        tableView.performInSwizzledEnvironment {
-            liaison.deleteRows(with: identifier)
-        }
-        
-        XCTAssertEqual(tableView.numberOfRows(inSection: 0), 1)
-        XCTAssertTrue(deletedRow1)
-        XCTAssertTrue(deletedRow3)
-        XCTAssertEqual(actualIndexPathRow1, row1IndexPath)
-        XCTAssertEqual(actualIndexPathRow3, row3IndexPath)
-    }
-
     func test_deleteRow_removesRowFromSection() {
         var row1 = TestTableViewRow()
         let row2 = TestTableViewRow()
@@ -606,37 +633,6 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
 
         let count = tableView.callCounts[.reloadRows]
 
-        XCTAssertEqual(count, 1)
-        XCTAssertTrue(reloaded1)
-        XCTAssertTrue(reloaded2)
-    }
-    
-    func test_reloadRows_reloadsRowsWithId() {
-        var row1 = TestTableViewRow(id: "test")
-        var row2 = TestTableViewRow(id: "test")
-        
-        var reloaded1 = false
-        var reloaded2 = false
-        
-        row1.set(command: .reload) { _, _, _ in
-            reloaded1 = true
-        }
-        
-        row2.set(command: .reload) { _, _, _ in
-            reloaded2 = true
-        }
-        
-        let section = TableViewSection(rows: [row1, row2])
-        
-        liaison.append(section: section)
-        
-        tableView.stubCell = UITableViewCell()
-        tableView.performInSwizzledEnvironment {
-            liaison.reloadRows(with: "test")
-        }
-        
-        let count = tableView.callCounts[.reloadRows]
-        
         XCTAssertEqual(count, 1)
         XCTAssertTrue(reloaded1)
         XCTAssertTrue(reloaded2)
@@ -1473,10 +1469,12 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         let section1Height = liaison.tableView(tableView, heightForHeaderInSection: 0)
         let section2Height = liaison.tableView(tableView, heightForHeaderInSection: 1)
         let section3Height = liaison.tableView(tableView, heightForHeaderInSection: 2)
+        let section4Height = liaison.tableView(tableView, heightForHeaderInSection: 3)
 
         XCTAssertEqual(section1Height, 100)
         XCTAssertEqual(section2Height, 200)
         XCTAssertEqual(section3Height, UITableView.automaticDimension)
+        XCTAssertEqual(section4Height, UITableView.automaticDimension)
     }
     
     func test_estimatedHeightForHeader_properlySetsEstimatedHeightsForSectionHeaders() {
@@ -1724,27 +1722,21 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         XCTAssertEqual(indexes, [0])
     }
     
-    func test_rowIndexPathsForId_returnCorrectIndexForId() {
-        let identifier = "test"
-
-        let row = TestTableViewRow(id: identifier)
-        let section = TableViewSection(rows: [row])
-        liaison.append(section: section)
-
-        let indexPaths = liaison.rowIndexPaths(for: identifier)
-        XCTAssertEqual(indexPaths, [IndexPath(row: 0, section: 0)])
-    }
-    
-    func test_rowIndexPathsForIdInSectionId_returnCorrectIndexForIdInSection() {
-        let rowId = "row"
-        let sectionId = "section"
+    func test_rowIndexPaths_returnsIndexPathsForPredicate() {
+        let row1 = TestTableViewRow(data: "test")
+        let row2 = TestTableViewRow(data: "test")
         
-        let row = TestTableViewRow(id: rowId)
-        let section = TableViewSection(id: sectionId, rows: [row])
-        liaison.append(section: section)
+        let section1 = TableViewSection(rows: [row1])
+        let section2 = TableViewSection(rows: [row2])
+
+        liaison.append(sections: [section1, section2])
         
-        let indexPaths = liaison.rowIndexPaths(for: rowId, in: sectionId)
-        XCTAssertEqual(indexPaths, [IndexPath(row: 0, section: 0)])
+        let indexPaths = liaison.rowIndexPathes {
+            guard let data = $0 as? String else { return false }
+            return data == "test"
+        }
+        
+        XCTAssertEqual(indexPaths, [IndexPath(row: 0, section: 0),
+                                    IndexPath(row: 0, section: 1)])
     }
-    
 }

@@ -282,4 +282,20 @@ final class OKTableViewSection_UnitTests: XCTestCase {
         XCTAssertEqual(footerConfiguration, "")
     }
     
+    func test_rowIndexPaths_returnsIndexPathsForPredicate() {
+        let row1 = TestTableViewRow(data: "test")
+        let row2 = TestTableViewRow()
+        let row3 = TestTableViewRow(data: "test")
+        
+        let section = TableViewSection(rows: [row1, row2, row3])
+        
+        let indexPaths = section.rowIndexPaths(for: 0) {
+            guard let data = $0 as? String else { return false }
+            return data == "test"
+        }
+        
+        XCTAssertEqual(indexPaths, [IndexPath(row: 0, section: 0),
+                                    IndexPath(row: 2, section: 0)])
+    }
+    
 }

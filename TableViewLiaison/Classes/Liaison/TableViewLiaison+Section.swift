@@ -135,17 +135,17 @@ public extension TableViewLiaison {
         }
     }
     
-    func deleteSections(with identifiers: [String], animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
-        guard !identifiers.isEmpty else { return }
+    func deleteSections(with ids: [String], animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
+        guard !ids.isEmpty else { return }
         
-        let indexes = Set(identifiers).map { sectionIndexes(for: $0) }
+        let indexes = Set(ids).map { sectionIndexes(for: $0) }
             .reduce([], +)
         
         deleteSections(at: indexes, animation: animation, animated: animated)
     }
     
-    func deleteSections(with identifier: String, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
-        deleteSections(with: [identifier], animation: animation, animated: animated)
+    func deleteSections(with id: String, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
+        deleteSections(with: [id], animation: animation, animated: animated)
     }
     
     func replaceSection(at index: Int, with section: TableViewSection, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {

@@ -152,6 +152,15 @@ public final class TableViewLiaison: NSObject {
             .map { $0.0 }
     }
     
+    public func rowIndexPathes(where predicate: (Any) -> Bool) -> [IndexPath] {
+        return sections
+            .enumerated()
+            .reduce([]) { (result, tuple) -> [IndexPath] in
+                let (index, section) = tuple
+                return result + section.rowIndexPaths(for: index, where: predicate)
+        }
+    }
+    
     public func rect(for section: Int) -> CGRect {
         return tableView?.rect(forSection: section) ?? .zero
     }
@@ -166,23 +175,6 @@ public final class TableViewLiaison: NSObject {
     
     public func rectForRow(at indexPath: IndexPath) -> CGRect {
         return tableView?.rectForRow(at: indexPath) ?? .zero
-    }
-    
-    public func rowIndexPaths(for id: String) -> [IndexPath] {
-        return sections
-            .enumerated()
-            .reduce([]) { (result, tuple) -> [IndexPath] in
-                let (index, section) = tuple
-                return result + section.rowIndexPaths(for: id, section: index)
-        }
-    }
-    
-    public func rowIndexPaths(for id: String, in sectionId: String) -> [IndexPath] {
-        let sectionIndexes = self.sectionIndexes(for: sectionId)
-        
-        return sectionIndexes.reduce([]) { (result, index) -> [IndexPath] in
-            return result + sections[index].rowIndexPaths(for: id, section: index)
-        }
     }
     
     func row(for indexPath: IndexPath) -> AnyTableViewRow? {

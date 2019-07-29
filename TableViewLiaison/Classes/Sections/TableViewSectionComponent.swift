@@ -9,11 +9,13 @@ import Foundation
 
 public struct TableViewSectionComponent<View: UITableViewHeaderFooterView>: AnyTableViewSectionComponent {
 
+    public typealias CommandClosure = (TableViewLiaison, View, Int) -> Void
+
     private let registrationType: TableViewRegistrationType<View>
-    private var commands = [TableViewSectionComponentCommand: (TableViewLiaison, View, Int) -> Void]()
+    private var commands = [TableViewSectionComponentCommand: CommandClosure]()
     private var heights = [TableViewHeightType: () -> CGFloat]()
     
-    public init(commands: [TableViewSectionComponentCommand: (TableViewLiaison, View, Int) -> Void] = [:],
+    public init(commands: [TableViewSectionComponentCommand: CommandClosure] = [:],
                 heights: [TableViewHeightType: () -> CGFloat] = [:],
                 registrationType: TableViewRegistrationType<View> = .defaultClassType) {
         self.commands = commands
@@ -40,10 +42,9 @@ public struct TableViewSectionComponent<View: UITableViewHeaderFooterView>: AnyT
     public func perform(command: TableViewSectionComponentCommand, liaison: TableViewLiaison, view: UIView, section: Int) {
         guard let view = view as? View else { return }
         commands[command]?(liaison, view, section)
-
     }
 
-    public mutating func set(command: TableViewSectionComponentCommand, with closure: @escaping (TableViewLiaison, View, Int) -> Void) {
+    public mutating func set(command: TableViewSectionComponentCommand, with closure: @escaping CommandClosure) {
         commands[command] = closure
     }
     

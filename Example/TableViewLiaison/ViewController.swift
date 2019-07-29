@@ -27,7 +27,7 @@ final class ViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-       
+        
         liaison.append(sections: randomPostSections(), animated: false)
     }
     
@@ -49,7 +49,6 @@ final class ViewController: UIViewController {
             self.refreshControl.endRefreshing()
         }
     }
-    
 }
 
 extension ViewController: TableViewLiaisonPaginationDelegate {

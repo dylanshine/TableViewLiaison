@@ -134,22 +134,6 @@ public extension TableViewLiaison {
     }
     
     @discardableResult
-    func deleteRows(with id: String, with animation: UITableView.RowAnimation = .automatic, animated: Bool = true) -> [AnyTableViewRow] {
-        let indexPaths = rowIndexPaths(for: id)
-        return deleteRows(at: indexPaths, with: animation, animated: animated)
-    }
-    
-    @discardableResult
-    func deleteRows(with id: String,
-                    in sectionId: String,
-                    animation: UITableView.RowAnimation = .automatic,
-                    animated: Bool = true) -> [AnyTableViewRow] {
-        
-        let indexPaths = rowIndexPaths(for: id, in: sectionId)
-        return deleteRows(at: indexPaths, with: animation, animated: animated)
-    }
-    
-    @discardableResult
     func deleteRow(at indexPath: IndexPath, with animation: UITableView.RowAnimation = .automatic, animated: Bool = true) -> AnyTableViewRow? {
         
         guard sections.indices.contains(indexPath.section),
@@ -174,11 +158,6 @@ public extension TableViewLiaison {
         indexPaths.forEach {
             perform(command: .reload, at: $0)
         }
-    }
-    
-    func reloadRows(with id: String, animation: UITableView.RowAnimation = .automatic) {
-        let indexPaths = Array(rowIndexPaths(for: id))
-        reloadRows(at: indexPaths, with: animation)
     }
     
     func reloadRow(at indexPath: IndexPath, animation: UITableView.RowAnimation = .automatic) {
