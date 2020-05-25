@@ -712,7 +712,6 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
 
         XCTAssertTrue(moved)
         XCTAssertEqual(actualDestination, destination)
-
     }
 
     func test_moveRow_intoDifferentSection() {
