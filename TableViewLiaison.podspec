@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.description      = 'TableViewLiaison abstracts and simplifies UITableView construction and management.'
   s.homepage         = 'https://github.com/dylanshine/TableViewLiaison'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'Dylan Shine' => 'dylan@shinelabs.tech' }
+  s.author           = { 'Dylan Shine' => 'dylan@shinelabs.dev' }
   s.source           = { :git => 'https://github.com/dylanshine/TableViewLiaison.git', :tag => s.version.to_s }
   s.ios.deployment_target = '10.0'
   s.source_files = 'TableViewLiaison/Classes/**/*'
