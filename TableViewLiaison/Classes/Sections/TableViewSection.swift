@@ -103,19 +103,19 @@ public struct TableViewSection {
     }
     
     @discardableResult
-    mutating func deleteRow(at indexPath: IndexPath) -> AnyTableViewRow? {
-        guard rows.indices.contains(indexPath.item) else { return nil }
-        return rows.remove(at: indexPath.item)
+    mutating func deleteRow(at index: Int) -> AnyTableViewRow? {
+        guard rows.indices.contains(index) else { return nil }
+        return rows.remove(at: index)
     }
     
-    mutating func insert(row: AnyTableViewRow, at indexPath: IndexPath) {
-        guard rows.count >= indexPath.item else { return }
-        rows.insert(row, at: indexPath.item)
+    mutating func insert(row: AnyTableViewRow, at index: Int) {
+        guard rows.count >= index else { return }
+        rows.insert(row, at: index)
     }
     
-    mutating func swapRows(at source: IndexPath, to destination: IndexPath) {
-        guard rows.indices.contains(source.item) && rows.indices.contains(destination.item) else { return }
-        rows.swapAt(source.item, destination.item)
+    mutating func swapRows(at source: Int, to destination: Int) {
+        guard rows.indices.contains(source) && rows.indices.contains(destination) else { return }
+        rows.swapAt(source, destination)
     }
     
     mutating func removeAllRows() {

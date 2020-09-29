@@ -89,7 +89,7 @@ public extension TableViewLiaison {
         guard sections.indices.contains(indexPath.section),
             sections[indexPath.section].rows.indices.contains(indexPath.row) else { return }
         
-        sections[indexPath.section].insert(row: row, at: indexPath)
+        sections[indexPath.section].insert(row: row, at: indexPath.item)
         register(row: row)
         
         performTableViewUpdates(animated: animated) {
@@ -114,7 +114,7 @@ public extension TableViewLiaison {
                 
                 indexPaths.forEach {
                     
-                    if let row = sections[section].deleteRow(at: $0) {
+                    if let row = sections[section].deleteRow(at: $0.item) {
                         deletedRows.append(row)
                         
                         if let cell = cell(at: $0) {
@@ -139,7 +139,7 @@ public extension TableViewLiaison {
         guard sections.indices.contains(indexPath.section),
             sections[indexPath.section].rows.indices.contains(indexPath.row)else { return nil }
         
-        let row = sections[indexPath.section].deleteRow(at: indexPath)
+        let row = sections[indexPath.section].deleteRow(at: indexPath.item)
         
         if let cell = cell(at: indexPath) {
             row?.perform(.delete, liaison: self, cell: cell, indexPath: indexPath)
@@ -169,12 +169,12 @@ public extension TableViewLiaison {
         guard sections.indices.contains(indexPath.section),
             sections[indexPath.section].rows.indices.contains(indexPath.row) else { return }
         
-        let deletedRow = sections[indexPath.section].deleteRow(at: indexPath)
+        let deletedRow = sections[indexPath.section].deleteRow(at: indexPath.item)
         if let cell = cell(at: indexPath) {
             deletedRow?.perform(.delete, liaison: self, cell: cell, indexPath: indexPath)
         }
         
-        sections[indexPath.section].insert(row: row, at: indexPath)
+        sections[indexPath.section].insert(row: row, at: indexPath.item)
         register(row: row)
         
         performTableViewUpdates(animated: animated) {
@@ -191,11 +191,11 @@ public extension TableViewLiaison {
         let indices = sections.indices
         guard indices.contains(source.section) && indices.contains(destination.section) else { return }
         
-        guard let row = sections[source.section].deleteRow(at: source) else {
+        guard let row = sections[source.section].deleteRow(at: source.item) else {
             return
         }
         
-        sections[destination.section].insert(row: row, at: destination)
+        sections[destination.section].insert(row: row, at: destination.item)
         
         perform(.move, at: destination)
         
@@ -210,14 +210,14 @@ public extension TableViewLiaison {
         guard indices.contains(source.section) && indices.contains(destination.section) else { return }
         
         if source.section == destination.section {
-            sections[source.section].swapRows(at: source, to: destination)
+            sections[source.section].swapRows(at: source.item, to: destination.item)
         } else {
 
-            guard let sourceRow = sections[source.section].deleteRow(at: source),
-                let destinationRow = sections[destination.section].deleteRow(at: destination) else { return }
+            guard let sourceRow = sections[source.section].deleteRow(at: source.item),
+                  let destinationRow = sections[destination.section].deleteRow(at: destination.item) else { return }
             
-            sections[source.section].insert(row: destinationRow, at: source)
-            sections[destination.section].insert(row: sourceRow, at: destination)
+            sections[source.section].insert(row: destinationRow, at: source.item)
+            sections[destination.section].insert(row: sourceRow, at: destination.item)
         }
         
         performTableViewUpdates(animated: animated) {
