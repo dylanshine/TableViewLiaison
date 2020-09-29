@@ -22,11 +22,11 @@ enum TableViewContentFactory {
             return UIScreen.main.bounds.width / ratio
         }
         
-        row.set(prefetchCommand: .prefetch) { _ in
+        row.set(.prefetch) { _ in
             fetchImage(id: id, imageSize: imageSize)
         }
         
-        row.set(command: .configuration) { (_, cell: ImageTableViewCell, _) in
+        row.set(.configuration) { (_, cell: ImageTableViewCell, _) in
             fetchImage(id: id, imageSize: imageSize) { [weak cell] image in
                 cell?.contentImage = image
             }
@@ -56,7 +56,7 @@ enum TableViewContentFactory {
         
         var row = textTableViewRow()
         
-        row.set(command: .configuration) { _, cell, _ in
+        row.set(.configuration) { _, cell, _ in
             cell.contentTextLabel.font = .systemFont(ofSize: 13, weight: .medium)
             cell.contentTextLabel.text = "\(numberOfLikes) likes"
             cell.contentTextLabel.textColor = .white
@@ -71,11 +71,11 @@ enum TableViewContentFactory {
 
         row.set(height: .estimatedHeight, 50)
         
-        row.set(prefetchCommand: .prefetch) { indexPath in
+        row.set(.prefetch) { indexPath in
             NetworkManager.fetchRandomFact(id: id)
         }
         
-        row.set(command: .configuration) { liaison, cell, indexPath in
+        row.set(.configuration) { liaison, cell, indexPath in
             
             cell.contentTextLabel.numberOfLines = 0
             cell.contentTextLabel.textColor = .white
@@ -104,7 +104,7 @@ enum TableViewContentFactory {
         
         var row = textTableViewRow()
         
-        row.set(command: .configuration) { _, cell, _ in
+        row.set(.configuration) { _, cell, _ in
             cell.contentTextLabel.font = .systemFont(ofSize: 13)
             cell.contentTextLabel.text = "View all \(commentCount) comments"
             cell.contentTextLabel.textColor = .gray
@@ -117,7 +117,7 @@ enum TableViewContentFactory {
         
         var row = textTableViewRow()
 
-        row.set(command: .configuration) { _, cell, _ in
+        row.set(.configuration) { _, cell, _ in
             cell.contentTextLabel.font = .systemFont(ofSize: 10)
             cell.contentTextLabel.text = numberOfSeconds.timeText
             cell.contentTextLabel.textColor = .gray
@@ -132,7 +132,7 @@ enum TableViewContentFactory {
         
         header.set(height: .height, 70)
         
-        header.set(command: .configuration) { liaison, view, _ in
+        header.set(.configuration) { liaison, view, _ in
             
             NetworkManager.fetchRandomUser(id: id) { [weak view] user in
                 guard let user = user else { return }

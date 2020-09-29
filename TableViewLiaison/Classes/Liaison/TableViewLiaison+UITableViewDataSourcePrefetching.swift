@@ -10,13 +10,13 @@ import UIKit
 extension TableViewLiaison: UITableViewDataSourcePrefetching {
     public func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         indexPaths.forEach {
-            row(for: $0)?.perform(prefetchCommand: .prefetch, for: $0)
+            row(for: $0)?.perform(.prefetch, for: $0)
         }
     }
     
     public func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
         indexPaths.forEach {
-            row(for: $0)?.perform(prefetchCommand: .cancel, for: $0)
+            row(for: $0)?.perform(.cancel, for: $0)
         }
     }
 }

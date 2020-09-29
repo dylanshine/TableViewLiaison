@@ -147,7 +147,7 @@ public final class TableViewLiaison: NSObject {
             .map { $0.0 }
     }
     
-    public func rowIndexPathes(where predicate: (Any) -> Bool) -> [IndexPath] {
+    public func rowIndexPathes<T>(where predicate: (T) -> Bool) -> [IndexPath] {
         return sections
             .enumerated()
             .reduce([]) { (result, tuple) -> [IndexPath] in
@@ -172,6 +172,10 @@ public final class TableViewLiaison: NSObject {
         return tableView?.rectForRow(at: indexPath) ?? .zero
     }
     
+    public func row<Cell: UITableViewCell>(for indexPath: IndexPath) -> TableViewRow<Cell>? {
+        return row(for: indexPath) as? TableViewRow<Cell>
+    }
+        
     func row(for indexPath: IndexPath) -> AnyTableViewRow? {
         guard let section = sections.element(at: indexPath.section) else { return nil }
         
@@ -193,11 +197,11 @@ public final class TableViewLiaison: NSObject {
     }
     
     @discardableResult
-    func perform(command: TableViewRowCommand, at indexPath: IndexPath) -> IndexPath? {
+    func perform(_ command: TableViewRowCommand, at indexPath: IndexPath) -> IndexPath? {
         
         guard let cell = cell(at: indexPath) else { return nil }
         
-        row(for: indexPath)?.perform(command: command,
+        row(for: indexPath)?.perform(command,
                                      liaison: self,
                                      cell: cell,
                                      indexPath: indexPath)

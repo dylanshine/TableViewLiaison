@@ -68,22 +68,22 @@ public struct TableViewRow<Cell: UITableViewCell>: AnyTableViewRow {
     }
     
     // MARK: - Commands
-    public func perform(command: TableViewRowCommand, liaison: TableViewLiaison, cell: UITableViewCell, indexPath: IndexPath) {
+    public func perform(_ command: TableViewRowCommand, liaison: TableViewLiaison, cell: UITableViewCell, indexPath: IndexPath) {
         
         guard let cell = cell as? Cell else { return }
         
         commands[command]?(liaison, cell, indexPath)
     }
     
-    public func perform(prefetchCommand: TableViewPrefetchCommand, for indexPath: IndexPath) {
+    public func perform(_ prefetchCommand: TableViewPrefetchCommand, for indexPath: IndexPath) {
         prefetchCommands[prefetchCommand]?(indexPath)
     }
     
-    public mutating func set(command: TableViewRowCommand, with closure: @escaping CommandClosure) {
+    public mutating func set(_ command: TableViewRowCommand, with closure: @escaping CommandClosure) {
         commands[command] = closure
     }
     
-    public mutating func remove(command: TableViewRowCommand) {
+    public mutating func remove(_ command: TableViewRowCommand) {
         commands[command] = nil
     }
     
@@ -100,23 +100,20 @@ public struct TableViewRow<Cell: UITableViewCell>: AnyTableViewRow {
         heights[height] = nil
     }
     
-    public mutating func set(prefetchCommand: TableViewPrefetchCommand, with closure: @escaping PrefetchCommandClosure) {
+    public mutating func set(_ prefetchCommand: TableViewPrefetchCommand, with closure: @escaping PrefetchCommandClosure) {
         prefetchCommands[prefetchCommand] = closure
     }
     
-    public mutating func remove(prefetchCommand: TableViewPrefetchCommand) {
+    public mutating func remove(_ prefetchCommand: TableViewPrefetchCommand) {
         prefetchCommands[prefetchCommand] = nil
     }
     
+    public func calculate(height: TableViewHeightType) -> CGFloat {
+        return heights[height]?() ?? UITableView.automaticDimension
+    }
+    
     // MARK: - Computed Properties
-    public var height: CGFloat {
-        return calculate(height: .height)
-    }
-    
-    public var estimatedHeight: CGFloat {
-        return calculate(height: .estimatedHeight)
-    }
-    
+
     public var editable: Bool {
         return editingStyle != .none || editActions?.isEmpty == false
     }
@@ -124,10 +121,5 @@ public struct TableViewRow<Cell: UITableViewCell>: AnyTableViewRow {
     public var reuseIdentifier: String {
         return registrationType.reuseIdentifier
     }
-
-    // MARK: - Private
-    
-    private func calculate(height: TableViewHeightType) -> CGFloat {
-        return heights[height]?() ?? UITableView.automaticDimension
-    }
+  
 }

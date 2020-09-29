@@ -41,7 +41,7 @@ extension TableViewLiaison: UITableViewDataSource {
             deleteRow(at: indexPath, with: row.deleteRowAnimation)
         case .insert:
             guard let cell = cell(at: indexPath) else { return }
-            row(for: indexPath)?.perform(command: .insert, liaison: self, cell: cell, indexPath: indexPath)
+            row(for: indexPath)?.perform(.insert, liaison: self, cell: cell, indexPath: indexPath)
         default:
             break
         }

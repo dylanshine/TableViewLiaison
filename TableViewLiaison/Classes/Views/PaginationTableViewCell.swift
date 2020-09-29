@@ -1,5 +1,5 @@
 //
-//  OKPaginationTableViewCell.swift
+//  PaginationTableViewCell.swift
 //  TableViewLiaison
 //
 //  Created by Dylan Shine on 3/30/18.

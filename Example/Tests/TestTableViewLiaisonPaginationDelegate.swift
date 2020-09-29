@@ -3,7 +3,7 @@
 //  TableViewLiaisonTests
 //
 //  Created by Dylan Shine on 3/30/18.
-//  Copyright © 2018 OkCupid. All rights reserved.
+//  Copyright © 2018 Shine Labs. All rights reserved.
 //
 
 import Foundation

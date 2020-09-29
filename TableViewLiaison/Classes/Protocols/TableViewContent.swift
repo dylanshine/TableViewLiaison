@@ -8,8 +8,17 @@
 import UIKit
 
 public protocol TableViewContent {
-    var height: CGFloat { get }
-    var estimatedHeight: CGFloat { get }
     var reuseIdentifier: String { get }
     func register(with liaison: TableViewLiaison)
+    func calculate(height: TableViewHeightType) -> CGFloat
+}
+
+extension TableViewContent {
+    public var height: CGFloat {
+        return calculate(height: .height)
+    }
+    
+    public var estimatedHeight: CGFloat {
+        return calculate(height: .estimatedHeight)
+    }
 }

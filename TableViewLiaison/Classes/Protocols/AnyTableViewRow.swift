@@ -17,6 +17,6 @@ public protocol AnyTableViewRow: TableViewContent {
     var deleteConfirmationTitle: String? { get }
     var deleteRowAnimation: UITableView.RowAnimation { get }
     func cell(for liaison: TableViewLiaison, at indexPath: IndexPath) -> UITableViewCell
-    func perform(command: TableViewRowCommand, liaison: TableViewLiaison, cell: UITableViewCell, indexPath: IndexPath)
-    func perform(prefetchCommand: TableViewPrefetchCommand, for indexPath: IndexPath)
+    func perform(_ command: TableViewRowCommand, liaison: TableViewLiaison, cell: UITableViewCell, indexPath: IndexPath)
+    func perform(_ prefetchCommand: TableViewPrefetchCommand, for indexPath: IndexPath)
 }

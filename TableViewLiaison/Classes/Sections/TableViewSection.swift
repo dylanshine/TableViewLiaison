@@ -22,7 +22,7 @@ public struct TableViewSection {
         self.componentDisplayOption = componentDisplayOption
     }
     
-    func perform(command: TableViewSectionComponentCommand,
+    func perform(_ command: TableViewSectionComponentCommand,
                  componentView: TableViewSectionComponentViewType,
                  liaison: TableViewLiaison,
                  view: UIView,
@@ -30,9 +30,9 @@ public struct TableViewSection {
         
         switch componentView {
         case .header:
-            componentDisplayOption.header?.perform(command: command, liaison: liaison, view: view, section: section)
+            componentDisplayOption.header?.perform(command, liaison: liaison, view: view, section: section)
         case .footer:
-            componentDisplayOption.footer?.perform(command: command, liaison: liaison, view: view, section: section)
+            componentDisplayOption.footer?.perform(command, liaison: liaison, view: view, section: section)
         }
     }
     
@@ -81,10 +81,10 @@ public struct TableViewSection {
         }
     }
     
-    func rowIndexPaths(for section: Int, where predicate: (Any) -> Bool) -> [IndexPath] {
+    func rowIndexPaths<T>(for section: Int, where predicate: (T) -> Bool) -> [IndexPath] {
         return rows.enumerated()
             .filter { index, row in
-                guard let state = row.data else { return false }
+                guard let state = row.data as? T else { return false }
                 return predicate(state)
             }
             .map { item, _ -> IndexPath in

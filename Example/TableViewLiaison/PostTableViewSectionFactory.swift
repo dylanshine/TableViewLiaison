@@ -1,6 +1,6 @@
 //
 //  PostTableViewSectionFactory.swift
-//  OKTableViewLiaison_Example
+//  TableViewLiaison_Example
 //
 //  Created by Dylan Shine on 5/18/18.
 //  Copyright © 2018 CocoaPods. All rights reserved.

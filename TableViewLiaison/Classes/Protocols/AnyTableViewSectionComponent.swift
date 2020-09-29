@@ -8,6 +8,6 @@
 import UIKit
 
 public protocol AnyTableViewSectionComponent: TableViewContent {
-    func perform(command: TableViewSectionComponentCommand, liaison: TableViewLiaison, view: UIView, section: Int)
+    func perform(_ command: TableViewSectionComponentCommand, liaison: TableViewLiaison, view: UIView, section: Int)
     func view(for liaison: TableViewLiaison, in section: Int) -> UITableViewHeaderFooterView?
 }

@@ -1,6 +1,6 @@
 //
 //  User.swift
-//  OKTableViewLiaison_Example
+//  TableViewLiaison_Example
 //
 //  Created by Dylan Shine on 5/3/18.
 //  Copyright © 2018 CocoaPods. All rights reserved.

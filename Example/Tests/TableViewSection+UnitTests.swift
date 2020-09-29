@@ -9,7 +9,7 @@
 import XCTest
 @testable import TableViewLiaison
 
-final class OKTableViewSection_UnitTests: XCTestCase {
+final class TableViewSection_UnitTests: XCTestCase {
     
     var liaison: TableViewLiaison!
     var tableView: UITableView!
@@ -172,7 +172,7 @@ final class OKTableViewSection_UnitTests: XCTestCase {
         tableView.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: reuseIdentifier)
         
         let string = "Test"
-        header.set(command: .configuration) { _, view, _ in
+        header.set(.configuration) { _, view, _ in
             view.accessibilityIdentifier = string
         }
         
@@ -191,7 +191,7 @@ final class OKTableViewSection_UnitTests: XCTestCase {
         tableView.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: reuseIdentifier)
         
         let string = "Test"
-        footer.set(command: .configuration) { _, view, _ in
+        footer.set(.configuration) { _, view, _ in
             view.accessibilityIdentifier = string
         }
         
@@ -215,39 +215,39 @@ final class OKTableViewSection_UnitTests: XCTestCase {
         var footerDidEndDisplaying = ""
         var footerWillDisplay = ""
         
-        header.set(command: .configuration) { _, view, section in
+        header.set(.configuration) { _, view, section in
             headerConfiguration = "Configured!"
         }
         
-        header.set(command: .didEndDisplaying) { _, view, section in
+        header.set(.didEndDisplaying) { _, view, section in
             headerDidEndDisplaying = "DidEndDisplaying!"
         }
         
-        header.set(command: .willDisplay) { _, view, section in
+        header.set(.willDisplay) { _, view, section in
             headerWillDisplay = "WillDisplay!"
         }
         
-        footer.set(command: .configuration) { _, view, section in
+        footer.set(.configuration) { _, view, section in
             footerConfiguration = "Configured!"
         }
         
-        footer.set(command: .didEndDisplaying) { _, view, section in
+        footer.set(.didEndDisplaying) { _, view, section in
             footerDidEndDisplaying = "DidEndDisplaying!"
         }
         
-        footer.set(command: .willDisplay) { _, view, section in
+        footer.set(.willDisplay) { _, view, section in
             footerWillDisplay = "WillDisplay!"
         }
         
         let view = UITableViewHeaderFooterView()
         let section = TableViewSection(componentDisplayOption: .both(headerComponent: header, footerComponent: footer))
         
-        section.perform(command: .configuration, componentView: .header, liaison: liaison, view: view, section: 0)
-        section.perform(command: .configuration, componentView: .footer, liaison: liaison, view: view, section: 0)
-        section.perform(command: .didEndDisplaying, componentView: .header, liaison: liaison, view: view, section: 0)
-        section.perform(command: .didEndDisplaying, componentView: .footer, liaison: liaison, view: view, section: 0)
-        section.perform(command: .willDisplay, componentView: .header, liaison: liaison, view: view, section: 0)
-        section.perform(command: .willDisplay, componentView: .footer, liaison: liaison, view: view, section: 0)
+        section.perform(.configuration, componentView: .header, liaison: liaison, view: view, section: 0)
+        section.perform(.configuration, componentView: .footer, liaison: liaison, view: view, section: 0)
+        section.perform(.didEndDisplaying, componentView: .header, liaison: liaison, view: view, section: 0)
+        section.perform(.didEndDisplaying, componentView: .footer, liaison: liaison, view: view, section: 0)
+        section.perform(.willDisplay, componentView: .header, liaison: liaison, view: view, section: 0)
+        section.perform(.willDisplay, componentView: .footer, liaison: liaison, view: view, section: 0)
         
         XCTAssertEqual(headerConfiguration, "Configured!")
         XCTAssertEqual(footerConfiguration, "Configured!")
@@ -264,19 +264,19 @@ final class OKTableViewSection_UnitTests: XCTestCase {
         var headerConfiguration = ""
         var footerConfiguration = ""
         
-        header.set(command: .configuration) { _, view, section in
+        header.set(.configuration) { _, view, section in
             headerConfiguration = "Configured!"
         }
         
-        footer.set(command: .configuration) { _, view, section in
+        footer.set(.configuration) { _, view, section in
             footerConfiguration = "Configured!"
         }
         
         let view = UIView()
         
         let section = TableViewSection(componentDisplayOption: .both(headerComponent: header, footerComponent: footer))
-        section.perform(command: .configuration, componentView: .header, liaison: liaison, view: view, section: 0)
-        section.perform(command: .configuration, componentView: .footer, liaison: liaison, view: view, section: 0)
+        section.perform(.configuration, componentView: .header, liaison: liaison, view: view, section: 0)
+        section.perform(.configuration, componentView: .footer, liaison: liaison, view: view, section: 0)
         
         XCTAssertEqual(headerConfiguration, "")
         XCTAssertEqual(footerConfiguration, "")
@@ -289,8 +289,7 @@ final class OKTableViewSection_UnitTests: XCTestCase {
         
         let section = TableViewSection(rows: [row1, row2, row3])
         
-        let indexPaths = section.rowIndexPaths(for: 0) {
-            guard let data = $0 as? String else { return false }
+        let indexPaths = section.rowIndexPaths(for: 0) { (data: String) in
             return data == "test"
         }
         

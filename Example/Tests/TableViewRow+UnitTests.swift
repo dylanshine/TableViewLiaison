@@ -9,7 +9,7 @@
 import XCTest
 @testable import TableViewLiaison
 
-final class OKTableViewRow_UnitTests: XCTestCase {
+final class TableViewRow_UnitTests: XCTestCase {
     
     var liaison: TableViewLiaison!
     var tableView: UITableView!
@@ -25,11 +25,11 @@ final class OKTableViewRow_UnitTests: XCTestCase {
         var row = TestTableViewRow()
         
         var set = false
-        row.set(command: .configuration) { _, _, _ in
+        row.set(.configuration) { _, _, _ in
             set = true
         }
        
-        row.perform(command: .configuration, liaison: liaison, cell: UITableViewCell(), indexPath: IndexPath())
+        row.perform(.configuration, liaison: liaison, cell: UITableViewCell(), indexPath: IndexPath())
         
         XCTAssertTrue(set)
     }
@@ -38,12 +38,12 @@ final class OKTableViewRow_UnitTests: XCTestCase {
         var row = TestTableViewRow()
         
         var set = false
-        row.set(command: .configuration) { _, _, _ in
+        row.set(.configuration) { _, _, _ in
             set = true
         }
         
-        row.remove(command: .configuration)
-        row.perform(command: .configuration, liaison: liaison, cell: UITableViewCell(), indexPath: IndexPath())
+        row.remove(.configuration)
+        row.perform(.configuration, liaison: liaison, cell: UITableViewCell(), indexPath: IndexPath())
 
         XCTAssertFalse(set)
     }
@@ -87,17 +87,17 @@ final class OKTableViewRow_UnitTests: XCTestCase {
         var row = TestTableViewRow()
         
         var prefetch = false
-        row.set(prefetchCommand: .prefetch) { _ in
+        row.set(.prefetch) { _ in
             prefetch = true
         }
         
         var cancel = false
-        row.set(prefetchCommand: .cancel) { _ in
+        row.set(.cancel) { _ in
             cancel = true
         }
         
-        row.perform(prefetchCommand: .prefetch, for: IndexPath())
-        row.perform(prefetchCommand: .cancel, for: IndexPath())
+        row.perform(.prefetch, for: IndexPath())
+        row.perform(.cancel, for: IndexPath())
 
         XCTAssertTrue(prefetch)
         XCTAssertTrue(cancel)
@@ -107,20 +107,20 @@ final class OKTableViewRow_UnitTests: XCTestCase {
         var row = TestTableViewRow()
         
         var prefetch = false
-        row.set(prefetchCommand: .prefetch) { _ in
+        row.set(.prefetch) { _ in
             prefetch = true
         }
         
         var cancel = false
-        row.set(prefetchCommand: .cancel) { _ in
+        row.set(.cancel) { _ in
             cancel = true
         }
         
-        row.remove(prefetchCommand: .prefetch)
-        row.remove(prefetchCommand: .cancel)
+        row.remove(.prefetch)
+        row.remove(.cancel)
         
-        row.perform(prefetchCommand: .prefetch, for: IndexPath())
-        row.perform(prefetchCommand: .cancel, for: IndexPath())
+        row.perform(.prefetch, for: IndexPath())
+        row.perform(.cancel, for: IndexPath())
         
         XCTAssertFalse(prefetch)
         XCTAssertFalse(cancel)
@@ -166,7 +166,7 @@ final class OKTableViewRow_UnitTests: XCTestCase {
     func test_cellForTableViewAt_returnsConfiguredCellForRow() {
         var row = TestTableViewRow()
         let string = "Test"
-        row.set(command: .configuration) { _, cell, indexPath in
+        row.set(.configuration) { _, cell, indexPath in
             cell.accessibilityIdentifier = string
         }
                 
@@ -181,11 +181,11 @@ final class OKTableViewRow_UnitTests: XCTestCase {
         var row = TableViewRow<TestTableViewCell>()
         var configured = false
         
-        row.set(command: .configuration) { _, _, _ in
+        row.set(.configuration) { _, _, _ in
             configured = true
         }
             
-        row.perform(command: .configuration, liaison: liaison, cell: UITableViewCell(), indexPath: IndexPath())
+        row.perform(.configuration, liaison: liaison, cell: UITableViewCell(), indexPath: IndexPath())
         
         XCTAssertFalse(configured)
     }

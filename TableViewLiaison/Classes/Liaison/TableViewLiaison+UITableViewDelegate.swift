@@ -10,19 +10,19 @@ import UIKit
 extension TableViewLiaison: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        return perform(command: .willSelect, at: indexPath)
+        return perform(.willSelect, at: indexPath)
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        perform(command: .didSelect, at: indexPath)
+        perform(.didSelect, at: indexPath)
     }
     
     public func tableView(_ tableView: UITableView, willDeselectRowAt indexPath: IndexPath) -> IndexPath? {
-        return perform(command: .willDeselect, at: indexPath)
+        return perform(.willDeselect, at: indexPath)
     }
     
     public func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        perform(command: .didDeselect, at: indexPath)
+        perform(.didDeselect, at: indexPath)
     }
     
     public func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
@@ -35,7 +35,7 @@ extension TableViewLiaison: UITableViewDelegate {
     }
     
     public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        row(for: indexPath)?.perform(command: .willDisplay,
+        row(for: indexPath)?.perform(.willDisplay,
                                      liaison: self,
                                      cell: cell,
                                      indexPath: indexPath)
@@ -44,27 +44,27 @@ extension TableViewLiaison: UITableViewDelegate {
     }
     
     public func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        row(for: indexPath)?.perform(command: .didEndDisplaying,
+        row(for: indexPath)?.perform(.didEndDisplaying,
                                      liaison: self,
                                      cell: cell,
                                      indexPath: indexPath)
     }
     
     public func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {
-        perform(command: .willBeginEditing, at: indexPath)
+        perform(.willBeginEditing, at: indexPath)
     }
     
     public func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
         guard let indexPath = indexPath else { return }
-        perform(command: .didEndEditing, at: indexPath)
+        perform(.didEndEditing, at: indexPath)
     }
     
     public func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
-        perform(command: .didHighlight, at: indexPath)
+        perform(.didHighlight, at: indexPath)
     }
     
     public func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
-        perform(command: .didUnhighlight, at: indexPath)
+        perform(.didUnhighlight, at: indexPath)
     }
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -96,7 +96,7 @@ extension TableViewLiaison: UITableViewDelegate {
     }
     
     public func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        perform(command: .accessoryButtonTapped, at: indexPath)
+        perform(.accessoryButtonTapped, at: indexPath)
     }
     
     public func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
@@ -120,7 +120,7 @@ extension TableViewLiaison: UITableViewDelegate {
     }
     
     public func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        sections.element(at: section)?.perform(command: .willDisplay,
+        sections.element(at: section)?.perform(.willDisplay,
                                                componentView: .header,
                                                liaison: self,
                                                view: view,
@@ -128,7 +128,7 @@ extension TableViewLiaison: UITableViewDelegate {
     }
     
     public func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
-        sections.element(at: section)?.perform(command: .willDisplay,
+        sections.element(at: section)?.perform(.willDisplay,
                                                componentView: .footer,
                                                liaison: self,
                                                view: view,
@@ -136,7 +136,7 @@ extension TableViewLiaison: UITableViewDelegate {
     }
     
     public func tableView(_ tableView: UITableView, didEndDisplayingHeaderView view: UIView, forSection section: Int) {
-        sections.element(at: section)?.perform(command: .didEndDisplaying,
+        sections.element(at: section)?.perform(.didEndDisplaying,
                                                componentView: .header,
                                                liaison: self,
                                                view: view,
@@ -144,7 +144,7 @@ extension TableViewLiaison: UITableViewDelegate {
     }
     
     public func tableView(_ tableView: UITableView, didEndDisplayingFooterView view: UIView, forSection section: Int) {
-        sections.element(at: section)?.perform(command: .didEndDisplaying,
+        sections.element(at: section)?.perform(.didEndDisplaying,
                                                componentView: .footer,
                                                liaison: self,
                                                view: view,

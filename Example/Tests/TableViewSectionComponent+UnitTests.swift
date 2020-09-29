@@ -1,6 +1,6 @@
 //
 //  TableViewSectionComponent+UnitTests.swift
-//  OKTableViewLiaison_Tests
+//  TableViewLiaison_Tests
 //
 //  Created by Dylan Shine on 5/30/18.
 //  Copyright © 2018 CocoaPods. All rights reserved.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import TableViewLiaison
 
-final class OKTableViewSectionComponent_UnitTests: XCTestCase {
+final class TableViewSectionComponent_UnitTests: XCTestCase {
     var liaison: TableViewLiaison!
     var tableView: UITableView!
     
@@ -24,11 +24,11 @@ final class OKTableViewSectionComponent_UnitTests: XCTestCase {
         var component = TestTableViewSectionComponent()
 
         var set = false
-        component.set(command: .configuration) { _, _, _ in
+        component.set(.configuration) { _, _, _ in
             set = true
         }
         
-        component.perform(command: .configuration,
+        component.perform(.configuration,
                           liaison: TableViewLiaison(),
                           view: UITableViewHeaderFooterView(),
                           section: 0)
@@ -40,12 +40,12 @@ final class OKTableViewSectionComponent_UnitTests: XCTestCase {
         var component = TestTableViewSectionComponent()
 
         var set = false
-        component.set(command: .configuration) { _, _, _ in
+        component.set(.configuration) { _, _, _ in
             set = true
         }
         
-        component.remove(command: .configuration)
-        component.perform(command: .configuration,
+        component.remove(.configuration)
+        component.perform(.configuration,
                           liaison: TableViewLiaison(),
                           view: UITableViewHeaderFooterView(),
                           section: 0)
@@ -113,7 +113,7 @@ final class OKTableViewSectionComponent_UnitTests: XCTestCase {
         
         var component = TestTableViewSectionComponent()
         let string = "Test"
-        component.set(command: .configuration) { _, view, _ in
+        component.set(.configuration) { _, view, _ in
             view.accessibilityIdentifier = string
         }
         
@@ -128,11 +128,11 @@ final class OKTableViewSectionComponent_UnitTests: XCTestCase {
         var component = TestTableViewSectionComponent()
         var configured = false
         
-        component.set(command: .configuration) { _, _, _ in
+        component.set(.configuration) { _, _, _ in
             configured = true
         }
         
-        component.perform(command: .configuration, liaison: liaison, view: UIView(), section: 0)
+        component.perform(.configuration, liaison: liaison, view: UIView(), section: 0)
         
         XCTAssertFalse(configured)
     }

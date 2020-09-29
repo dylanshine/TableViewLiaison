@@ -39,16 +39,16 @@ public struct TableViewSectionComponent<View: UITableViewHeaderFooterView>: AnyT
     }
 
     // MARK: - Commands
-    public func perform(command: TableViewSectionComponentCommand, liaison: TableViewLiaison, view: UIView, section: Int) {
+    public func perform(_ command: TableViewSectionComponentCommand, liaison: TableViewLiaison, view: UIView, section: Int) {
         guard let view = view as? View else { return }
         commands[command]?(liaison, view, section)
     }
 
-    public mutating func set(command: TableViewSectionComponentCommand, with closure: @escaping CommandClosure) {
+    public mutating func set(_ command: TableViewSectionComponentCommand, with closure: @escaping CommandClosure) {
         commands[command] = closure
     }
     
-    public mutating func remove(command: TableViewSectionComponentCommand) {
+    public mutating func remove(_ command: TableViewSectionComponentCommand) {
         commands[command] = nil
     }
     
@@ -65,21 +65,7 @@ public struct TableViewSectionComponent<View: UITableViewHeaderFooterView>: AnyT
         heights[height] = nil
     }
     
-    // MARK: - Computed Properties
-    public var height: CGFloat {
-        return calculate(height: .height)
-    }
-    
-    public var estimatedHeight: CGFloat {
-        return calculate(height: .estimatedHeight)
-    }
-    
-    public var reuseIdentifier: String {
-        return registrationType.reuseIdentifier
-    }
-    
-    // MARK: - Private
-    private func calculate(height: TableViewHeightType) -> CGFloat {
+    public func calculate(height: TableViewHeightType) -> CGFloat {
         switch height {
         case .height:
             return heights[.height]?() ?? UITableView.automaticDimension
@@ -87,6 +73,13 @@ public struct TableViewSectionComponent<View: UITableViewHeaderFooterView>: AnyT
             return heights[.estimatedHeight]?() ?? heights[.height]?() ?? 0
         }
     }
+    
+    // MARK: - Computed Properties
+    
+    public var reuseIdentifier: String {
+        return registrationType.reuseIdentifier
+    }
+
 }
 
 
