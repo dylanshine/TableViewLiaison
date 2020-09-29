@@ -9,7 +9,7 @@ env:
   - DESTINATION='platform=iOS Simulator,name=iPhone 7,OS=10.3.1'
   - DESTINATION='platform=iOS Simulator,name=iPhone 8,OS=11.4'
   - DESTINATION='platform=iOS Simulator,name=iPhone XS,OS=12.4'
-  - DESTINATION='platform=iOS Simulator,name=iPhone 11,OS=13.7'
+  - DESTINATION='platform=iOS Simulator,name=iPhone 11,OS=13.5'
   - DESTINATION='platform=iOS Simulator,name=iPhone 11,OS=14.0'
 
 
