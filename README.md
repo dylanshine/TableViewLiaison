@@ -109,18 +109,18 @@ header.set(height: .estimatedHeight, 125)
 
 In the event a height is not provided for a `TableViewSectionComponent`, the `TableViewLiaison` will assume the supplementary view is self sizing and return a `.height` of `UITableView.automaticDimension`. Make sure you provide an `.estimatedHeight` to avoid layout complications.
 
-The `TableViewSectionComponent ` views can be customized using `func set(command: TableViewSectionComponentCommand, with closure: @escaping (View, Int) -> Void)` at all the following lifecycle events:
+The `TableViewSectionComponent ` views can be customized using `func set(_ command: TableViewSectionComponentCommand, with closure: @escaping (View, Int) -> Void)` at all the following lifecycle events:
 
 - configuration
 - didEndDisplaying
 - willDisplay
 
 ```swift
-header.set(command: .configuration) { view, section in
+header.set(.configuration) { view, section in
     view.textLabel?.text = "Section \(section)"
 }
 
-header.set(command: .willDisplay) { view, section in
+header.set(.willDisplay) { view, section in
     print("Header: \(view) will display for Section: \(section)")
 }
 ```
@@ -166,7 +166,7 @@ row.set(height: .height) {
 
 In the event a height is not provided, the `TableViewLiaison` will assume the cell is self sizing and return `UITableView.automaticDimension`.
 
-The `TableViewRow` can be customized using `func set(command: TableViewRowCommand, with closure: @escaping (Cell, Model, IndexPath) -> Void) ` at all the following lifecycle events:
+The `TableViewRow` can be customized using `func set(_ command: TableViewRowCommand, with closure: @escaping (TableViewLiaison, Cell, IndexPath) -> Void) ` at all the following lifecycle events:
 
 -  accessoryButtonTapped
 -  configuration
@@ -186,14 +186,14 @@ The `TableViewRow` can be customized using `func set(command: TableViewRowComman
 -  willSelect
 
 ```swift
-row.set(command: .configuration) { cell, indexPath in
+row.set(.configuration) { cell, indexPath in
 	cell.label.text = "Cell: \(cell) at IndexPath: \(indexPath)"
 	cell.label.font = .systemFont(ofSize: 13)
 	cell.contentView.backgroundColor = .blue
 	cell.selectionStyle = .none
 }
 
-row.set(command: .didSelect) { cell, indexPath in
+row.set(.didSelect) { cell, indexPath in
 	print("Cell: \(cell) selected at IndexPath: \(indexPath)")
 }
 ```
@@ -201,11 +201,11 @@ row.set(command: .didSelect) { cell, indexPath in
 `TableViewRow` can also utilize `UITableViewDataSourcePrefetching` by using `func set(prefetchCommand: TableViewPrefetchCommand, with closure: @escaping (IndexPath) -> Void)`
 
 ```swift
-row.set(prefetchCommand: .prefetch) { indexPath in
+row.set(.prefetch) { indexPath in
 	model.downloadImage()
 }
 
-row.set(prefetchCommand: .cancel) { indexPath in
+row.set(.cancel) { indexPath in
     model.cancelImageDownload()
 }
 ```
@@ -244,7 +244,7 @@ static func imageRow(with image: UIImage) -> AnyTableViewRow {
 
 	row.set(height: .height, 225)
 
-	row.set(command: .configuration) { cell, indexPath in
+	row.set(.configuration) { cell, indexPath in
 		cell.contentImageView.image = image
 		cell.contentImageView.contentMode = .scaleAspectFill
 	}
@@ -264,3 +264,4 @@ static func imageRow(with image: UIImage) -> AnyTableViewRow {
 ## License
 
 TableViewLiaison is available under the MIT license. See the LICENSE file for more info.
+* 
