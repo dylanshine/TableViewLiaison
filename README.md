@@ -21,12 +21,12 @@ alt="Pods Version">
 &#9989;   | Unit Tested
 &#128036; | Written in Swift 5.0
 
-`TableViewLiaison` is 🔨 with &#10084;&#65039; by [📱 @ Shine Labs](https://www.shinelabs.tech).
+`TableViewLiaison` is 🔨 with &#10084;&#65039; by [📱 @ Shine Labs](https://www.shinelabs.dev).
 
 ## Requirements
 
 - Xcode 10.2+
-- iOS 9.0+
+- iOS 10.0+
 
 ## Installation
 
@@ -55,20 +55,24 @@ let tableView = UITableView()
 liaison.liaise(tableView: tableView)
 ```
 
-By liaising your tableView with the liaison, the liaison becomes its `UITableViewDataSource`, `UITableViewDelegate`, and `UITableViewDataSourcePrefetching`.
-In the event you would like to remove the tableView from the liaison, simply invoke `liaison.detach()`.
+By liaising your `UITableView` with the `TableViewLiaison`, the `TableViewLiaison` becomes its `UITableViewDataSource`, `UITableViewDelegate`, and `UITableViewDataSourcePrefetching`.
+In the event you would like to remove the `UITableView` from the `TableViewLiaison`, simply invoke `liaison.detach()`.
 
-TableViewLiaison populates sections and rows using two main types:
+`TableViewLiaison` implements a bunch of helper methods to help you manage your `UITableView`.
+
+`TableViewLiaison` populates sections and rows using two main types:
 
 ### Section
 `struct TableViewSection`
 
-To create a section for our tableView, create an instance of `TableViewSection` and add it to the liaison.
+To create a section for our `UITableView`, create an instance of `TableViewSection` and add it to the `TableViewLiaison`.
 
 ```swift
-let section = TableViewSection()
+let one = TableViewSection()
+let two = TableViewSection(id: "ID")
 
-let liaison = TableViewLiaison(sections: [section])
+
+let liaison = TableViewLiaison(sections: [one, two])
 ```
 or
 
@@ -79,61 +83,62 @@ liaison.append(section: section)
 ```
 
 ### Supplementary Section Views
-To notify the liaison that your `TableViewSection` will display a header and/or footer view, you must provide an instance of `TableViewSectionComponentDisplayOption` during initialization.
+To notify the `TableViewLiaison` that your `TableViewSection` will display a header and/or footer view, you must provide an instance of `TableViewSectionComponentDisplayOption` during initialization.
 
 `TableViewSectionComponentDisplayOption` is an enumeration that notfies the liaison which supplementary views should be displayed for a given section. A header/footer view is represented by:
 
-`class TableViewSectionComponent<View: UITableViewHeaderFooterView, Model>`
+`class TableViewSectionComponent<View: UITableViewHeaderFooterView>`
 
 ```swift
-let header = TableViewSectionComponent<UITableViewHeaderFooterView, User>(.dylan)
+let header = TableViewSectionComponent<UITableViewHeaderFooterView>()
 let section = TableViewSection(componentDisplayOption: .header(component: header))
 ```
 
-You can set a static height of a section component by using either a CGFloat value or closure:
+You can set a static height of a `TableViewSectionComponent` by using either a CGFloat value or closure:
 
 ```swift
 header.set(height: .height, 55)
 
-header.set(height: .height) { user -> CGFloat in
+header.set(height: .height) {
+	// Some arbitrary user you pass into the closure...
     return user.username == "dylan" ? 100 : 75
 }
 
 header.set(height: .estimatedHeight, 125)
 ```
 
-In the event a height is not provided for a section component, the liaison will assume the supplementary view is self sizing and return a `.height` of `UITableView.automaticDimension`. Make sure you provide an `.estimatedHeight` to avoid layout complications.
+In the event a height is not provided for a `TableViewSectionComponent`, the `TableViewLiaison` will assume the supplementary view is self sizing and return a `.height` of `UITableView.automaticDimension`. Make sure you provide an `.estimatedHeight` to avoid layout complications.
 
-The `TableViewSectionComponent ` views can be customized using `func set(command: TableViewSectionComponentCommand, with closure: @escaping (View, Model, Int) -> Void)` at all the following lifecycle events:
+The `TableViewSectionComponent ` views can be customized using `func set(command: TableViewSectionComponentCommand, with closure: @escaping (View, Int) -> Void)` at all the following lifecycle events:
 
 - configuration
 - didEndDisplaying
 - willDisplay
 
 ```swift
-header.set(command: .configuration) { view, user, section in
-    view.textLabel?.text = user.username
+header.set(command: .configuration) { view, section in
+    view.textLabel?.text = "Section \(section)"
 }
 
-header.set(command: .willDisplay) { view, user, section in
-    print("Header: \(view) will display for Section: \(section) with User: \(user)")
+header.set(command: .willDisplay) { view, section in
+    print("Header: \(view) will display for Section: \(section)")
 }
 ```
 
 ### Rows
-`class TableViewRow<Cell: UITableViewCell, Model>`
+`class TableViewRow<Cell: UITableViewCell>`
 
-To add a row for a section, create an instance of `TableViewRow` and pass it to the initializer for a `TableViewSection` or if the row is added after instantiation you can perform that action via the liaison:
+To add a row for a section, create an instance of `TableViewRow` and pass it to the initializer for a `TableViewSection` or if the row is added after instantiation you can perform that action via the `TableViewLiaison`:
 
 ```swift
-let row = TableViewRow<RowTableViewCell, RowModel>(model: RowModel(type: .small))
+let row = TableViewRow<RowTableViewCell>()
 let section = TableViewSection(rows: [row])
 liaison.append(section: section)
 ```
 or
 
 ```swift
-let row = TableViewRow<RowTableViewCell, RowModel>(model: RowModel(type: .small))
+let row = TableViewRow<RowTableViewCell>()
 let section = TableViewSection()
 liaison.append(section: section)
 liaison.append(row: row)
@@ -146,7 +151,8 @@ row.set(height: .height, 300)
 
 row.set(height: .estimatedHeight, 210)
 
-row.set(height: .height) { model -> CGFloat in
+row.set(height: .height) {
+	// Some arbitrary model you pass into the closure...
 	switch model.type {
 	case .large:
 		return 400
@@ -158,7 +164,7 @@ row.set(height: .height) { model -> CGFloat in
 }
 ```
 
-In the event a height is not provided, the liaison will assume the cell is self sizing and return `UITableView.automaticDimension`.
+In the event a height is not provided, the `TableViewLiaison` will assume the cell is self sizing and return `UITableView.automaticDimension`.
 
 The `TableViewRow` can be customized using `func set(command: TableViewRowCommand, with closure: @escaping (Cell, Model, IndexPath) -> Void) ` at all the following lifecycle events:
 
@@ -180,26 +186,26 @@ The `TableViewRow` can be customized using `func set(command: TableViewRowComman
 -  willSelect
 
 ```swift
-row.set(command: .configuration) { cell, model, indexPath in
-	cell.label.text = model.text
+row.set(command: .configuration) { cell, indexPath in
+	cell.label.text = "Cell: \(cell) at IndexPath: \(indexPath)"
 	cell.label.font = .systemFont(ofSize: 13)
 	cell.contentView.backgroundColor = .blue
 	cell.selectionStyle = .none
 }
 
-row.set(command: .didSelect) { cell, model, indexPath in
+row.set(command: .didSelect) { cell, indexPath in
 	print("Cell: \(cell) selected at IndexPath: \(indexPath)")
 }
 ```
 
-`TableViewRow` can also utilize `UITableViewDataSourcePrefetching` by using `func set(prefetchCommand: TableViewPrefetchCommand, with closure: @escaping (Model, IndexPath) -> Void)`
+`TableViewRow` can also utilize `UITableViewDataSourcePrefetching` by using `func set(prefetchCommand: TableViewPrefetchCommand, with closure: @escaping (IndexPath) -> Void)`
 
 ```swift
-row.set(prefetchCommand: .prefetch) { model, indexPath in
+row.set(prefetchCommand: .prefetch) { indexPath in
 	model.downloadImage()
 }
 
-row.set(prefetchCommand: .cancel) { model, indexPath in
+row.set(prefetchCommand: .cancel) { indexPath in
     model.cancelImageDownload()
 }
 ```
@@ -230,24 +236,15 @@ To use a custom pagination spinner, you can pass an instance `AnyTableViewRow` d
 
 ### Tips & Tricks
 
-Because `TableViewSection` and `TableViewRow` utilize generic types and manage view/cell type registration, instantiating multiple different configurations of sections and rows can get verbose. Creating a subclass or utilizing a factory to create your various `TableViewRow`/`TableViewSectionComponent` types may be useful.
-
-```swift
-final class TextTableViewRow: TableViewRow<PostTextTableViewCell, String> {
-	init(text: String) {
-		super.init(text,
-		registrationType: .defaultNibType)
-	}
-}
-```
+Because `TableViewSection` and `TableViewRow` utilize generic types and manage view/cell type registration, instantiating multiple different configurations of sections and rows can get verbose. Creating a factory to create your various `TableViewRow`/`TableViewSectionComponent` types may be useful.
 
 ```swift
 static func imageRow(with image: UIImage) -> AnyTableViewRow {
-	let row = TableViewRow<ImageTableViewCell, UIImage>(image)
+	let row = TableViewRow<ImageTableViewCell>()
 
 	row.set(height: .height, 225)
 
-	row.set(command: .configuration) { cell, image, indexPath in
+	row.set(command: .configuration) { cell, indexPath in
 		cell.contentImageView.image = image
 		cell.contentImageView.contentMode = .scaleAspectFill
 	}
@@ -262,7 +259,7 @@ static func imageRow(with image: UIImage) -> AnyTableViewRow {
 
 ## Authors
 
-✌️ Dylan Shine, dylan@shinelabs.tech
+✌️ Dylan Shine, dylan@shinelabs.dev
 
 ## License
 

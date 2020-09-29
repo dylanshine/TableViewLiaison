@@ -41,9 +41,8 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
     func test_liaise_setsDelegateAndDataSource() {
         XCTAssert(tableView.delegate === liaison)
         XCTAssert(tableView.dataSource === liaison)
-        if #available(iOS 10.0, *) {
-            XCTAssert(tableView.prefetchDataSource === liaison)
-        }
+        XCTAssert(tableView.prefetchDataSource === liaison)
+        
         XCTAssert(liaison.tableView == tableView)
     }
     
@@ -51,9 +50,8 @@ final class OKTableViewLiaison_UnitTests: XCTestCase {
         liaison.detach()
         XCTAssert(tableView.delegate == nil)
         XCTAssert(tableView.dataSource == nil)
-        if #available(iOS 10.0, *) {
-            XCTAssert(tableView.prefetchDataSource == nil)
-        }
+        XCTAssert(tableView.prefetchDataSource == nil)
+        
         XCTAssert(liaison.tableView == nil)
     }
 

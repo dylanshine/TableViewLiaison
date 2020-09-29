@@ -22,28 +22,30 @@ enum TableViewContentFactory {
             return UIScreen.main.bounds.width / ratio
         }
         
-        func fetchImage(completion: ((UIImage?) -> Void)? = nil) {
-            
-            let width = Int(imageSize.width * 2.0)
-            let height = Int(imageSize.height * 2.0)
-            
-            NetworkManager.fetchRandomPostImage(id: id,
-                                                width: width,
-                                                height: height,
-                                                completion: completion)
-        }
-        
         row.set(prefetchCommand: .prefetch) { _ in
-            fetchImage()
+            fetchImage(id: id, imageSize: imageSize)
         }
         
         row.set(command: .configuration) { (_, cell: ImageTableViewCell, _) in
-            fetchImage { [weak cell] image in
+            fetchImage(id: id, imageSize: imageSize) { [weak cell] image in
                 cell?.contentImage = image
             }
         }
         
         return row
+    }
+    
+    private static func fetchImage(id: String,
+                                   imageSize: CGSize,
+                                   completion: ((UIImage?) -> Void)? = nil) {
+        
+        let width = Int(imageSize.width * 2.0)
+        let height = Int(imageSize.height * 2.0)
+        
+        NetworkManager.fetchRandomPostImage(id: id,
+                                            width: width,
+                                            height: height,
+                                            completion: completion)
     }
     
     private static func textTableViewRow() -> TableViewRow<TextTableViewCell> {

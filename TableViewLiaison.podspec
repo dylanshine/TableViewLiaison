@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Dylan Shine' => 'dylan@shinelabs.tech' }
   s.source           = { :git => 'https://github.com/dylanshine/TableViewLiaison.git', :tag => s.version.to_s }
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '10.0'
   s.source_files = 'TableViewLiaison/Classes/**/*'
   s.swift_version = '5.0'
 end

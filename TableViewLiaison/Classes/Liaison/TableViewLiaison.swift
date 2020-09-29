@@ -76,19 +76,14 @@ public final class TableViewLiaison: NSObject {
         
         tableView.dataSource = self
         tableView.delegate = self
-        
-        if #available(iOS 10.0, *) {
-            tableView.prefetchDataSource = self
-        }
+        tableView.prefetchDataSource = self
+
     }
     
     public func detach() {
         tableView?.delegate = nil
         tableView?.dataSource = nil
-        
-        if #available(iOS 10.0, *) {
-            tableView?.prefetchDataSource = nil
-        }
+        tableView?.prefetchDataSource = nil
         
         tableView = nil
     }
