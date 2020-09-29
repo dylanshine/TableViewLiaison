@@ -293,7 +293,7 @@ final class TableViewLiaison_UnitTests: XCTestCase {
     func test_reloadSection_reloadsSectionOfTableView() {
 
         var header = TestTableViewSectionComponent()
-        header.set(height: .estimatedHeight, 15)
+        header.set(.estimatedHeight, 15)
         var capturedHeader: UITableViewHeaderFooterView?
 
         let string = "Test"
@@ -317,7 +317,7 @@ final class TableViewLiaison_UnitTests: XCTestCase {
     func test_reloadSections_reloadsSectionsWithId() {
         
         var header = TestTableViewSectionComponent()
-        header.set(height: .estimatedHeight, 15)
+        header.set(.estimatedHeight, 15)
         var capturedHeader: UITableViewHeaderFooterView?
         
         let string = "Test"
@@ -1130,7 +1130,7 @@ final class TableViewLiaison_UnitTests: XCTestCase {
         liaison.tableView(tableView, willDisplay: UITableViewCell(), forRowAt: IndexPath(row: 0, section: 0))
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            XCTAssert(self.liaison.sections.last?.rows.first is TableViewRow<PaginationTableViewCell>)
+            XCTAssert(self.liaison.sections.last?.rows.first is TableViewRow<PaginationTableViewCell, Void>)
             expectation.fulfill()
         }
         
@@ -1322,9 +1322,9 @@ final class TableViewLiaison_UnitTests: XCTestCase {
         var row2 = TestTableViewRow()
         let row3 = TestTableViewRow()
 
-        row1.set(height: .height) { return 100 }
+        row1.set(.height) { return 100 }
 
-        row2.set(height: .height, 200)
+        row2.set(.height, 200)
 
         let section = TableViewSection(rows: [row1, row2, row3])
         liaison.append(section: section)
@@ -1343,9 +1343,9 @@ final class TableViewLiaison_UnitTests: XCTestCase {
         var row2 = TestTableViewRow()
         let row3 = TestTableViewRow()
 
-        row1.set(height: .estimatedHeight) { return 100 }
+        row1.set(.estimatedHeight) { return 100 }
 
-        row2.set(height: .estimatedHeight, 200)
+        row2.set(.estimatedHeight, 200)
 
         let section = TableViewSection(rows: [row1, row2, row3])
         liaison.append(section: section)
@@ -1453,9 +1453,9 @@ final class TableViewLiaison_UnitTests: XCTestCase {
         var header2 = TestTableViewSectionComponent()
         let header3 = TestTableViewSectionComponent()
 
-        header1.set(height: .height, 100)
+        header1.set(.height, 100)
 
-        header2.set(height: .height) { return 200 }
+        header2.set(.height) { return 200 }
 
         let section1 = TableViewSection(option: .header(component: header1))
         let section2 = TableViewSection(option: .header(component: header2))
@@ -1480,11 +1480,11 @@ final class TableViewLiaison_UnitTests: XCTestCase {
         var header3 = TestTableViewSectionComponent()
         let header4 = TestTableViewSectionComponent()
         
-        header1.set(height: .estimatedHeight, 100)
+        header1.set(.estimatedHeight, 100)
         
-        header2.set(height: .estimatedHeight) { return 200 }
+        header2.set(.estimatedHeight) { return 200 }
         
-        header3.set(height: .height, 300)
+        header3.set(.height, 300)
         
         let section1 = TableViewSection(option: .header(component: header1))
         let section2 = TableViewSection(option: .header(component: header2))
@@ -1509,9 +1509,9 @@ final class TableViewLiaison_UnitTests: XCTestCase {
         var footer2 = TestTableViewSectionComponent()
         let footer3 = TestTableViewSectionComponent()
 
-        footer1.set(height: .height, 100)
+        footer1.set(.height, 100)
 
-        footer2.set(height: .height) { return 200 }
+        footer2.set(.height) { return 200 }
 
         let section1 = TableViewSection(option: .footer(component: footer1))
         let section2 = TableViewSection(option: .footer(component: footer2))
@@ -1534,11 +1534,11 @@ final class TableViewLiaison_UnitTests: XCTestCase {
         var footer3 = TestTableViewSectionComponent()
         let footer4 = TestTableViewSectionComponent()
         
-        footer1.set(height: .estimatedHeight, 100)
+        footer1.set(.estimatedHeight, 100)
         
-        footer2.set(height: .estimatedHeight) { return 200 }
+        footer2.set(.estimatedHeight) { return 200 }
         
-        footer3.set(height: .height, 300)
+        footer3.set(.height, 300)
         
         let section1 = TableViewSection(option: .footer(component: footer1))
         let section2 = TableViewSection(option: .footer(component: footer2))
@@ -1681,8 +1681,8 @@ final class TableViewLiaison_UnitTests: XCTestCase {
     }
     
     func test_rowForIndexPathGeneric_returnsCorrectRow() {
-        let row1 = TableViewRow<TestTableViewCell>()
-        var row2 = TableViewRow<UITableViewCell>()
+        let row1 = TableViewRow(TestTableViewCell.self)
+        var row2 = TableViewRow()
         
         var correctRow = false
         row2.set(.didSelect) { _, _, _ in
@@ -1693,7 +1693,7 @@ final class TableViewLiaison_UnitTests: XCTestCase {
         liaison.append(section: section)
         let indexPath = IndexPath(row: 1, section: 0)
 
-        let row: TableViewRow<UITableViewCell>? = liaison.row(for: indexPath)
+        let row: TableViewRow<UITableViewCell, Void>? = liaison.row(for: indexPath)
         row?.perform(.didSelect, liaison: liaison, cell: UITableViewCell(), indexPath: indexPath)
         
         XCTAssertTrue(correctRow)
@@ -1701,11 +1701,11 @@ final class TableViewLiaison_UnitTests: XCTestCase {
     
     func test_rowForIndexPathGeneric_returnsNilForIncorrectType() {
         
-        let section = TableViewSection(rows: [TableViewRow<TestTableViewCell>()])
+        let section = TableViewSection(rows: [TableViewRow(TestTableViewCell.self)])
         liaison.append(section: section)
         let indexPath = IndexPath(row: 0, section: 0)
 
-        let row: TableViewRow<UITableViewCell>? = liaison.row(for: indexPath)
+        let row: TableViewRow<UITableViewCell, Void>? = liaison.row(for: indexPath)
         XCTAssertNil(row)
     }
     
@@ -1749,8 +1749,8 @@ final class TableViewLiaison_UnitTests: XCTestCase {
     }
     
     func test_rowIndexPaths_returnsIndexPathsForPredicate() {
-        let row1 = TestTableViewRow(data: "test")
-        let row2 = TestTableViewRow(data: "test")
+        let row1 = TableViewRow(data: "test")
+        let row2 = TableViewRow(data: "test")
         
         let section1 = TableViewSection(rows: [row1])
         let section2 = TableViewSection(rows: [row2])

@@ -52,20 +52,20 @@ public struct TableViewSectionComponent<View: UITableViewHeaderFooterView>: AnyT
         commands[command] = nil
     }
     
-    public mutating func set(height: TableViewHeightType, _ closure: @escaping () -> CGFloat) {
+    public mutating func set(_ height: TableViewHeightType, _ closure: @escaping () -> CGFloat) {
         heights[height] = closure
     }
     
-    public mutating func set(height: TableViewHeightType, _ value: CGFloat) {
+    public mutating func set(_ height: TableViewHeightType, _ value: CGFloat) {
         let closure: (() -> CGFloat) = { return value }
         heights[height] = closure
     }
     
-    public mutating func remove(height: TableViewHeightType) {
+    public mutating func remove(_ height: TableViewHeightType) {
         heights[height] = nil
     }
     
-    public func calculate(height: TableViewHeightType) -> CGFloat {
+    public func calculate(_ height: TableViewHeightType) -> CGFloat {
         switch height {
         case .height:
             return heights[.height]?() ?? UITableView.automaticDimension

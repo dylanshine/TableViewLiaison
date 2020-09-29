@@ -56,9 +56,9 @@ final class TableViewSectionComponent_UnitTests: XCTestCase {
     func test_setHeight_setsHeightWithClosure() {
         var component = TestTableViewSectionComponent()
 
-        component.set(height: .height) { return 100 }
+        component.set(.height) { return 100 }
        
-        component.set(height: .estimatedHeight) { return 150 }
+        component.set(.estimatedHeight) { return 150 }
         
         XCTAssertEqual(component.height, 100)
         XCTAssertEqual(component.estimatedHeight, 150)
@@ -67,8 +67,8 @@ final class TableViewSectionComponent_UnitTests: XCTestCase {
     func test_setHeight_setsHeightWithValue() {
         var component = TestTableViewSectionComponent()
 
-        component.set(height: .height, 100)
-        component.set(height: .estimatedHeight, 105)
+        component.set(.height, 100)
+        component.set(.estimatedHeight, 105)
         
         XCTAssertEqual(component.height, 100)
         XCTAssertEqual(component.estimatedHeight, 105)
@@ -83,10 +83,10 @@ final class TableViewSectionComponent_UnitTests: XCTestCase {
     func test_removeHeight_removesAPreviouslySetHeight() {
         var component = TestTableViewSectionComponent()
 
-        component.set(height: .height, 100)
-        component.set(height: .estimatedHeight, 100)
-        component.remove(height: .height)
-        component.remove(height: .estimatedHeight)
+        component.set(.height, 100)
+        component.set(.estimatedHeight, 100)
+        component.remove(.height)
+        component.remove(.estimatedHeight)
 
         XCTAssertEqual(component.height, UITableView.automaticDimension)
         XCTAssertEqual(component.estimatedHeight, 0)
@@ -94,7 +94,7 @@ final class TableViewSectionComponent_UnitTests: XCTestCase {
     
     func test_estimatedHeight_estimatedHeightReturnsHeightIfHeightIsSetAndEstimatedHeightIsNot() {
         var component = TestTableViewSectionComponent()
-        component.set(height: .height, 100)
+        component.set(.height, 100)
         
         XCTAssertEqual(component.estimatedHeight, 100)
     }

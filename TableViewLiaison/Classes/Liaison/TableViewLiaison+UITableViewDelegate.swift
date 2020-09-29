@@ -104,19 +104,19 @@ extension TableViewLiaison: UITableViewDelegate {
     }
     
     public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return sections.element(at: section)?.calculate(height: .height, for: .header) ?? UITableView.automaticDimension
+        return sections.element(at: section)?.calculate(.height, for: .header) ?? UITableView.automaticDimension
     }
     
     public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return sections.element(at: section)?.calculate(height: .height, for: .footer) ?? UITableView.automaticDimension
+        return sections.element(at: section)?.calculate(.height, for: .footer) ?? UITableView.automaticDimension
     }
     
     public func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
-        return sections.element(at: section)?.calculate(height: .estimatedHeight, for: .header) ?? 0
+        return sections.element(at: section)?.calculate(.estimatedHeight, for: .header) ?? 0
     }
     
     public func tableView(_ tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
-        return sections.element(at: section)?.calculate(height: .estimatedHeight, for: .footer) ?? 0
+        return sections.element(at: section)?.calculate(.estimatedHeight, for: .footer) ?? 0
     }
     
     public func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {

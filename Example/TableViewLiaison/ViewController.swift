@@ -23,6 +23,7 @@ final class ViewController: UIViewController {
         
         liaison.paginationDelegate = self
         liaison.liaise(tableView: tableView)
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {

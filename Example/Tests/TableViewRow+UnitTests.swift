@@ -51,7 +51,7 @@ final class TableViewRow_UnitTests: XCTestCase {
     func test_setHeight_setsHeightWithClosure() {
         var row = TestTableViewRow()
 
-        row.set(height: .height) { return 100 }
+        row.set(.height) { return 100 }
         
         XCTAssertEqual(row.height, 100)
     }
@@ -59,7 +59,7 @@ final class TableViewRow_UnitTests: XCTestCase {
     func test_setHeight_setsHeightWithValue() {
         var row = TestTableViewRow()
         
-        row.set(height: .height, 100)
+        row.set(.height, 100)
         
         XCTAssertEqual(row.height, 100)
     }
@@ -73,11 +73,11 @@ final class TableViewRow_UnitTests: XCTestCase {
     func test_removeHeight_removesAPreviouslySetHeight() {
         var row = TestTableViewRow()
         
-        row.set(height: .height, 100)
-        row.set(height: .estimatedHeight, 100)
+        row.set(.height, 100)
+        row.set(.estimatedHeight, 100)
         
-        row.remove(height: .height)
-        row.remove(height: .estimatedHeight)
+        row.remove(.height)
+        row.remove(.estimatedHeight)
         
         XCTAssertEqual(row.height, UITableView.automaticDimension)
         XCTAssertEqual(row.estimatedHeight, UITableView.automaticDimension)
@@ -178,7 +178,7 @@ final class TableViewRow_UnitTests: XCTestCase {
     }
     
     func test_perform_ignoresCommandPerformanceForIncorrectCellType() {
-        var row = TableViewRow<TestTableViewCell>()
+        var row = TableViewRow(TestTableViewCell.self)
         var configured = false
         
         row.set(.configuration) { _, _, _ in

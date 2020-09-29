@@ -8,25 +8,26 @@
 
 import UIKit
 
-public struct TableViewRow<Cell: UITableViewCell>: AnyTableViewRow {
+public struct TableViewRow<Cell: UITableViewCell, Data>: AnyTableViewRow {
     
-    public typealias PrefetchCommandClosure = (IndexPath) -> Void
-    public typealias CommandClosure = (TableViewLiaison, Cell, IndexPath) -> Void
+    public typealias PrefetchCommandClosure = (Data, IndexPath) -> Void
+    public typealias CommandClosure = (TableViewLiaison, Cell, Data, IndexPath) -> Void
     
-    public let data: Any?
+    public let cellType: Cell.Type
+    public let data: Data
     public var editingStyle: UITableViewCell.EditingStyle
     public var movable: Bool
     public var editActions: [UITableViewRowAction]?
     public var indentWhileEditing: Bool
     public var deleteConfirmationTitle: String?
     public var deleteRowAnimation: UITableView.RowAnimation
+    public let registrationType: TableViewRegistrationType<Cell>
+    public internal(set) var prefetchCommands = [TableViewPrefetchCommand: PrefetchCommandClosure]()
+    public internal(set) var commands = [TableViewRowCommand: CommandClosure]()
+    public internal(set) var heights = [TableViewHeightType: () -> CGFloat]()
 
-    private let registrationType: TableViewRegistrationType<Cell>
-    private var prefetchCommands = [TableViewPrefetchCommand: PrefetchCommandClosure]()
-    private var commands = [TableViewRowCommand: CommandClosure]()
-    private var heights = [TableViewHeightType: () -> CGFloat]()
-    
-    public init(data: Any? = nil,
+    public init(_ cellType: Cell.Type,
+                data: Data,
                 prefetchCommands: [TableViewPrefetchCommand: PrefetchCommandClosure] = [:],
                 commands: [TableViewRowCommand: CommandClosure] = [:],
                 heights: [TableViewHeightType: () -> CGFloat] = [:],
@@ -38,6 +39,7 @@ public struct TableViewRow<Cell: UITableViewCell>: AnyTableViewRow {
                 deleteRowAnimation: UITableView.RowAnimation = .automatic,
                 registrationType: TableViewRegistrationType<Cell> = .defaultClassType) {
         
+        self.cellType = cellType
         self.data = data
         self.prefetchCommands = prefetchCommands
         self.commands = commands
@@ -54,7 +56,7 @@ public struct TableViewRow<Cell: UITableViewCell>: AnyTableViewRow {
     // MARK: - Cell
     public func cell(for liaison: TableViewLiaison, at indexPath: IndexPath) -> UITableViewCell {
         let cell = liaison.dequeue(Cell.self, with: reuseIdentifier)
-        commands[.configuration]?(liaison, cell, indexPath)
+        commands[.configuration]?(liaison, cell, data, indexPath)
         return cell
     }
     
@@ -72,11 +74,11 @@ public struct TableViewRow<Cell: UITableViewCell>: AnyTableViewRow {
         
         guard let cell = cell as? Cell else { return }
         
-        commands[command]?(liaison, cell, indexPath)
+        commands[command]?(liaison, cell, data, indexPath)
     }
     
     public func perform(_ prefetchCommand: TableViewPrefetchCommand, for indexPath: IndexPath) {
-        prefetchCommands[prefetchCommand]?(indexPath)
+        prefetchCommands[prefetchCommand]?(data, indexPath)
     }
     
     public mutating func set(_ command: TableViewRowCommand, with closure: @escaping CommandClosure) {
@@ -87,16 +89,16 @@ public struct TableViewRow<Cell: UITableViewCell>: AnyTableViewRow {
         commands[command] = nil
     }
     
-    public mutating func set(height: TableViewHeightType, _ closure: @escaping () -> CGFloat) {
+    public mutating func set(_ height: TableViewHeightType, _ closure: @escaping () -> CGFloat) {
         heights[height] = closure
     }
     
-    public mutating func set(height: TableViewHeightType, _ value: CGFloat) {
+    public mutating func set(_ height: TableViewHeightType, _ value: CGFloat) {
         let closure: (() -> CGFloat) = { return value }
         heights[height] = closure
     }
     
-    public mutating func remove(height: TableViewHeightType) {
+    public mutating func remove(_ height: TableViewHeightType) {
         heights[height] = nil
     }
     
@@ -108,11 +110,15 @@ public struct TableViewRow<Cell: UITableViewCell>: AnyTableViewRow {
         prefetchCommands[prefetchCommand] = nil
     }
     
-    public func calculate(height: TableViewHeightType) -> CGFloat {
+    public func calculate(_ height: TableViewHeightType) -> CGFloat {
         return heights[height]?() ?? UITableView.automaticDimension
     }
     
     // MARK: - Computed Properties
+    
+    public var _data: Any? {
+        return data
+    }
 
     public var editable: Bool {
         return editingStyle != .none || editActions?.isEmpty == false

@@ -45,7 +45,7 @@ public struct TableViewSection {
         }
     }
     
-    func calculate(height: TableViewHeightType, for componentView: TableViewSectionComponentViewType) -> CGFloat {
+    func calculate(_ height: TableViewHeightType, for componentView: TableViewSectionComponentViewType) -> CGFloat {
         
         switch (option, componentView) {
         case (.both(let header, _), .header):
@@ -84,7 +84,7 @@ public struct TableViewSection {
     func rowIndexPaths<T>(for section: Int, where predicate: (T) -> Bool) -> [IndexPath] {
         return rows.enumerated()
             .filter { index, row in
-                guard let state = row.data as? T else { return false }
+                guard let state = row._data as? T else { return false }
                 return predicate(state)
             }
             .map { item, _ -> IndexPath in

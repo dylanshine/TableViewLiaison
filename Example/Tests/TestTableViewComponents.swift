@@ -9,5 +9,5 @@
 import UIKit
 @testable import TableViewLiaison
 
-typealias TestTableViewRow = TableViewRow<UITableViewCell>
+typealias TestTableViewRow = TableViewRow<UITableViewCell, Void>
 typealias TestTableViewSectionComponent = TableViewSectionComponent<UITableViewHeaderFooterView>

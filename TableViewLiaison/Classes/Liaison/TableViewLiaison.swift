@@ -173,8 +173,8 @@ public final class TableViewLiaison: NSObject {
         return tableView?.rectForRow(at: indexPath) ?? .zero
     }
     
-    public func row<Cell: UITableViewCell>(for indexPath: IndexPath) -> TableViewRow<Cell>? {
-        return row(for: indexPath) as? TableViewRow<Cell>
+    public func row<Cell: UITableViewCell, Data>(for indexPath: IndexPath) -> TableViewRow<Cell, Data>? {
+        return row(for: indexPath) as? TableViewRow<Cell, Data>
     }
         
     func row(for indexPath: IndexPath) -> AnyTableViewRow? {

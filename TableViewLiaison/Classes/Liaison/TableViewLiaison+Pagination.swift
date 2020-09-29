@@ -72,13 +72,13 @@ extension TableViewLiaison {
         }
     }
     
-    public static let paginationRow: TableViewRow<PaginationTableViewCell> = {
-        var commands = [TableViewRowCommand: (TableViewLiaison, PaginationTableViewCell, IndexPath) -> Void]()
+    public static let paginationRow: AnyTableViewRow = {
+        var commands = [TableViewRowCommand: (TableViewLiaison, PaginationTableViewCell, Void, IndexPath) -> Void]()
         
-        commands[.willDisplay] = { _, cell, _ in
+        commands[.willDisplay] = { _, cell, _, _ in
             cell.activityIndicator.startAnimating()
         }
         
-        return TableViewRow<PaginationTableViewCell>(commands: commands)
+        return TableViewRow(PaginationTableViewCell.self, commands: commands)
     }()
 }

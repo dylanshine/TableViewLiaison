@@ -11,22 +11,22 @@ import UIKit
 
 enum TableViewContentFactory {
     
-    static func imageRow(id: String, imageSize: CGSize) -> TableViewRow<ImageTableViewCell> {
+    static func imageRow(id: String, imageSize: CGSize) -> AnyTableViewRow {
         
-        var row = TableViewRow<ImageTableViewCell>(registrationType: .defaultNibType)
+        var row = TableViewRow(ImageTableViewCell.self, data: id, registrationType: .defaultNibType)
         
-        row.set(height: .height) {
+        row.set(.height) {
             
             let ratio = imageSize.width / imageSize.height
             
             return UIScreen.main.bounds.width / ratio
         }
         
-        row.set(.prefetch) { _ in
+        row.set(.prefetch) { id, _ in
             fetchImage(id: id, imageSize: imageSize)
         }
         
-        row.set(.configuration) { (_, cell: ImageTableViewCell, _) in
+        row.set(.configuration) { (_, cell: ImageTableViewCell, _, _) in
             fetchImage(id: id, imageSize: imageSize) { [weak cell] image in
                 cell?.contentImage = image
             }
@@ -48,15 +48,15 @@ enum TableViewContentFactory {
                                             completion: completion)
     }
     
-    private static func textTableViewRow() -> TableViewRow<TextTableViewCell> {
-        return TableViewRow<TextTableViewCell>(registrationType: .defaultNibType)
+    private static func textTableViewRow() -> TableViewRow<TextTableViewCell, Void> {
+        return TableViewRow(TextTableViewCell.self, registrationType: .defaultNibType)
     }
     
-    static func likesRow(numberOfLikes: UInt) -> TableViewRow<TextTableViewCell> {
+    static func likesRow(numberOfLikes: UInt) -> AnyTableViewRow {
         
         var row = textTableViewRow()
         
-        row.set(.configuration) { _, cell, _ in
+        row.set(.configuration) { _, cell, _, _ in
             cell.contentTextLabel.font = .systemFont(ofSize: 13, weight: .medium)
             cell.contentTextLabel.text = "\(numberOfLikes) likes"
             cell.contentTextLabel.textColor = .white
@@ -65,17 +65,17 @@ enum TableViewContentFactory {
         return row
     }
     
-    static func captionRow(id: String) -> TableViewRow<TextTableViewCell> {
+    static func captionRow(id: String) -> AnyTableViewRow {
         
         var row = textTableViewRow()
 
-        row.set(height: .estimatedHeight, 50)
+        row.set(.estimatedHeight, 50)
         
         row.set(.prefetch) { indexPath in
             NetworkManager.fetchRandomFact(id: id)
         }
         
-        row.set(.configuration) { liaison, cell, indexPath in
+        row.set(.configuration) { liaison, cell, _,  indexPath in
             
             cell.contentTextLabel.numberOfLines = 0
             cell.contentTextLabel.textColor = .white
@@ -92,11 +92,11 @@ enum TableViewContentFactory {
         return row
     }
     
-    static func commentRow(commentCount: UInt) -> TableViewRow<TextTableViewCell> {
+    static func commentRow(commentCount: UInt) -> AnyTableViewRow {
         
         var row = textTableViewRow()
         
-        row.set(.configuration) { _, cell, _ in
+        row.set(.configuration) { _, cell, _, _ in
             cell.contentTextLabel.font = .systemFont(ofSize: 13)
             cell.contentTextLabel.text = "View all \(commentCount) comments"
             cell.contentTextLabel.textColor = .gray
@@ -105,11 +105,11 @@ enum TableViewContentFactory {
         return row
     }
     
-    static func timeRow(numberOfSeconds: TimeInterval) -> TableViewRow<TextTableViewCell> {
+    static func timeRow(numberOfSeconds: TimeInterval) -> AnyTableViewRow {
         
         var row = textTableViewRow()
 
-        row.set(.configuration) { _, cell, _ in
+        row.set(.configuration) { _, cell, _, _ in
             cell.contentTextLabel.font = .systemFont(ofSize: 10)
             cell.contentTextLabel.text = numberOfSeconds.timeText
             cell.contentTextLabel.textColor = .gray
@@ -122,7 +122,7 @@ enum TableViewContentFactory {
         
         var header = TableViewSectionComponent<PostTableViewSectionHeaderView>(registrationType: .defaultNibType)
         
-        header.set(height: .height, 70)
+        header.set(.height, 70)
         
         header.set(.configuration) { liaison, view, _ in
             
