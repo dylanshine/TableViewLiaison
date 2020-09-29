@@ -187,16 +187,7 @@ public extension TableViewLiaison {
         }
     }
     
-    func moveRow(from source: IndexPath, to destination: IndexPath, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
-        
-        moveRow(from: source, to: destination)
-        
-        performTableViewUpdates(animated: animated) {
-            tableView?.moveRow(at: source, to: destination)
-        }
-    }
-    
-    func moveRow(from source: IndexPath, to destination: IndexPath) {
+    func moveRow(from source: IndexPath, to destination: IndexPath, animated: Bool = true) {
         let indices = sections.indices
         guard indices.contains(source.section) && indices.contains(destination.section) else { return }
         
@@ -207,6 +198,10 @@ public extension TableViewLiaison {
         sections[destination.section].insert(row: row, at: destination)
         
         perform(command: .move, at: destination)
+        
+        performTableViewUpdates(animated: animated) {
+            tableView?.moveRow(at: source, to: destination)
+        }
     }
     
     func swapRow(at source: IndexPath, with destination: IndexPath, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
