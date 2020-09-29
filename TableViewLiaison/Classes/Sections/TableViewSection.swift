@@ -12,14 +12,14 @@ public struct TableViewSection {
     public internal(set) var rows: [AnyTableViewRow]
     
     public let id: String?
-    public let componentDisplayOption: TableViewSectionComponentDisplayOption
+    public let option: TableViewSectionComponentDisplayOption
     
     public init(id: String? = nil,
                 rows: [AnyTableViewRow] = [],
-                componentDisplayOption: TableViewSectionComponentDisplayOption = .none) {
+                option: TableViewSectionComponentDisplayOption = .none) {
         self.rows = rows
         self.id = id
-        self.componentDisplayOption = componentDisplayOption
+        self.option = option
     }
     
     func perform(_ command: TableViewSectionComponentCommand,
@@ -30,24 +30,24 @@ public struct TableViewSection {
         
         switch componentView {
         case .header:
-            componentDisplayOption.header?.perform(command, liaison: liaison, view: view, section: section)
+            option.header?.perform(command, liaison: liaison, view: view, section: section)
         case .footer:
-            componentDisplayOption.footer?.perform(command, liaison: liaison, view: view, section: section)
+            option.footer?.perform(command, liaison: liaison, view: view, section: section)
         }
     }
     
     func view(componentView: TableViewSectionComponentViewType, for liaison: TableViewLiaison, in section: Int) -> UIView? {
         switch componentView {
         case .header:
-            return componentDisplayOption.header?.view(for: liaison, in: section)
+            return option.header?.view(for: liaison, in: section)
         case .footer:
-            return componentDisplayOption.footer?.view(for: liaison, in: section)
+            return option.footer?.view(for: liaison, in: section)
         }
     }
     
     func calculate(height: TableViewHeightType, for componentView: TableViewSectionComponentViewType) -> CGFloat {
         
-        switch (componentDisplayOption, componentView) {
+        switch (option, componentView) {
         case (.both(let header, _), .header):
             return calculate(height, for: header)
         case (.both(_, let footer), .footer):

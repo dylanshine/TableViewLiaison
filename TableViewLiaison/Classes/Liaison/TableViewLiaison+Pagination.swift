@@ -40,8 +40,7 @@ extension TableViewLiaison {
     func removePaginationSpinner(animated: Bool) {
         guard waitingForPaginatedResults else { return }
         waitingForPaginatedResults = false
-    
-        deleteSection(at: sections.lastIndex, animation: .none, animated: animated)
+        deleteSections(with: [paginationSectionID], animation: .none, animated: animated)
     }
     
     func endPagination(rows: [AnyTableViewRow], to section: Int, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {

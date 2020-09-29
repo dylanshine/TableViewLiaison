@@ -30,7 +30,7 @@ final class TableViewSection_UnitTests: XCTestCase {
         
         footer.set(height: .height) { return 50 }
         
-        let section = TableViewSection(componentDisplayOption: .both(headerComponent: header, footerComponent: footer))
+        let section = TableViewSection(option: .both(headerComponent: header, footerComponent: footer))
         
         XCTAssertEqual(section.calculate(height: .height, for: .header), 100)
         XCTAssertEqual(section.calculate(height: .height, for: .footer), 50)
@@ -45,7 +45,7 @@ final class TableViewSection_UnitTests: XCTestCase {
         
         footer.set(height: .estimatedHeight) { return 50 }
         
-        let section = TableViewSection(componentDisplayOption: .both(headerComponent: header, footerComponent: footer))
+        let section = TableViewSection(option: .both(headerComponent: header, footerComponent: footer))
         
         XCTAssertEqual(section.calculate(height: .estimatedHeight, for: .header), 100)
         XCTAssertEqual(section.calculate(height: .estimatedHeight, for: .footer), 50)
@@ -59,7 +59,7 @@ final class TableViewSection_UnitTests: XCTestCase {
         header.set(height: .height, 100)
         footer.set(height: .height, 50)
         
-        let section = TableViewSection(componentDisplayOption: .both(headerComponent: header, footerComponent: footer))
+        let section = TableViewSection(option: .both(headerComponent: header, footerComponent: footer))
         
         XCTAssertEqual(section.calculate(height: .height, for: .header), 100)
         XCTAssertEqual(section.calculate(height: .height, for: .footer), 50)
@@ -73,14 +73,14 @@ final class TableViewSection_UnitTests: XCTestCase {
         header.set(height: .estimatedHeight, 100)
         footer.set(height: .estimatedHeight, 50)
         
-        let section = TableViewSection(componentDisplayOption: .both(headerComponent: header, footerComponent: footer))
+        let section = TableViewSection(option: .both(headerComponent: header, footerComponent: footer))
         
         XCTAssertEqual(section.calculate(height: .estimatedHeight, for: .header), 100)
         XCTAssertEqual(section.calculate(height: .estimatedHeight, for: .footer), 50)
     }
     
     func test_calculateHeight_returnsAutomaticDimensionForSelfSizingSupplementaryViews() {
-        let section = TableViewSection(componentDisplayOption: .both(headerComponent: TestTableViewSectionComponent(),
+        let section = TableViewSection(option: .both(headerComponent: TestTableViewSectionComponent(),
                                                                          footerComponent: TestTableViewSectionComponent()))
         
         XCTAssertEqual(section.calculate(height: .height, for: .header), UITableView.automaticDimension)
@@ -88,7 +88,7 @@ final class TableViewSection_UnitTests: XCTestCase {
     }
     
     func test_calculateHeight_returnsZeroForNonSetEstimatedSupplementaryViewsHeights() {
-        let section = TableViewSection(componentDisplayOption: .both(headerComponent: TestTableViewSectionComponent(),
+        let section = TableViewSection(option: .both(headerComponent: TestTableViewSectionComponent(),
                                                                        footerComponent: TestTableViewSectionComponent()))
         
         XCTAssertEqual(section.calculate(height: .estimatedHeight, for: .header), 0)
@@ -130,7 +130,7 @@ final class TableViewSection_UnitTests: XCTestCase {
         header.remove(height: .estimatedHeight)
         footer.remove(height: .estimatedHeight)
         
-        let section = TableViewSection(componentDisplayOption: .both(headerComponent: header, footerComponent: footer))
+        let section = TableViewSection(option: .both(headerComponent: header, footerComponent: footer))
 
         XCTAssertEqual(section.calculate(height: .height, for: .header), UITableView.automaticDimension)
         XCTAssertEqual(section.calculate(height: .height, for: .footer), UITableView.automaticDimension)
@@ -176,7 +176,7 @@ final class TableViewSection_UnitTests: XCTestCase {
             view.accessibilityIdentifier = string
         }
         
-        let section = TableViewSection(componentDisplayOption: .header(component: header))
+        let section = TableViewSection(option: .header(component: header))
         
         let headerView = section.view(componentView: .header, for: liaison, in: 0)
         
@@ -195,7 +195,7 @@ final class TableViewSection_UnitTests: XCTestCase {
             view.accessibilityIdentifier = string
         }
         
-        let section = TableViewSection(componentDisplayOption: .footer(component: footer))
+        let section = TableViewSection(option: .footer(component: footer))
 
         let footerView = section.view(componentView: .footer, for: liaison, in: 0)
         
@@ -240,7 +240,7 @@ final class TableViewSection_UnitTests: XCTestCase {
         }
         
         let view = UITableViewHeaderFooterView()
-        let section = TableViewSection(componentDisplayOption: .both(headerComponent: header, footerComponent: footer))
+        let section = TableViewSection(option: .both(headerComponent: header, footerComponent: footer))
         
         section.perform(.configuration, componentView: .header, liaison: liaison, view: view, section: 0)
         section.perform(.configuration, componentView: .footer, liaison: liaison, view: view, section: 0)
@@ -274,7 +274,7 @@ final class TableViewSection_UnitTests: XCTestCase {
         
         let view = UIView()
         
-        let section = TableViewSection(componentDisplayOption: .both(headerComponent: header, footerComponent: footer))
+        let section = TableViewSection(option: .both(headerComponent: header, footerComponent: footer))
         section.perform(.configuration, componentView: .header, liaison: liaison, view: view, section: 0)
         section.perform(.configuration, componentView: .footer, liaison: liaison, view: view, section: 0)
         

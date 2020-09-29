@@ -91,7 +91,7 @@ To notify the `TableViewLiaison` that your `TableViewSection` will display a hea
 
 ```swift
 let header = TableViewSectionComponent<UITableViewHeaderFooterView>()
-let section = TableViewSection(componentDisplayOption: .header(component: header))
+let section = TableViewSection(option: .header(component: header))
 ```
 
 You can set a static height of a `TableViewSectionComponent` by using either a CGFloat value or closure:
@@ -217,7 +217,7 @@ row.set(.cancel) { indexPath in
 
 By default, `TableViewRow` is instantiated with `TableViewRegistrationType<Cell>.defaultClassType`.
 
-`TableViewSection` supplementary view registration is encapsulated by its`TableViewSectionComponentDisplayOption`. By default, `TableViewSection` `componentDisplayOption` is instantiated with `.none`.
+`TableViewSection` supplementary view registration is encapsulated by its`TableViewSectionComponentDisplayOption`. By default, `TableViewSection` `option` is instantiated with `.none`.
 
 ### Pagination
 `TableViewLiaison` comes equipped to handle your pagination needs. To configure the liaison for pagination, simply set its `paginationDelegate` to an instance of `TableViewLiaisonPaginationDelegate`.

@@ -302,7 +302,7 @@ final class TableViewLiaison_UnitTests: XCTestCase {
             capturedHeader = view
         }
 
-        let section = TableViewSection(componentDisplayOption: .header(component: header))
+        let section = TableViewSection(option: .header(component: header))
         
         liaison.append(section: section)
         liaison.reloadData()
@@ -327,7 +327,7 @@ final class TableViewLiaison_UnitTests: XCTestCase {
         }
         
         let section = TableViewSection(id: "section",
-                                       componentDisplayOption: .header(component: header))
+                                       option: .header(component: header))
         
         liaison.append(section: section)
         liaison.reloadData()
@@ -1285,8 +1285,8 @@ final class TableViewLiaison_UnitTests: XCTestCase {
             view.accessibilityIdentifier = "\(section)"
         }
 
-        let section1 = TableViewSection(componentDisplayOption: .header(component: header))
-        let section2 = TableViewSection(componentDisplayOption: .header(component: header))
+        let section1 = TableViewSection(option: .header(component: header))
+        let section2 = TableViewSection(option: .header(component: header))
 
         liaison.append(sections: [section1, section2])
 
@@ -1305,8 +1305,8 @@ final class TableViewLiaison_UnitTests: XCTestCase {
             view.accessibilityIdentifier = "\(section)"
         }
 
-        let section1 = TableViewSection(componentDisplayOption: .footer(component: footer))
-        let section2 = TableViewSection(componentDisplayOption: .footer(component: footer))
+        let section1 = TableViewSection(option: .footer(component: footer))
+        let section2 = TableViewSection(option: .footer(component: footer))
 
         liaison.append(sections: [section1, section2])
 
@@ -1457,9 +1457,9 @@ final class TableViewLiaison_UnitTests: XCTestCase {
 
         header2.set(height: .height) { return 200 }
 
-        let section1 = TableViewSection(componentDisplayOption: .header(component: header1))
-        let section2 = TableViewSection(componentDisplayOption: .header(component: header2))
-        let section3 = TableViewSection(componentDisplayOption: .header(component: header3))
+        let section1 = TableViewSection(option: .header(component: header1))
+        let section2 = TableViewSection(option: .header(component: header2))
+        let section3 = TableViewSection(option: .header(component: header3))
 
         liaison.append(sections: [section1, section2, section3])
 
@@ -1486,10 +1486,10 @@ final class TableViewLiaison_UnitTests: XCTestCase {
         
         header3.set(height: .height, 300)
         
-        let section1 = TableViewSection(componentDisplayOption: .header(component: header1))
-        let section2 = TableViewSection(componentDisplayOption: .header(component: header2))
-        let section3 = TableViewSection(componentDisplayOption: .header(component: header3))
-        let section4 = TableViewSection(componentDisplayOption: .header(component: header4))
+        let section1 = TableViewSection(option: .header(component: header1))
+        let section2 = TableViewSection(option: .header(component: header2))
+        let section3 = TableViewSection(option: .header(component: header3))
+        let section4 = TableViewSection(option: .header(component: header4))
 
         liaison.append(sections: [section1, section2, section3, section4])
         
@@ -1513,9 +1513,9 @@ final class TableViewLiaison_UnitTests: XCTestCase {
 
         footer2.set(height: .height) { return 200 }
 
-        let section1 = TableViewSection(componentDisplayOption: .footer(component: footer1))
-        let section2 = TableViewSection(componentDisplayOption: .footer(component: footer2))
-        let section3 = TableViewSection(componentDisplayOption: .footer(component: footer3))
+        let section1 = TableViewSection(option: .footer(component: footer1))
+        let section2 = TableViewSection(option: .footer(component: footer2))
+        let section3 = TableViewSection(option: .footer(component: footer3))
 
         liaison.append(sections: [section1, section2, section3])
 
@@ -1540,10 +1540,10 @@ final class TableViewLiaison_UnitTests: XCTestCase {
         
         footer3.set(height: .height, 300)
         
-        let section1 = TableViewSection(componentDisplayOption: .footer(component: footer1))
-        let section2 = TableViewSection(componentDisplayOption: .footer(component: footer2))
-        let section3 = TableViewSection(componentDisplayOption: .footer(component: footer3))
-        let section4 = TableViewSection(componentDisplayOption: .footer(component: footer4))
+        let section1 = TableViewSection(option: .footer(component: footer1))
+        let section2 = TableViewSection(option: .footer(component: footer2))
+        let section3 = TableViewSection(option: .footer(component: footer3))
+        let section4 = TableViewSection(option: .footer(component: footer4))
         
         liaison.append(sections: [section1, section2, section3, section4])
         
@@ -1568,7 +1568,7 @@ final class TableViewLiaison_UnitTests: XCTestCase {
             willDisplay = true
         }
 
-        let section = TableViewSection(componentDisplayOption: .header(component: header))
+        let section = TableViewSection(option: .header(component: header))
 
         liaison.append(section: section)
         let view = UITableViewHeaderFooterView()
@@ -1586,7 +1586,7 @@ final class TableViewLiaison_UnitTests: XCTestCase {
             willDisplay = true
         }
 
-        let section = TableViewSection(componentDisplayOption: .footer(component: footer))
+        let section = TableViewSection(option: .footer(component: footer))
 
         liaison.append(section: section)
         let view = UITableViewHeaderFooterView()
@@ -1604,7 +1604,7 @@ final class TableViewLiaison_UnitTests: XCTestCase {
             didEndDisplaying = true
         }
 
-        let section = TableViewSection(componentDisplayOption: .header(component: header))
+        let section = TableViewSection(option: .header(component: header))
 
         liaison.append(section: section)
         let view = UITableViewHeaderFooterView()
@@ -1622,7 +1622,7 @@ final class TableViewLiaison_UnitTests: XCTestCase {
             didEndDisplaying = true
         }
 
-        let section = TableViewSection(componentDisplayOption: .footer(component: footer))
+        let section = TableViewSection(option: .footer(component: footer))
 
         liaison.append(section: section)
         let view = UITableViewHeaderFooterView()

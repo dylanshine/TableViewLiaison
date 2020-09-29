@@ -81,19 +81,11 @@ enum TableViewContentFactory {
             cell.contentTextLabel.textColor = .white
             cell.contentTextLabel.font = .systemFont(ofSize: 13)
             
-            if let fact = NetworkManager.factCache[id] {
-                cell.contentTextLabel.text = fact
-                return
-            }
-            
-            NetworkManager.fetchRandomFact(id: id) { [weak liaison, weak cell] fact in
+            NetworkManager.fetchRandomFact(id: id) { [weak cell] fact in
                 guard let fact = fact,
-                    let liaison = liaison,
                     let cell = cell else { return }
                 
                 cell.contentTextLabel.text = fact
-
-                liaison.reloadRow(at: indexPath)
             }
         }
         

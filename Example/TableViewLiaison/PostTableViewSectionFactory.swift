@@ -25,7 +25,7 @@ enum PostTableViewSectionFactory {
         
         return TableViewSection(id: post.id,
                                 rows: rows,
-                                componentDisplayOption: .header(component: header))
+                                option: .header(component: header))
     }
     
 }

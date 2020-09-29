@@ -11,8 +11,8 @@ extension TableViewLiaison {
     
     func register(section: TableViewSection) {
         
-        section.componentDisplayOption.header?.register(with: self)
-        section.componentDisplayOption.footer?.register(with: self)
+        section.option.header?.register(with: self)
+        section.option.footer?.register(with: self)
         
         section.rows.forEach {
             $0.register(with: self)

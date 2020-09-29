@@ -18,6 +18,7 @@ public final class TableViewLiaison: NSObject {
     
     public weak var paginationDelegate: TableViewLiaisonPaginationDelegate?
     
+    let paginationSectionID = UUID().uuidString
     let paginationSection: TableViewSection
     
     var waitingForPaginatedResults = false
@@ -66,7 +67,7 @@ public final class TableViewLiaison: NSObject {
     public init(sections: [TableViewSection] = [],
                 paginationRow: AnyTableViewRow = paginationRow) {
         self.sections = sections
-        self.paginationSection = TableViewSection(rows: [paginationRow])
+        self.paginationSection = TableViewSection(id: paginationSectionID, rows: [paginationRow])
         
         super.init()
     }

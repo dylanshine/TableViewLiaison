@@ -14,9 +14,7 @@ public enum TableViewSectionComponentDisplayOption {
     
     public var header: AnyTableViewSectionComponent? {
         switch self {
-        case .header(let header):
-            return header
-        case .both(let header, _):
+        case .header(let header), .both(let header, _):
             return header
         default:
             return nil
@@ -25,9 +23,7 @@ public enum TableViewSectionComponentDisplayOption {
     
     public var footer: AnyTableViewSectionComponent? {
         switch self {
-        case .footer(let footer):
-            return footer
-        case .both(_, let footer):
+        case .footer(let footer), .both(_, let footer):
             return footer
         default:
             return nil
