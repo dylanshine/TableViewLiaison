@@ -22,7 +22,7 @@ final class TableViewRow_UnitTests: XCTestCase {
     }
     
     func test_setCommand_setsCommandClosure() {
-        var row = TestTableViewRow()
+        var row = TableViewRow()
         
         var set = false
         row.set(.configuration) { _, _, _ in
@@ -178,7 +178,7 @@ final class TableViewRow_UnitTests: XCTestCase {
     }
     
     func test_perform_ignoresCommandPerformanceForIncorrectCellType() {
-        var row = TableViewRow(TestTableViewCell.self)
+        var row = StatelessTableViewRow<TestTableViewCell>()
         var configured = false
         
         row.set(.configuration) { _, _, _ in

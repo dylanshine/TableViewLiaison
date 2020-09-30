@@ -1681,7 +1681,7 @@ final class TableViewLiaison_UnitTests: XCTestCase {
     }
     
     func test_rowForIndexPathGeneric_returnsCorrectRow() {
-        let row1 = TableViewRow(TestTableViewCell.self)
+        let row1 = TableViewRow()
         var row2 = TableViewRow()
         
         var correctRow = false
@@ -1701,7 +1701,7 @@ final class TableViewLiaison_UnitTests: XCTestCase {
     
     func test_rowForIndexPathGeneric_returnsNilForIncorrectType() {
         
-        let section = TableViewSection(rows: [TableViewRow(TestTableViewCell.self)])
+        let section = TableViewSection(rows: [StatelessTableViewRow<TestTableViewCell>()])
         liaison.append(section: section)
         let indexPath = IndexPath(row: 0, section: 0)
 

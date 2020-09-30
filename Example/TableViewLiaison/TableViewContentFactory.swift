@@ -10,15 +10,15 @@ import TableViewLiaison
 import UIKit
 
 enum TableViewContentFactory {
-    
+    typealias ImageRow = TableViewRow<ImageTableViewCell, String>
+    typealias TextRow = TableViewRow<TextTableViewCell, Void>
+
     static func imageRow(id: String, imageSize: CGSize) -> AnyTableViewRow {
         
-        var row = TableViewRow(ImageTableViewCell.self, data: id, registrationType: .defaultNibType)
+        var row = ImageRow(data: id, registrationType: .defaultNibType)
         
         row.set(.height) {
-            
             let ratio = imageSize.width / imageSize.height
-            
             return UIScreen.main.bounds.width / ratio
         }
         
@@ -48,8 +48,8 @@ enum TableViewContentFactory {
                                             completion: completion)
     }
     
-    private static func textTableViewRow() -> TableViewRow<TextTableViewCell, Void> {
-        return TableViewRow(TextTableViewCell.self, registrationType: .defaultNibType)
+    private static func textTableViewRow() -> TextRow {
+        return TextRow(registrationType: .defaultNibType)
     }
     
     static func likesRow(numberOfLikes: UInt) -> AnyTableViewRow {
@@ -71,11 +71,11 @@ enum TableViewContentFactory {
 
         row.set(.estimatedHeight, 50)
         
-        row.set(.prefetch) { indexPath in
+        row.set(.prefetch) { _ in
             NetworkManager.fetchRandomFact(id: id)
         }
         
-        row.set(.configuration) { liaison, cell, _,  indexPath in
+        row.set(.configuration) { _, cell, _,  _ in
             
             cell.contentTextLabel.numberOfLines = 0
             cell.contentTextLabel.textColor = .white
@@ -96,7 +96,7 @@ enum TableViewContentFactory {
         
         var row = textTableViewRow()
         
-        row.set(.configuration) { _, cell, _, _ in
+        row.set(.configuration) { _, cell, _ in
             cell.contentTextLabel.font = .systemFont(ofSize: 13)
             cell.contentTextLabel.text = "View all \(commentCount) comments"
             cell.contentTextLabel.textColor = .gray
@@ -109,7 +109,7 @@ enum TableViewContentFactory {
         
         var row = textTableViewRow()
 
-        row.set(.configuration) { _, cell, _, _ in
+        row.set(.configuration) { _, cell, _ in
             cell.contentTextLabel.font = .systemFont(ofSize: 10)
             cell.contentTextLabel.text = numberOfSeconds.timeText
             cell.contentTextLabel.textColor = .gray

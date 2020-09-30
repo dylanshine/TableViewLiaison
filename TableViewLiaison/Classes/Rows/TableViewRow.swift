@@ -13,7 +13,6 @@ public struct TableViewRow<Cell: UITableViewCell, Data>: AnyTableViewRow {
     public typealias PrefetchCommandClosure = (Data, IndexPath) -> Void
     public typealias CommandClosure = (TableViewLiaison, Cell, Data, IndexPath) -> Void
     
-    public let cellType: Cell.Type
     public let data: Data
     public var editingStyle: UITableViewCell.EditingStyle
     public var movable: Bool
@@ -26,8 +25,7 @@ public struct TableViewRow<Cell: UITableViewCell, Data>: AnyTableViewRow {
     public internal(set) var commands = [TableViewRowCommand: CommandClosure]()
     public internal(set) var heights = [TableViewHeightType: () -> CGFloat]()
 
-    public init(_ cellType: Cell.Type,
-                data: Data,
+    public init(data: Data,
                 prefetchCommands: [TableViewPrefetchCommand: PrefetchCommandClosure] = [:],
                 commands: [TableViewRowCommand: CommandClosure] = [:],
                 heights: [TableViewHeightType: () -> CGFloat] = [:],
@@ -39,7 +37,6 @@ public struct TableViewRow<Cell: UITableViewCell, Data>: AnyTableViewRow {
                 deleteRowAnimation: UITableView.RowAnimation = .automatic,
                 registrationType: TableViewRegistrationType<Cell> = .defaultClassType) {
         
-        self.cellType = cellType
         self.data = data
         self.prefetchCommands = prefetchCommands
         self.commands = commands
