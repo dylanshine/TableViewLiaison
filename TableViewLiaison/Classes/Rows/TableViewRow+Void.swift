@@ -35,7 +35,7 @@ public extension TableViewRow where Data == Void {
             _commands[key] = { liaison, cell, _, indexPath in value(liaison, cell, indexPath) }
         }
         
-        self.init(data: (),
+        self.init((),
                   prefetchCommands: _prefetchCommands,
                   commands: _commands,
                   heights: heights,

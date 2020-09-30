@@ -15,7 +15,7 @@ enum TableViewContentFactory {
 
     static func imageRow(id: String, imageSize: CGSize) -> AnyTableViewRow {
         
-        var row = ImageRow(data: id, registrationType: .defaultNibType)
+        var row = ImageRow(id, registrationType: .defaultNibType)
         
         row.set(.height) {
             let ratio = imageSize.width / imageSize.height

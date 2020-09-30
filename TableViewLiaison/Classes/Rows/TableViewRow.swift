@@ -25,7 +25,7 @@ public struct TableViewRow<Cell: UITableViewCell, Data>: AnyTableViewRow {
     public internal(set) var commands = [TableViewRowCommand: CommandClosure]()
     public internal(set) var heights = [TableViewHeightType: () -> CGFloat]()
 
-    public init(data: Data,
+    public init(_ data: Data,
                 prefetchCommands: [TableViewPrefetchCommand: PrefetchCommandClosure] = [:],
                 commands: [TableViewRowCommand: CommandClosure] = [:],
                 heights: [TableViewHeightType: () -> CGFloat] = [:],

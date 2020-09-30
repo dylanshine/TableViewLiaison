@@ -283,9 +283,9 @@ final class TableViewSection_UnitTests: XCTestCase {
     }
     
     func test_rowIndexPaths_returnsIndexPathsForPredicate() {
-        let row1 = TableViewRow(data: "test")
+        let row1 = TableViewRow("test")
         let row2 = TestTableViewRow()
-        let row3 = TableViewRow(data: "test")
+        let row3 = TableViewRow("test")
         
         let section = TableViewSection(rows: [row1, row2, row3])
         
