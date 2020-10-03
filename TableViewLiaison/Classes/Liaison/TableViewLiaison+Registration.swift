@@ -31,23 +31,23 @@ extension TableViewLiaison {
         rows.forEach(register(row:))
     }
     
-    func register<T: UITableViewCell>(_ type: T.Type, with identifier: String) {
+    public func register<T: UITableViewCell>(_ type: T.Type, with identifier: String) {
         tableView?.register(T.self, forCellReuseIdentifier: identifier)
     }
     
-    func register<T: UITableViewHeaderFooterView>(_ type: T.Type, with identifier: String) {
+    public func register<T: UITableViewHeaderFooterView>(_ type: T.Type, with identifier: String) {
         tableView?.register(T.self, forHeaderFooterViewReuseIdentifier: identifier)
     }
 
-    func registerCell(nib: UINib, with identifier: String) {
+    public func registerCell(nib: UINib, with identifier: String) {
         tableView?.register(nib, forCellReuseIdentifier: identifier)
     }
     
-    func registerHeaderFooterView(nib: UINib, with identifier: String) {
+    public func registerHeaderFooterView(nib: UINib, with identifier: String) {
         tableView?.register(nib, forHeaderFooterViewReuseIdentifier: identifier)
     }
     
-    func dequeue<T: UITableViewCell>(_ type: T.Type, with identifier: String) -> T {
+    public func dequeue<T: UITableViewCell>(_ type: T.Type, with identifier: String) -> T {
         
         guard let tableView = tableView else {
             fatalError("TableViewLiaison must be liased with UITableView before dequeuing cell of type \(T.self)")
@@ -60,7 +60,7 @@ extension TableViewLiaison {
         return cell
     }
     
-    func dequeue<T: UITableViewHeaderFooterView>(_ type: T.Type, with identifier: String) -> T {
+    public func dequeue<T: UITableViewHeaderFooterView>(_ type: T.Type, with identifier: String) -> T {
         
         guard let tableView = tableView else {
             fatalError("TableViewLiaison must be liased with UITableView before dequeuing view of type \(T.self)")

@@ -10,7 +10,7 @@ import UIKit
 
 public final class TableViewLiaison: NSObject {
     
-    weak var tableView: UITableView? {
+    public internal(set) weak var tableView: UITableView? {
         didSet { registerSections() }
     }
     
