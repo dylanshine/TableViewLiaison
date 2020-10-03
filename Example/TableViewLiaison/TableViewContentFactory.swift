@@ -10,23 +10,25 @@ import TableViewLiaison
 import UIKit
 
 enum TableViewContentFactory {
-    typealias ImageRow = TableViewRow<ImageTableViewCell, String>
+    typealias ImageRow = TableViewRow<ImageTableViewCell, (String, CGSize)>
     typealias TextRow = TableViewRow<TextTableViewCell, Void>
 
     static func imageRow(id: String, imageSize: CGSize) -> AnyTableViewRow {
         
-        var row = ImageRow(id, registrationType: .defaultNibType)
+        var row = ImageRow((id, imageSize), registrationType: .defaultNibType)
         
-        row.set(.height) { _ in
+        row.set(.height) { (_, imageSize) in
             let ratio = imageSize.width / imageSize.height
             return UIScreen.main.bounds.width / ratio
         }
         
-        row.set(.prefetch) { id, _ in
+        row.set(.prefetch) { data, _ in
+            let (id, imageSize) = data
             fetchImage(id: id, imageSize: imageSize)
         }
         
-        row.set(.configuration) { (_, cell: ImageTableViewCell, id, _) in
+        row.set(.configuration) { (_, cell: ImageTableViewCell, data, _) in
+            let (id, imageSize) = data
             fetchImage(id: id, imageSize: imageSize) { [weak cell] image in
                 cell?.contentImage = image
             }
