@@ -3,7 +3,7 @@
 //  TableViewLiaison_Example
 //
 //  Created by Dylan Shine on 3/29/18.
-//  Copyright © 2018 OkCupid. All rights reserved.
+//  Copyright © 2018 Shine Labs. All rights reserved.
 //
 
 import UIKit
@@ -15,7 +15,6 @@ final class TextTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         contentTextLabel.text = nil
-        contentTextLabel.textColor = .black
         contentTextLabel.attributedText = nil
     }
     

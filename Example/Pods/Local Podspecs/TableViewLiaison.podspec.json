@@ -1,6 +1,6 @@
 {
   "name": "TableViewLiaison",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "summary": "Framework to help you better manage UITableViews.",
   "description": "TableViewLiaison abstracts and simplifies UITableView construction and management.",
   "homepage": "https://github.com/dylanshine/TableViewLiaison",
@@ -13,11 +13,12 @@
   },
   "source": {
     "git": "https://github.com/dylanshine/TableViewLiaison.git",
-    "tag": "1.0.3"
+    "tag": "2.0.0"
   },
   "platforms": {
     "ios": "9.0"
   },
   "source_files": "TableViewLiaison/Classes/**/*",
+  "swift_versions": "5.0",
   "swift_version": "5.0"
 }

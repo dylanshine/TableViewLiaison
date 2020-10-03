@@ -8,6 +8,7 @@
 import UIKit
 
 public protocol AnyTableViewRow: TableViewContent {
+    var _data: Any? { get }
     var editable: Bool { get }
     var movable: Bool { get }
     var editActions: [UITableViewRowAction]? { get }
@@ -15,7 +16,7 @@ public protocol AnyTableViewRow: TableViewContent {
     var indentWhileEditing: Bool { get }
     var deleteConfirmationTitle: String? { get }
     var deleteRowAnimation: UITableView.RowAnimation { get }
-    func cell(for tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell
-    func perform(command: TableViewRowCommand, for cell: UITableViewCell, at indexPath: IndexPath)
-    func perform(prefetchCommand: TableViewPrefetchCommand, for indexPath: IndexPath)
+    func cell(for liaison: TableViewLiaison, at indexPath: IndexPath) -> UITableViewCell
+    func perform(_ command: TableViewRowCommand, liaison: TableViewLiaison, cell: UITableViewCell, indexPath: IndexPath)
+    func perform(_ prefetchCommand: TableViewPrefetchCommand, for indexPath: IndexPath)
 }

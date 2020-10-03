@@ -28,7 +28,7 @@ extension TableViewLiaison {
                 waitingForPaginatedResults = true
 
                 let paginationIndexPath = IndexPath(row: 0, section: sections.count)
-                // UITableViewDelegate tableView(_:willDisplay:forRowAt:) is executed on background thread
+                // UITableViewDelegate tableView(_:willDisplay:forRowAt:) is executed off main thread
                 DispatchQueue.main.async {
                     self.addPaginationSection()
                     self.paginationDelegate?.paginationStarted(indexPath: paginationIndexPath)
@@ -40,8 +40,7 @@ extension TableViewLiaison {
     func removePaginationSpinner(animated: Bool) {
         guard waitingForPaginatedResults else { return }
         waitingForPaginatedResults = false
-    
-        deleteSection(at: sections.lastIndex, animation: .none, animated: animated)
+        deleteSections(with: [paginationSectionID], animation: .none, animated: animated)
     }
     
     func endPagination(rows: [AnyTableViewRow], to section: Int, animation: UITableView.RowAnimation = .automatic, animated: Bool = true) {
@@ -61,7 +60,7 @@ extension TableViewLiaison {
         
         guard !sections.isEmpty else { return }
         let firstNewIndexPath = IndexPath(row: 0, section: self.sections.count)
-        append(sections: sections, animation: animation, animated: animated)
+        append(sections: sections, with: animation, animated: animated)
         paginationDelegate?.paginationEnded(indexPath: firstNewIndexPath)
     }
 
@@ -72,4 +71,14 @@ extension TableViewLiaison {
             tableView?.insertSections(indexSet, with: .none)
         }
     }
+    
+    public static let paginationRow: AnyTableViewRow = {
+        var commands = [TableViewRowCommand: (TableViewLiaison, PaginationTableViewCell, IndexPath) -> Void]()
+        
+        commands[.willDisplay] = { _, cell, _ in
+            cell.activityIndicator.startAnimating()
+        }
+        
+        return TableViewRow<PaginationTableViewCell, Void>(commands: commands)
+    }()
 }

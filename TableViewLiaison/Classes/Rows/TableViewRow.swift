@@ -8,22 +8,27 @@
 
 import UIKit
 
-open class TableViewRow<Cell: UITableViewCell, Model>: AnyTableViewRow {
+public struct TableViewRow<Cell: UITableViewCell, Data>: AnyTableViewRow {
     
-    public let model: Model
+    public typealias PrefetchCommandClosure = (Data, IndexPath) -> Void
+    public typealias CommandClosure = (TableViewLiaison, Cell, Data, IndexPath) -> Void
+    
+    public let data: Data
     public var editingStyle: UITableViewCell.EditingStyle
     public var movable: Bool
     public var editActions: [UITableViewRowAction]?
     public var indentWhileEditing: Bool
     public var deleteConfirmationTitle: String?
     public var deleteRowAnimation: UITableView.RowAnimation
-    
-    private let registrationType: TableViewRegistrationType<Cell>
-    private var commands = [TableViewRowCommand: (Cell, Model, IndexPath) -> Void]()
-    private var heights = [TableViewHeightType: (Model) -> CGFloat]()
-    private var prefetchCommands = [TableViewPrefetchCommand: (Model, IndexPath) -> Void]()
-    
-    public init(_ model: Model,
+    public let registrationType: TableViewRegistrationType<Cell>
+    public internal(set) var prefetchCommands = [TableViewPrefetchCommand: PrefetchCommandClosure]()
+    public internal(set) var commands = [TableViewRowCommand: CommandClosure]()
+    public internal(set) var heights = [TableViewHeightType: (Data) -> CGFloat]()
+
+    public init(_ data: Data,
+                prefetchCommands: [TableViewPrefetchCommand: PrefetchCommandClosure] = [:],
+                commands: [TableViewRowCommand: CommandClosure] = [:],
+                heights: [TableViewHeightType: (Data) -> CGFloat] = [:],
                 editingStyle: UITableViewCell.EditingStyle = .none,
                 movable: Bool = false,
                 editActions: [UITableViewRowAction]? = nil,
@@ -31,7 +36,11 @@ open class TableViewRow<Cell: UITableViewCell, Model>: AnyTableViewRow {
                 deleteConfirmationTitle: String? = nil,
                 deleteRowAnimation: UITableView.RowAnimation = .automatic,
                 registrationType: TableViewRegistrationType<Cell> = .defaultClassType) {
-        self.model = model
+        
+        self.data = data
+        self.prefetchCommands = prefetchCommands
+        self.commands = commands
+        self.heights = heights
         self.editingStyle = editingStyle
         self.movable = movable
         self.editActions = editActions
@@ -42,71 +51,72 @@ open class TableViewRow<Cell: UITableViewCell, Model>: AnyTableViewRow {
     }
     
     // MARK: - Cell
-    public func cell(for tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeue(Cell.self, with: reuseIdentifier)
-        commands[.configuration]?(cell, model, indexPath)
+    public func cell(for liaison: TableViewLiaison, at indexPath: IndexPath) -> UITableViewCell {
+        let cell = liaison.dequeue(Cell.self, with: reuseIdentifier)
+        commands[.configuration]?(liaison, cell, data, indexPath)
         return cell
     }
     
-    public func register(with tableView: UITableView) {
+    public func register(with liaison: TableViewLiaison) {
         switch registrationType {
         case let .class(identifier):
-            tableView.register(Cell.self, with: identifier)
+            liaison.register(Cell.self, with: identifier)
         case let .nib(nib, identifier):
-            tableView.register(nib, forCellReuseIdentifier: identifier)
+            liaison.registerCell(nib: nib, with: identifier)
         }
     }
     
     // MARK: - Commands
-    public func perform(command: TableViewRowCommand, for cell: UITableViewCell, at indexPath: IndexPath) {
+    public func perform(_ command: TableViewRowCommand, liaison: TableViewLiaison, cell: UITableViewCell, indexPath: IndexPath) {
         
         guard let cell = cell as? Cell else { return }
         
-        commands[command]?(cell, model, indexPath)
+        commands[command]?(liaison, cell, data, indexPath)
     }
     
-    public func perform(prefetchCommand: TableViewPrefetchCommand, for indexPath: IndexPath) {
-        prefetchCommands[prefetchCommand]?(model, indexPath)
+    public func perform(_ prefetchCommand: TableViewPrefetchCommand, for indexPath: IndexPath) {
+        prefetchCommands[prefetchCommand]?(data, indexPath)
     }
     
-    public func set(command: TableViewRowCommand, with closure: @escaping (Cell, Model, IndexPath) -> Void) {
+    public mutating func set(_ command: TableViewRowCommand, with closure: @escaping CommandClosure) {
         commands[command] = closure
     }
     
-    public func remove(command: TableViewRowCommand) {
+    public mutating func remove(_ command: TableViewRowCommand) {
         commands[command] = nil
     }
     
-    public func set(height: TableViewHeightType, _ closure: @escaping (Model) -> CGFloat) {
+    public mutating func set(_ height: TableViewHeightType, _ closure: @escaping (Data) -> CGFloat) {
         heights[height] = closure
     }
     
-    public func set(height: TableViewHeightType, _ value: CGFloat) {
-        let closure: ((Model) -> CGFloat) = { _ -> CGFloat in return value }
+    public mutating func set(_ height: TableViewHeightType, _ value: CGFloat) {
+        let closure: ((Data) -> CGFloat) = { _ in return value }
         heights[height] = closure
     }
     
-    public func remove(height: TableViewHeightType) {
+    public mutating func remove(_ height: TableViewHeightType) {
         heights[height] = nil
     }
     
-    public func set(prefetchCommand: TableViewPrefetchCommand, with closure: @escaping (Model, IndexPath) -> Void) {
+    public mutating func set(_ prefetchCommand: TableViewPrefetchCommand, with closure: @escaping PrefetchCommandClosure) {
         prefetchCommands[prefetchCommand] = closure
     }
     
-    public func remove(prefetchCommand: TableViewPrefetchCommand) {
+    public mutating func remove(_ prefetchCommand: TableViewPrefetchCommand) {
         prefetchCommands[prefetchCommand] = nil
     }
     
+    public func calculate(_ height: TableViewHeightType) -> CGFloat {
+        return heights[height]?(data) ?? UITableView.automaticDimension
+    }
+    
     // MARK: - Computed Properties
-    public var height: CGFloat {
-        return calculate(height: .height)
-    }
     
-    public var estimatedHeight: CGFloat {
-        return calculate(height: .estimatedHeight)
+    public var _data: Any? {
+        return data
     }
-    
+
     public var editable: Bool {
         return editingStyle != .none || editActions?.isEmpty == false
     }
@@ -114,31 +124,5 @@ open class TableViewRow<Cell: UITableViewCell, Model>: AnyTableViewRow {
     public var reuseIdentifier: String {
         return registrationType.reuseIdentifier
     }
-
-    // MARK: - Private
-    
-    private func calculate(height: TableViewHeightType) -> CGFloat {
-        return heights[height]?(model) ?? UITableView.automaticDimension
-    }
-}
-
-public extension TableViewRow where Model == Void {
-    
-    convenience init(editingStyle: UITableViewCell.EditingStyle = .none,
-                            movable: Bool = false,
-                            editActions: [UITableViewRowAction]? = nil,
-                            indentWhileEditing: Bool = false,
-                            deleteConfirmationTitle: String? = nil,
-                            deleteRowAnimation: UITableView.RowAnimation = .automatic,
-                            registrationType: TableViewRegistrationType<Cell> = .defaultClassType) {
-        
-        self.init((),
-                  editingStyle: editingStyle,
-                  movable: movable,
-                  editActions: editActions,
-                  indentWhileEditing: indentWhileEditing,
-                  deleteConfirmationTitle: deleteConfirmationTitle,
-                  deleteRowAnimation: deleteRowAnimation,
-                  registrationType: registrationType)
-    }
+  
 }

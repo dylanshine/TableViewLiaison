@@ -11,35 +11,43 @@ public struct TableViewSection {
     
     public internal(set) var rows: [AnyTableViewRow]
     
-    public let componentDisplayOption: TableViewSectionComponentDisplayOption
+    public let id: String?
+    public let option: TableViewSectionComponentDisplayOption
     
-    public init(rows: [AnyTableViewRow] = [],
-                componentDisplayOption: TableViewSectionComponentDisplayOption = .none) {
+    public init(id: String? = nil,
+                rows: [AnyTableViewRow] = [],
+                option: TableViewSectionComponentDisplayOption = .none) {
         self.rows = rows
-        self.componentDisplayOption = componentDisplayOption
+        self.id = id
+        self.option = option
     }
     
-    func perform(command: TableViewSectionComponentCommand, componentView: TableViewSectionComponentView, for view: UIView, in section: Int) {
-        switch componentView {
-        case .header:
-            componentDisplayOption.header?.perform(command: command, for: view, in: section)
-        case .footer:
-            componentDisplayOption.footer?.perform(command: command, for: view, in: section)
-        }
-    }
-    
-    func view(componentView: TableViewSectionComponentView, for tableView: UITableView, in section: Int) -> UIView? {
-        switch componentView {
-        case .header:
-            return componentDisplayOption.header?.view(for: tableView, in: section)
-        case .footer:
-            return componentDisplayOption.footer?.view(for: tableView, in: section)
-        }
-    }
-    
-    func calculate(height: TableViewHeightType, for componentView: TableViewSectionComponentView) -> CGFloat {
+    func perform(_ command: TableViewSectionComponentCommand,
+                 componentView: TableViewSectionComponentViewType,
+                 liaison: TableViewLiaison,
+                 view: UIView,
+                 section: Int) {
         
-        switch (componentDisplayOption, componentView) {
+        switch componentView {
+        case .header:
+            option.header?.perform(command, liaison: liaison, view: view, section: section)
+        case .footer:
+            option.footer?.perform(command, liaison: liaison, view: view, section: section)
+        }
+    }
+    
+    func view(componentView: TableViewSectionComponentViewType, for liaison: TableViewLiaison, in section: Int) -> UIView? {
+        switch componentView {
+        case .header:
+            return option.header?.view(for: liaison, in: section)
+        case .footer:
+            return option.footer?.view(for: liaison, in: section)
+        }
+    }
+    
+    func calculate(_ height: TableViewHeightType, for componentView: TableViewSectionComponentViewType) -> CGFloat {
+        
+        switch (option, componentView) {
         case (.both(let header, _), .header):
             return calculate(height, for: header)
         case (.both(_, let footer), .footer):
@@ -73,6 +81,18 @@ public struct TableViewSection {
         }
     }
     
+    func rowIndexPaths<T>(for section: Int, where predicate: (T) -> Bool) -> [IndexPath] {
+        return rows.enumerated()
+            .filter { index, row in
+                guard let state = row._data as? T else { return false }
+                return predicate(state)
+            }
+            .map { item, _ -> IndexPath in
+                return IndexPath(item: item, section: section)
+        }
+    }
+
+    
     // MARK: - Helpers
     mutating func append(row: AnyTableViewRow) {
         rows.append(row)
@@ -83,19 +103,19 @@ public struct TableViewSection {
     }
     
     @discardableResult
-    mutating func deleteRow(at indexPath: IndexPath) -> AnyTableViewRow? {
-        guard rows.indices.contains(indexPath.item) else { return nil }
-        return rows.remove(at: indexPath.item)
+    mutating func deleteRow(at index: Int) -> AnyTableViewRow? {
+        guard rows.indices.contains(index) else { return nil }
+        return rows.remove(at: index)
     }
     
-    mutating func insert(row: AnyTableViewRow, at indexPath: IndexPath) {
-        guard rows.count >= indexPath.item else { return }
-        rows.insert(row, at: indexPath.item)
+    mutating func insert(row: AnyTableViewRow, at index: Int) {
+        guard rows.count >= index else { return }
+        rows.insert(row, at: index)
     }
     
-    mutating func swapRows(at source: IndexPath, to destination: IndexPath) {
-        guard rows.indices.contains(source.item) && rows.indices.contains(destination.item) else { return }
-        rows.swapAt(source.item, destination.item)
+    mutating func swapRows(at source: Int, to destination: Int) {
+        guard rows.indices.contains(source) && rows.indices.contains(destination) else { return }
+        rows.swapAt(source, destination)
     }
     
     mutating func removeAllRows() {

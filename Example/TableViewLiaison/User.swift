@@ -1,6 +1,6 @@
 //
 //  User.swift
-//  OKTableViewLiaison_Example
+//  TableViewLiaison_Example
 //
 //  Created by Dylan Shine on 5/3/18.
 //  Copyright © 2018 CocoaPods. All rights reserved.
@@ -8,13 +8,28 @@
 
 import UIKit
 
-struct User {
-    
+struct User: Decodable {
     let username: String
-    let avatar: UIImage
+    let thumbnail: String
     
-    static var dylan: User {
-        return User(username: "dylan", avatar: #imageLiteral(resourceName: "dylan"))
+    private enum CodingKeys: String, CodingKey {
+        case results
+        case login
+        case username
+        case picture
+        case thumbnail
     }
     
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        var results = try container.nestedUnkeyedContainer(forKey: .results)
+        let user = try results.nestedContainer(keyedBy: CodingKeys.self)
+        
+        username = try user.nestedContainer(keyedBy: CodingKeys.self, forKey: .login)
+            .decode(String.self, forKey: .username)
+        
+        thumbnail = try user.nestedContainer(keyedBy: CodingKeys.self, forKey: .picture)
+            .decode(String.self, forKey: .thumbnail)
+    }
 }

@@ -8,14 +8,14 @@
 
 Pod::Spec.new do |s|
   s.name             = 'TableViewLiaison'
-  s.version          = '1.0.3'
+  s.version          = '2.0.0'
   s.summary          = 'Framework to help you better manage UITableViews.'
   s.description      = 'TableViewLiaison abstracts and simplifies UITableView construction and management.'
   s.homepage         = 'https://github.com/dylanshine/TableViewLiaison'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'Dylan Shine' => 'dylan@shinelabs.tech' }
+  s.author           = { 'Dylan Shine' => 'dylan@shinelabs.dev' }
   s.source           = { :git => 'https://github.com/dylanshine/TableViewLiaison.git', :tag => s.version.to_s }
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '10.0'
   s.source_files = 'TableViewLiaison/Classes/**/*'
   s.swift_version = '5.0'
 end

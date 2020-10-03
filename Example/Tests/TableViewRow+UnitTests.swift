@@ -9,49 +9,57 @@
 import XCTest
 @testable import TableViewLiaison
 
-final class OKTableViewRow_UnitTests: XCTestCase {
+final class TableViewRow_UnitTests: XCTestCase {
+    
+    var liaison: TableViewLiaison!
+    var tableView: UITableView!
+    
+    override func setUp() {
+        super.setUp()
+        liaison = TableViewLiaison()
+        tableView = UITableView()
+        liaison.liaise(tableView: tableView)
+    }
     
     func test_setCommand_setsCommandClosure() {
-        let row = TestTableViewRow()
+        var row = TableViewRow()
         
         var set = false
-        row.set(command: .configuration) { (_, _, _) in
+        row.set(.configuration) { _, _, _ in
             set = true
         }
        
-        row.perform(command: .configuration, for: UITableViewCell(), at: IndexPath())
+        row.perform(.configuration, liaison: liaison, cell: UITableViewCell(), indexPath: IndexPath())
         
         XCTAssertTrue(set)
     }
     
     func test_removeCommand_removesCommand() {
-        let row = TestTableViewRow()
+        var row = TestTableViewRow()
         
         var set = false
-        row.set(command: .configuration) { (_, _, _) in
+        row.set(.configuration) { _, _, _ in
             set = true
         }
         
-        row.remove(command: .configuration)
-        row.perform(command: .configuration, for: UITableViewCell(), at: IndexPath())
-        
+        row.remove(.configuration)
+        row.perform(.configuration, liaison: liaison, cell: UITableViewCell(), indexPath: IndexPath())
+
         XCTAssertFalse(set)
     }
     
     func test_setHeight_setsHeightWithClosure() {
-        let row = TestTableViewRow()
+        var row = TestTableViewRow()
 
-        row.set(height: .height) { (_) -> CGFloat in
-            return 100
-        }
+        row.set(.height) { return 100 }
         
         XCTAssertEqual(row.height, 100)
     }
     
     func test_setHeight_setsHeightWithValue() {
-        let row = TestTableViewRow()
+        var row = TestTableViewRow()
         
-        row.set(height: .height, 100)
+        row.set(.height, 100)
         
         XCTAssertEqual(row.height, 100)
     }
@@ -63,56 +71,56 @@ final class OKTableViewRow_UnitTests: XCTestCase {
     }
     
     func test_removeHeight_removesAPreviouslySetHeight() {
-        let row = TestTableViewRow()
+        var row = TestTableViewRow()
         
-        row.set(height: .height, 100)
-        row.set(height: .estimatedHeight, 100)
+        row.set(.height, 100)
+        row.set(.estimatedHeight, 100)
         
-        row.remove(height: .height)
-        row.remove(height: .estimatedHeight)
+        row.remove(.height)
+        row.remove(.estimatedHeight)
         
         XCTAssertEqual(row.height, UITableView.automaticDimension)
         XCTAssertEqual(row.estimatedHeight, UITableView.automaticDimension)
     }
     
     func test_setPrefetchCommand_setPrefetchCommandClosure() {
-        let row = TestTableViewRow()
+        var row = TestTableViewRow()
         
         var prefetch = false
-        row.set(prefetchCommand: .prefetch) { _, _ in
+        row.set(.prefetch) { _ in
             prefetch = true
         }
         
         var cancel = false
-        row.set(prefetchCommand: .cancel) { _, _ in
+        row.set(.cancel) { _ in
             cancel = true
         }
         
-        row.perform(prefetchCommand: .prefetch, for: IndexPath())
-        row.perform(prefetchCommand: .cancel, for: IndexPath())
+        row.perform(.prefetch, for: IndexPath())
+        row.perform(.cancel, for: IndexPath())
 
         XCTAssertTrue(prefetch)
         XCTAssertTrue(cancel)
     }
     
     func test_removePrefetchCommand_removesPreviouslySetPrefetchCommands() {
-        let row = TestTableViewRow()
+        var row = TestTableViewRow()
         
         var prefetch = false
-        row.set(prefetchCommand: .prefetch) { _, _ in
+        row.set(.prefetch) { _ in
             prefetch = true
         }
         
         var cancel = false
-        row.set(prefetchCommand: .cancel) { _, _ in
+        row.set(.cancel) { _ in
             cancel = true
         }
         
-        row.remove(prefetchCommand: .prefetch)
-        row.remove(prefetchCommand: .cancel)
+        row.remove(.prefetch)
+        row.remove(.cancel)
         
-        row.perform(prefetchCommand: .prefetch, for: IndexPath())
-        row.perform(prefetchCommand: .cancel, for: IndexPath())
+        row.perform(.prefetch, for: IndexPath())
+        row.perform(.cancel, for: IndexPath())
         
         XCTAssertFalse(prefetch)
         XCTAssertFalse(cancel)
@@ -147,9 +155,8 @@ final class OKTableViewRow_UnitTests: XCTestCase {
     
     func test_register_registersCellForRow() {
         let row = TestTableViewRow(registrationType: .class(reuseIdentifier: "Test"))
-        let tableView = UITableView()
         
-        row.register(with: tableView)
+        row.register(with: liaison)
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "Test")
         
@@ -157,30 +164,28 @@ final class OKTableViewRow_UnitTests: XCTestCase {
     }
     
     func test_cellForTableViewAt_returnsConfiguredCellForRow() {
-        let row = TestTableViewRow()
+        var row = TestTableViewRow()
         let string = "Test"
-        row.set(command: .configuration) { (cell, _, indexPath) in
+        row.set(.configuration) { _, cell, indexPath in
             cell.accessibilityIdentifier = string
         }
+                
+        row.register(with: liaison)
         
-        let tableView = UITableView()
-        
-        row.register(with: tableView)
-        
-        let cell = row.cell(for: tableView, at: IndexPath())
+        let cell = row.cell(for: liaison, at: IndexPath())
         
         XCTAssertEqual(cell.accessibilityIdentifier, string)
     }
     
     func test_perform_ignoresCommandPerformanceForIncorrectCellType() {
-        let row = TableViewRow<TestTableViewCell, Void>()
+        var row = StatelessTableViewRow<TestTableViewCell>()
         var configured = false
         
-        row.set(command: .configuration) { _, _, _ in
+        row.set(.configuration) { _, _, _ in
             configured = true
         }
             
-        row.perform(command: .configuration, for: UITableViewCell(), at: IndexPath())
+        row.perform(.configuration, liaison: liaison, cell: UITableViewCell(), indexPath: IndexPath())
         
         XCTAssertFalse(configured)
     }

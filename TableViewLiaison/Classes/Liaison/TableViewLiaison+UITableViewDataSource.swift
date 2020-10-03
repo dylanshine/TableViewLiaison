@@ -19,7 +19,7 @@ extension TableViewLiaison: UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = row(for: indexPath)?.cell(for: tableView, at: indexPath) else {
+        guard let cell = row(for: indexPath)?.cell(for: self, at: indexPath) else {
             fatalError("Row does not exist for indexPath: \(indexPath)")
         }
         
@@ -40,8 +40,8 @@ extension TableViewLiaison: UITableViewDataSource {
             guard let row = row(for: indexPath) else { return }
             deleteRow(at: indexPath, with: row.deleteRowAnimation)
         case .insert:
-            guard let cell = tableView.cellForRow(at: indexPath) else { return }
-            row(for: indexPath)?.perform(command: .insert, for: cell, at: indexPath)
+            guard let cell = cell(at: indexPath) else { return }
+            row(for: indexPath)?.perform(.insert, liaison: self, cell: cell, indexPath: indexPath)
         default:
             break
         }
