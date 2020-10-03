@@ -152,9 +152,8 @@ row.set(.height, 300)
 
 row.set(.estimatedHeight, 210)
 
-row.set(.height) {
-	// Some arbitrary model you pass into the closure...
-	switch model.type {
+row.set(.height) { data in
+	switch data.type {
 	case .large:
 		return 400
 	case .medium:
@@ -188,14 +187,14 @@ The `TableViewRow` can be customized using `func set(_ command: TableViewRowComm
 
 ```swift
 row.set(.configuration) { liaison, cell, data, indexPath in
-	cell.label.text = "Cell: \(cell) at IndexPath: \(indexPath)"
+	cell.label.text = "Cell: \(cell) at IndexPath: \(indexPath) with \(data)"
 	cell.label.font = .systemFont(ofSize: 13)
 	cell.contentView.backgroundColor = .blue
 	cell.selectionStyle = .none
 }
 
 row.set(.didSelect) { liaison, cell, data, indexPath in
-	print("Cell: \(cell) selected at IndexPath: \(indexPath)")
+	print("Cell: \(cell) selected at IndexPath: \(indexPath) with \(data)")
 }
 ```
 
@@ -237,7 +236,7 @@ To use a custom pagination spinner, you can pass an instance `AnyTableViewRow` d
 
 ### Tips & Tricks
 
-Because `TableViewSection` and `TableViewRow` utilize generic types and manage view/cell type registration, instantiating multiple different configurations of sections and rows can get verbose. Leverage type aliases and/or implement a factory to create your various `TableViewRow`/`TableViewSectionComponent` types may be useful.
+Because `TableViewSection` and `TableViewRow` utilize generic types and manage view/cell type registration, instantiating multiple different configurations of sections and rows can get verbose. Leveraging type aliases and/or implementing static factories may be useful.
 
 ```swift
 

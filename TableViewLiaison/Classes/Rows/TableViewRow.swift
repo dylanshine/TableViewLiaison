@@ -23,12 +23,12 @@ public struct TableViewRow<Cell: UITableViewCell, Data>: AnyTableViewRow {
     public let registrationType: TableViewRegistrationType<Cell>
     public internal(set) var prefetchCommands = [TableViewPrefetchCommand: PrefetchCommandClosure]()
     public internal(set) var commands = [TableViewRowCommand: CommandClosure]()
-    public internal(set) var heights = [TableViewHeightType: () -> CGFloat]()
+    public internal(set) var heights = [TableViewHeightType: (Data) -> CGFloat]()
 
     public init(_ data: Data,
                 prefetchCommands: [TableViewPrefetchCommand: PrefetchCommandClosure] = [:],
                 commands: [TableViewRowCommand: CommandClosure] = [:],
-                heights: [TableViewHeightType: () -> CGFloat] = [:],
+                heights: [TableViewHeightType: (Data) -> CGFloat] = [:],
                 editingStyle: UITableViewCell.EditingStyle = .none,
                 movable: Bool = false,
                 editActions: [UITableViewRowAction]? = nil,
@@ -86,12 +86,12 @@ public struct TableViewRow<Cell: UITableViewCell, Data>: AnyTableViewRow {
         commands[command] = nil
     }
     
-    public mutating func set(_ height: TableViewHeightType, _ closure: @escaping () -> CGFloat) {
+    public mutating func set(_ height: TableViewHeightType, _ closure: @escaping (Data) -> CGFloat) {
         heights[height] = closure
     }
     
     public mutating func set(_ height: TableViewHeightType, _ value: CGFloat) {
-        let closure: (() -> CGFloat) = { return value }
+        let closure: ((Data) -> CGFloat) = { _ in return value }
         heights[height] = closure
     }
     
@@ -108,7 +108,7 @@ public struct TableViewRow<Cell: UITableViewCell, Data>: AnyTableViewRow {
     }
     
     public func calculate(_ height: TableViewHeightType) -> CGFloat {
-        return heights[height]?() ?? UITableView.automaticDimension
+        return heights[height]?(data) ?? UITableView.automaticDimension
     }
     
     // MARK: - Computed Properties

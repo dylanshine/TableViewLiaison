@@ -17,7 +17,7 @@ enum TableViewContentFactory {
         
         var row = ImageRow(id, registrationType: .defaultNibType)
         
-        row.set(.height) {
+        row.set(.height) { _ in
             let ratio = imageSize.width / imageSize.height
             return UIScreen.main.bounds.width / ratio
         }
@@ -26,7 +26,7 @@ enum TableViewContentFactory {
             fetchImage(id: id, imageSize: imageSize)
         }
         
-        row.set(.configuration) { (_, cell: ImageTableViewCell, _, _) in
+        row.set(.configuration) { (_, cell: ImageTableViewCell, id, _) in
             fetchImage(id: id, imageSize: imageSize) { [weak cell] image in
                 cell?.contentImage = image
             }

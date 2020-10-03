@@ -10,12 +10,13 @@ import UIKit
 public typealias StatelessTableViewRow<Cell: UITableViewCell> = TableViewRow<Cell, Void>
 
 public extension TableViewRow where Data == Void {
+    typealias StatelessHeightClosure = () -> CGFloat
     typealias StatelessCommandClosure = (TableViewLiaison, Cell, IndexPath) -> Void
     typealias StatelessPrefetchCommandClosure = (IndexPath) -> Void
     
-    init(prefetchCommands: [TableViewPrefetchCommand: (IndexPath) -> Void] = [:],
+    init(prefetchCommands: [TableViewPrefetchCommand: StatelessPrefetchCommandClosure] = [:],
          commands: [TableViewRowCommand: StatelessCommandClosure] = [:],
-         heights: [TableViewHeightType: () -> CGFloat] = [:],
+         heights: [TableViewHeightType: StatelessHeightClosure] = [:],
          editingStyle: UITableViewCell.EditingStyle = .none,
          movable: Bool = false,
          editActions: [UITableViewRowAction]? = nil,
@@ -24,8 +25,13 @@ public extension TableViewRow where Data == Void {
          deleteRowAnimation: UITableView.RowAnimation = .automatic,
          registrationType: TableViewRegistrationType<Cell> = .defaultClassType) {
         
+        var _heights = [TableViewHeightType: (Data) -> CGFloat]()
         var _prefetchCommands = [TableViewPrefetchCommand: PrefetchCommandClosure]()
         var _commands = [TableViewRowCommand: CommandClosure]()
+        
+        heights.forEach { (key: TableViewHeightType, value: @escaping StatelessHeightClosure) in
+            _heights[key] = { _ in value() }
+        }
         
         prefetchCommands.forEach { (key: TableViewPrefetchCommand, value: @escaping StatelessPrefetchCommandClosure) in
             _prefetchCommands[key] = { _, indexPath in value(indexPath) }
@@ -38,7 +44,7 @@ public extension TableViewRow where Data == Void {
         self.init((),
                   prefetchCommands: _prefetchCommands,
                   commands: _commands,
-                  heights: heights,
+                  heights: _heights,
                   editingStyle: editingStyle,
                   movable: movable,
                   editActions: editActions,
@@ -46,6 +52,10 @@ public extension TableViewRow where Data == Void {
                   deleteConfirmationTitle: deleteConfirmationTitle,
                   deleteRowAnimation: deleteRowAnimation,
                   registrationType: registrationType)
+    }
+    
+    mutating func set(_ height: TableViewHeightType, _ closure: @escaping () -> CGFloat) {
+        heights[height] = { _ in  closure() }
     }
     
     mutating func set(_ command: TableViewRowCommand, with closure: @escaping StatelessCommandClosure) {
